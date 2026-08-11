@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAG Tickets — Билеттер</title>
+  <link rel="stylesheet" href="ticket.css">
+</head>
+<body>
+<header class="header">
+  <div class="logo">KΛG</div>
+  <nav>
+    <a href="index.html">Башкы бет</a>
+    <a href="tickets.html" class="active">Tickets</a>
+    <a href="my-tickets.html">Менин билеттерим</a>
+    <a href="organizer.html">Уюштуруучу</a>
+  </nav>
+  <button class="login-btn">Кирүү</button>
+</header>
+<section class="hero">
+  <div>
+    <span class="gold-label">KΛG TICKETS</span>
+    <h1>Эң кызыктуу<br><span>окуялар бир жерде.</span></h1>
+    <p>Концерт, спорт, театр, кино жана саякаттарга билеттерди онлайн сатып ал.</p>
+    <div class="search-box">
+      <input id="searchInput" type="text"
+             placeholder="Иш-чараны издөө...">
+      <button onclick="searchEvents()">Издөө</button>
+    </div>
+  </div>
+</section>
+<section class="categories">
+  <button onclick="filterEvents('all')">Баары</button>
+  <button onclick="filterEvents('concert')">🎤 Концерт</button>
+  <button onclick="filterEvents('sport')">⚽ Спорт</button>
+  <button onclick="filterEvents('theatre')">🎭 Театр</button>
+  <button onclick="filterEvents('cinema')">🎬 Кино</button>
+  <button onclick="filterEvents('tour')">🏔 Тур</button>
+</section>
+<main class="container">
+  <div class="section-title">
+    <div>
+      <span class="gold-label">EVENTS</span>
+      <h2>Жакынкы иш-чаралар</h2>
+    </div>
+    <select id="sortEvents" onchange="sortEvents()">
+      <option value="date">Дата боюнча</option>
+      <option value="price">Баасы боюнча</option>
+    </select>
+  </div>
+  <div id="eventsGrid" class="events-grid"></div>
+</main>
+<footer>
+  <div class="footer-logo">KΛG</div>
+  <p>Кыргызстандагы санариптик кызматтар экосистемасы.</p>
+  <div class="footer-links">
+    <a href="#">Байланыш</a>
+    <a href="#">Колдоо</a>
+    <a href="#">Колдонуучунун эрежелери</a>
+    <a href="#">Кайтаруу саясаты</a>
+  </div>
+  <p class="copyright">© 2026 KAG GROUP</p>
+</footer>
+<script src="ticket.js"></script>
+</body>
+</html>
