@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAG Tickets — Төлөм</title>
+  <link rel="stylesheet" href="ticket.css">
+  <style>
+    .checkout-page {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 6%;
+    }
+    .back {
+      color: #D4AF37;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+    .checkout-page h1 {
+      font-size: 42px;
+      margin-bottom: 35px;
+    }
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 30px;
+    }
+    .checkout-card {
+      background: #0b3326;
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .checkout-card h2 {
+      font-size: 21px;
+      margin-bottom: 22px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #cfc7b3;
+      font-size: 14px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(212,175,55,.2);
+      background: #06251B;
+      color: #F4EBD0;
+      outline: none;
+    }
+    .form-group input:focus {
+      border-color: #D4AF37;
+    }
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 16px;
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .payment-option:hover {
+      border-color: #D4AF37;
+    }
+    .payment-option input {
+      accent-color: #D4AF37;
+    }
+    .payment-icon {
+      font-size: 25px;
+    }
+    .summary {
+      background: #0b3326;
+      border: 1px solid rgba(212,175,55,.3);
+      border-radius: 18px;
+      padding: 28px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    .summary h2 {
+      margin-bottom: 25px;
+    }
+    .summary-event {
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 20px;
+    }
+    .summary-event h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+    .summary-event p {
+      color: #999;
+      font-size: 14px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 14px 0;
+      color: #bbb;
+    }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 20px;
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .summary-total span:last-child {
+      color: #D4AF37;
+    }
+    .pay-btn {
+      width: 100%;
+      margin-top: 25px;
+      padding: 17px;
+      border: none;
+      border-radius: 10px;
+      background: #D4AF37;
+      color: #06251B;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .secure {
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      margin-top: 15px;
+    }
+    @media(max-width: 800px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+      .summary {
+        position: static;
+      }
+      .checkout-page h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <a href="index.html" class="logo">
+    KΛG
+  </a>
+  <nav>
+    <a href="index.html">Башкы бет</a>
+    <a href="tickets.html" class="active">Tickets</a>
+    <a href="my-tickets.html">Менин билеттерим</a>
+  </nav>
+  <button class="login-btn">
+    Кирүү
+  </button>
+</header>
+<main class="checkout-page">
+  <a href="ticket-details.html" class="back">
+    ← Билет тандоого кайтуу
+  </a>
+  <h1>
+    Төлөм
+  </h1>
+  <div class="checkout-grid">
+    <!-- LEFT -->
+    <div>
+      <!-- CUSTOMER -->
+      <section class="checkout-card">
+        <h2>
+          👤 Сатып алуучу
+        </h2>
+        <div class="form-group">
+          <label>
+            Аты-жөнү
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Атыңызды жазыңыз"
+          >
+        </div>
+        <div class="form-group">
+          <label>
+            Телефон
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            placeholder="+996 700 000 000"
+          >
+        </div>
+        <div class="form-group">
+          <label>
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="example@gmail.com"
+          >
+        </div>
+      </section>
+      <!-- PAYMENT -->
+      <section class="checkout-card">
+        <h2>
+          💳 Төлөм ыкмасы
+        </h2>
+        <label class="payment-option">
+          <input
+            type="radio"
+            name="payment"
+            value="kagpay"
+            checked
+          >
+          <span class="payment-icon">
+            💳
+          </span>
+          <div>
+            <strong>
+              KAG Pay
+            </strong>
+            <p style="color:#888;font-size:13px">
+              Онлайн төлөм
+            </p>
+          </div>
+        </label>
+        <label class="payment-option">
+          <input
+            type="radio"
+            name="payment"
+            value="card"
+          >
+          <span class="payment-icon">
+            🏦
+          </span>
+          <div>
+            <strong>
+              Банк картасы
+            </strong>
+            <p style="color:#888;font-size:13px">
+              Visa / Mastercard
+            </p>
+          </div>
+        </label>
+        <label class="payment-option">
+          <input
+            type="radio"
+            name="payment"
+            value="balance"
+          >
+          <span class="payment-icon">
+            💰
+          </span>
+          <div>
+            <strong>
+              KAG Wallet
+            </strong>
+            <p style="color:#888;font-size:13px">
+              Баланс менен төлөө
+            </p>
+          </div>
+        </label>
+      </section>
+    </div>
+    <!-- RIGHT -->
+    <aside class="summary">
+      <h2>
+        Заказ
+      </h2>
+      <div class="summary-event">
+        <h3 id="eventTitle">
+          Kyrgyz Music Festival
+        </h3>
+        <p>
+          📅 15 Август, 2026
+        </p>
+        <p>
+          📍 Бишкек Арена
+        </p>
+      </div>
+      <div class="summary-row">
+        <span>
+          VIP
+        </span>
+        <span id="vip">
+          0 × 3 500
+        </span>
+      </div>
+      <div class="summary-row">
+        <span>
+          Standard
+        </span>
+        <span id="standard">
+          0 × 1 500
+        </span>
+      </div>
+      <div class="summary-row">
+        <span>
+          Economy
+        </span>
+        <span id="economy">
+          0 × 800
+        </span>
+      </div>
+      <div class="summary-total">
+        <span>
+          Жалпы
+        </span>
+        <span id="total">
+          0 сом
+        </span>
+      </div>
+      <button
+        class="pay-btn"
+        onclick="pay()">
+        Төлөөнү ырастоо
+      </button>
+      <div class="secure">
+        🔒 KAG коопсуз төлөм
+      </div>
+    </aside>
+  </div>
+</main>
+<script>
+  const order =
+    JSON.parse(
+      localStorage.getItem("kagTicketOrder")
+    ) || {
+      vip: 0,
+      standard: 0,
+      economy: 0,
+      total: 0
+    };
+  document.getElementById("vip").textContent =
+    `${order.vip} × 3 500`;
+  document.getElementById("standard").textContent =
+    `${order.standard} × 1 500`;
+  document.getElementById("economy").textContent =
+    `${order.economy} × 800`;
+  document.getElementById("total").textContent =
+    order.total.toLocaleString() + " сом";
+  function pay() {
+    const name =
+      document.getElementById("name").value.trim();
+    const phone =
+      document.getElementById("phone").value.trim();
+    const email =
+      document.getElementById("email").value.trim();
+    if (!name || !phone || !email) {
+      alert(
+        "Сураныч, бардык маалыматтарды толтуруңуз."
+      );
+      return;
+    }
+    if (order.total <= 0) {
+      alert(
+        "Заказда билет жок."
+      );
+      window.location.href =
+        "tickets.html";
+      return;
+    }
+    const payment =
+      document.querySelector(
+        'input[name="payment"]:checked'
+      ).value;
+    const ticket = {
+      id:
+        "KAG-" +
+        Date.now(),
+      event:
+        "Kyrgyz Music Festival",
+      date:
+        "15 Август, 2026",
+      location:
+        "Бишкек Арена",
+      name:
+        name,
+      phone:
+        phone,
+      email:
+        email,
+      vip:
+        order.vip,
+      standard:
+        order.standard,
+      economy:
+        order.economy,
+      total:
+        order.total,
+      payment:
+        payment,
+      status:
+        "paid",
+      createdAt:
+        new Date().toISOString()
+    };
+    localStorage.setItem(
+      "kagTicket",
+      JSON.stringify(ticket)
+    );
+    localStorage.removeItem(
+      "kagTicketOrder"
+    );
+    window.location.href =
+      "my-tickets.html";
+  }
+</script>
+</body>
+</html>
