@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAG Tickets — Organizer</title>
+  <link rel="stylesheet" href="ticket.css">
+  <style>
+    .organizer-page {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 6%;
+    }
+    .top-title {
+      margin-bottom: 35px;
+    }
+    .label {
+      color: #D4AF37;
+      font-size: 12px;
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+    .top-title h1 {
+      font-size: 42px;
+      margin-top: 10px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 35px;
+    }
+    .stat {
+      background: #0b3326;
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 16px;
+      padding: 22px;
+    }
+    .stat span {
+      color: #999;
+      font-size: 13px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      color: #D4AF37;
+      margin-top: 10px;
+    }
+    .organizer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+    .card {
+      background: #0b3326;
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 18px;
+      padding: 28px;
+    }
+    .card h2 {
+      margin-bottom: 22px;
+      font-size: 23px;
+    }
+    .form-group {
+      margin-bottom: 17px;
+    }
+    .form-group label {
+      display: block;
+      color: #c8c0ad;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 9px;
+      border: 1px solid rgba(212,175,55,.2);
+      background: #06251B;
+      color: #F4EBD0;
+      outline: none;
+      font-family: inherit;
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #D4AF37;
+    }
+    .ticket-type {
+      border: 1px solid rgba(212,175,55,.15);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+    .ticket-type h3 {
+      margin-bottom: 12px;
+    }
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .add-btn,
+    .save-btn {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      background: #D4AF37;
+      color: #06251B;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .event-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .event-table th,
+    .event-table td {
+      text-align: left;
+      padding: 14px 8px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .event-table th {
+      color: #D4AF37;
+      font-size: 13px;
+    }
+    .event-table td {
+      color: #ccc;
+      font-size: 14px;
+    }
+    .status {
+      color: #70d49b;
+    }
+    .danger {
+      color: #e88;
+      cursor: pointer;
+    }
+    .full-width {
+      grid-column: 1 / -1;
+    }
+    .success {
+      display: none;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(112,212,155,.1);
+      color: #70d49b;
+      text-align: center;
+    }
+    @media(max-width: 850px) {
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      .organizer-grid {
+        grid-template-columns: 1fr;
+      }
+      .full-width {
+        grid-column: auto;
+      }
+    }
+    @media(max-width: 500px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+      .organizer-page {
+        padding: 35px 5%;
+      }
+      .top-title h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <a href="index.html" class="logo">
+    KΛG
+  </a>
+  <nav>
+    <a href="index.html">Башкы бет</a>
+    <a href="tickets.html">Tickets</a>
+    <a href="my-tickets.html">Менин билеттерим</a>
+    <a href="organizer.html" class="active">Уюштуруучу</a>
+  </nav>
+  <button class="login-btn">
+    Кирүү
+  </button>
+</header>
+<main class="organizer-page">
+  <div class="top-title">
+    <div class="label">
+      KΛG TICKETS
+    </div>
+    <h1>
+      Уюштуруучу панели
+    </h1>
+  </div>
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stat">
+      <span>Иш-чаралар</span>
+      <strong id="eventCount">0</strong>
+    </div>
+    <div class="stat">
+      <span>Сатылган билет</span>
+      <strong id="soldTickets">0</strong>
+    </div>
+    <div class="stat">
+      <span>Киреше</span>
+      <strong id="revenue">0 сом</strong>
+    </div>
+    <div class="stat">
+      <span>Конверсия</span>
+      <strong>—</strong>
+    </div>
+  </section>
+  <div class="organizer-grid">
+    <!-- CREATE EVENT -->
+    <section class="card">
+      <h2>
+        ➕ Иш-чара кошуу
+      </h2>
+      <form id="eventForm">
+        <div class="form-group">
+          <label>
+            Иш-чаранын аталышы
+          </label>
+          <input
+            id="eventName"
+            type="text"
+            placeholder="Мисалы: Kyrgyz Music Festival"
+            required>
+        </div>
+        <div class="form-group">
+          <label>
+            Категория
+          </label>
+          <select id="eventType">
+            <option value="concert">
+              🎤 Концерт
+            </option>
+            <option value="sport">
+              ⚽ Спорт
+            </option>
+            <option value="theatre">
+              🎭 Театр
+            </option>
+            <option value="cinema">
+              🎬 Кино
+            </option>
+            <option value="tour">
+              🏔 Тур
+            </option>
+          </select>
+        </div>
+        <div class="two-columns">
+          <div class="form-group">
+            <label>
+              Дата
+            </label>
+            <input
+              id="eventDate"
+              type="date"
+              required>
+          </div>
+          <div class="form-group">
+            <label>
+              Убакыт
+            </label>
+            <input
+              id="eventTime"
+              type="time"
+              required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>
+            Өткөрүлүүчү жер
+          </label>
+          <input
+            id="eventLocation"
+            type="text"
+            placeholder="Бишкек Арена"
+            required>
+        </div>
+        <div class="form-group">
+          <label>
+            Сүрөт URL
+          </label>
+          <input
+            id="eventImage"
+            type="url"
+            placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>
+            Кыскача маалымат
+          </label>
+          <textarea
+            id="eventDescription"
+            placeholder="Иш-чара жөнүндө..."
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="save-btn">
+          Иш-чараны жарыялоо
+        </button>
+        <div
+          id="successMessage"
+          class="success">
+          ✓ Иш-чара ийгиликтүү кошулду
+        </div>
+      </form>
+    </section>
+    <!-- TICKET TYPES -->
+    <section class="card">
+      <h2>
+        🎫 Билет категориялары
+      </h2>
+      <div class="ticket-type">
+        <h3>
+          VIP
+        </h3>
+        <div class="two-columns">
+          <div class="form-group">
+            <label>
+              Баасы (сом)
+            </label>
+            <input
+              id="vipPrice"
+              type="number"
+              value="3500">
+          </div>
+          <div class="form-group">
+            <label>
+              Саны
+            </label>
+            <input
+              id="vipCount"
+              type="number"
+              value="100">
+          </div>
+        </div>
+      </div>
+      <div class="ticket-type">
+        <h3>
+          Standard
+        </h3>
+        <div class="two-columns">
+          <div class="form-group">
+            <label>
+              Баасы (сом)
+            </label>
+            <input
+              id="standardPrice"
+              type="number"
+              value="1500">
+          </div>
+          <div class="form-group">
+            <label>
+              Саны
+            </label>
+            <input
+              id="standardCount"
+              type="number"
+              value="500">
+          </div>
+        </div>
+      </div>
+      <div class="ticket-type">
+        <h3>
+          Economy
+        </h3>
+        <div class="two-columns">
+          <div class="form-group">
+            <label>
+              Баасы (сом)
+            </label>
+            <input
+              id="economyPrice"
+              type="number"
+              value="800">
+          </div>
+          <div class="form-group">
+            <label>
+              Саны
+            </label>
+            <input
+              id="economyCount"
+              type="number"
+              value="1000">
+          </div>
+        </div>
+      </div>
+      <button
+        class="add-btn"
+        onclick="saveTicketTypes()">
+        Сактоо
+      </button>
+    </section>
+    <!-- EVENTS -->
+    <section class="card full-width">
+      <h2>
+        📋 Менин иш-чараларым
+      </h2>
+      <div style="overflow-x:auto">
+        <table class="event-table">
+          <thead>
+            <tr>
+              <th>Иш-чара</th>
+              <th>Дата</th>
+              <th>Жер</th>
+              <th>Статус</th>
+              <th>Аракет</th>
+            </tr>
+          </thead>
+          <tbody id="eventsTable">
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+  let organizerEvents =
+    JSON.parse(
+      localStorage.getItem(
+        "kagOrganizerEvents"
+      )
+    ) || [];
+  function renderEvents() {
+    const table =
+      document.getElementById(
+        "eventsTable"
+      );
+    table.innerHTML = "";
+    organizerEvents.forEach(
+      (event, index) => {
+        table.innerHTML += `
+          <tr>
+            <td>
+              ${event.name}
+            </td>
+            <td>
+              ${event.date}
+            </td>
+            <td>
+              ${event.location}
+            </td>
+            <td class="status">
+              Активдүү
+            </td>
+            <td>
+              <span
+                class="danger"
+                onclick="deleteEvent(${index})">
+                Өчүрүү
+              </span>
+            </td>
+          </tr>
+        `;
+      }
+    );
+    document.getElementById(
+      "eventCount"
+    ).textContent =
+      organizerEvents.length;
+  }
+  document.getElementById(
+    "eventForm"
+  ).addEventListener(
+    "submit",
+    function(e) {
+      e.preventDefault();
+      const event = {
+        id:
+          "EVENT-" +
+          Date.now(),
+        name:
+          document.getElementById(
+            "eventName"
+          ).value,
+        type:
+          document.getElementById(
+            "eventType"
+          ).value,
+        date:
+          document.getElementById(
+            "eventDate"
+          ).value,
+        time:
+          document.getElementById(
+            "eventTime"
+          ).value,
+        location:
+          document.getElementById(
+            "eventLocation"
+          ).value,
+        image:
+          document.getElementById(
+            "eventImage"
+          ).value,
+        description:
+          document.getElementById(
+            "eventDescription"
+          ).value
+      };
+      organizerEvents.push(event);
+      localStorage.setItem(
+        "kagOrganizerEvents",
+        JSON.stringify(
+          organizerEvents
+        )
+      );
+      document.getElementById(
+        "successMessage"
+      ).style.display = "block";
+      this.reset();
+      renderEvents();
+      setTimeout(
+        () => {
+          document.getElementById(
+            "successMessage"
+          ).style.display = "none";
+        },
+        3000
+      );
+    }
+  );
+  function deleteEvent(index) {
+    if (
+      !confirm(
+        "Бул иш-чараны өчүрөсүзбү?"
+      )
+    ) {
+      return;
+    }
+    organizerEvents.splice(
+      index,
+      1
+    );
+    localStorage.setItem(
+      "kagOrganizerEvents",
+      JSON.stringify(
+        organizerEvents
+      )
+    );
+    renderEvents();
+  }
+  function saveTicketTypes() {
+    const ticketTypes = {
+      vip: {
+        price:
+          Number(
+            document.getElementById(
+              "vipPrice"
+            ).value
+          ),
+        count:
+          Number(
+            document.getElementById(
+              "vipCount"
+            ).value
+          )
+      },
+      standard: {
+        price:
+          Number(
+            document.getElementById(
+              "standardPrice"
+            ).value
+          ),
+        count:
+          Number(
+            document.getElementById(
+              "standardCount"
+            ).value
+          )
+      },
+      economy: {
+        price:
+          Number(
+            document.getElementById(
+              "economyPrice"
+            ).value
+          ),
+        count:
+          Number(
+            document.getElementById(
+              "economyCount"
+            ).value
+          )
+      }
+    };
+    localStorage.setItem(
+      "kagTicketTypes",
+      JSON.stringify(
+        ticketTypes
+      )
+    );
+    alert(
+      "Билет категориялары сакталды."
+    );
+  }
+  renderEvents();
+</script>
+</body>
+</html>
