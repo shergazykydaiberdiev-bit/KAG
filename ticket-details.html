@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAG Tickets — Event</title>
+  <link rel="stylesheet" href="ticket.css">
+  <style>
+    .event-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 6%;
+    }
+    .back {
+      color: #D4AF37;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+    .event-hero {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 45px;
+      align-items: center;
+    }
+    .event-cover {
+      min-height: 450px;
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(212,175,55,.25), transparent 40%),
+        linear-gradient(135deg,#173f31,#08150f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 130px;
+      border: 1px solid rgba(212,175,55,.25);
+    }
+    .event-info .label {
+      color: #D4AF37;
+      font-size: 12px;
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+    .event-info h1 {
+      font-size: clamp(38px,5vw,65px);
+      line-height: 1;
+      margin: 15px 0 25px;
+    }
+    .event-description {
+      color: #bcb5a2;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+    .info-list {
+      display: grid;
+      gap: 15px;
+    }
+    .info-item {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      background: #0b3326;
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .info-icon {
+      font-size: 22px;
+    }
+    .info-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .info-item span {
+      color: #aaa;
+      font-size: 14px;
+    }
+    .tickets-section {
+      margin-top: 70px;
+    }
+    .tickets-section h2 {
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+    .ticket-layout {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 30px;
+    }
+    .ticket-option {
+      background: #0b3326;
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .ticket-option:hover {
+      border-color: #D4AF37;
+    }
+    .ticket-name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .ticket-description {
+      color: #999;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+    .ticket-price {
+      color: #D4AF37;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .quantity button {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #D4AF37;
+      background: transparent;
+      color: #D4AF37;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .quantity span {
+      min-width: 20px;
+      text-align: center;
+    }
+    .order-box {
+      background: #0b3326;
+      border: 1px solid rgba(212,175,55,.3);
+      border-radius: 18px;
+      padding: 25px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    .order-box h3 {
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      color: #bbb;
+    }
+    .order-total {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 20px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .total-price {
+      color: #D4AF37;
+    }
+    .buy-now {
+      width: 100%;
+      border: none;
+      background: #D4AF37;
+      color: #06251B;
+      padding: 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 25px;
+    }
+    .buy-now:hover {
+      opacity: .9;
+    }
+    .secure {
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      margin-top: 15px;
+    }
+    @media(max-width: 850px) {
+      .event-hero,
+      .ticket-layout {
+        grid-template-columns: 1fr;
+      }
+      .event-cover {
+        min-height: 300px;
+      }
+      .order-box {
+        position: static;
+      }
+    }
+    @media(max-width: 550px) {
+      .event-page {
+        padding: 35px 6%;
+      }
+      .ticket-option {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .quantity {
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <a href="index.html" class="logo">
+    KΛG
+  </a>
+  <nav>
+    <a href="index.html">Башкы бет</a>
+    <a href="tickets.html" class="active">Tickets</a>
+    <a href="my-tickets.html">Менин билеттерим</a>
+  </nav>
+  <button class="login-btn">
+    Кирүү
+  </button>
+</header>
+<main class="event-page">
+  <a href="tickets.html" class="back">
+    ← Бардык иш-чаралар
+  </a>
+  <!-- EVENT HERO -->
+  <section class="event-hero">
+    <div class="event-cover" id="eventIcon">
+      🎤
+    </div>
+    <div class="event-info">
+      <div class="label">
+        KΛG TICKETS
+      </div>
+      <h1 id="eventTitle">
+        Kyrgyz Music Festival
+      </h1>
+      <p class="event-description">
+        Кыргызстандын белгилүү артисттери катышкан чоң музыкалык
+        фестиваль. Музыка, шоу жана өзгөчө атмосфера бир жерде.
+      </p>
+      <div class="info-list">
+        <div class="info-item">
+          <div class="info-icon">📅</div>
+          <div>
+            <strong id="eventDate">
+              15 Август, 2026
+            </strong>
+            <span id="eventTime">
+              19:00
+            </span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <strong id="eventLocation">
+              Бишкек Арена
+            </strong>
+            <span>
+              Бишкек, Кыргызстан
+            </span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">👥</div>
+          <div>
+            <strong>Жаш чеги</strong>
+            <span>
+              12+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- TICKETS -->
+  <section class="tickets-section">
+    <h2>
+      🎫 Билет тандаңыз
+    </h2>
+    <div class="ticket-layout">
+      <div>
+        <!-- VIP -->
+        <div class="ticket-option">
+          <div>
+            <div class="ticket-name">
+              VIP
+            </div>
+            <div class="ticket-description">
+              Сахнага жакын атайын зона
+            </div>
+            <div class="ticket-price">
+              3 500 сом
+            </div>
+          </div>
+          <div class="quantity">
+            <button onclick="changeQty('vip', -1)">
+              −
+            </button>
+            <span id="vipQty">
+              0
+            </span>
+            <button onclick="changeQty('vip', 1)">
+              +
+            </button>
+          </div>
+        </div>
+        <!-- STANDARD -->
+        <div class="ticket-option">
+          <div>
+            <div class="ticket-name">
+              Standard
+            </div>
+            <div class="ticket-description">
+              Негизги көрүү зонасы
+            </div>
+            <div class="ticket-price">
+              1 500 сом
+            </div>
+          </div>
+          <div class="quantity">
+            <button onclick="changeQty('standard', -1)">
+              −
+            </button>
+            <span id="standardQty">
+              0
+            </span>
+            <button onclick="changeQty('standard', 1)">
+              +
+            </button>
+          </div>
+        </div>
+        <!-- ECONOMY -->
+        <div class="ticket-option">
+          <div>
+            <div class="ticket-name">
+              Economy
+            </div>
+            <div class="ticket-description">
+              Бюджеттик билет
+            </div>
+            <div class="ticket-price">
+              800 сом
+            </div>
+          </div>
+          <div class="quantity">
+            <button onclick="changeQty('economy', -1)">
+              −
+            </button>
+            <span id="economyQty">
+              0
+            </span>
+            <button onclick="changeQty('economy', 1)">
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- ORDER -->
+      <aside class="order-box">
+        <h3>
+          Заказ
+        </h3>
+        <div class="order-row">
+          <span>
+            VIP
+          </span>
+          <span id="vipTotal">
+            0 сом
+          </span>
+        </div>
+        <div class="order-row">
+          <span>
+            Standard
+          </span>
+          <span id="standardTotal">
+            0 сом
+          </span>
+        </div>
+        <div class="order-row">
+          <span>
+            Economy
+          </span>
+          <span id="economyTotal">
+            0 сом
+          </span>
+        </div>
+        <div class="order-total">
+          <span>
+            Жалпы:
+          </span>
+          <span class="total-price" id="grandTotal">
+            0 сом
+          </span>
+        </div>
+        <button
+          class="buy-now"
+          onclick="checkout()">
+          Сатып алуу
+        </button>
+        <div class="secure">
+          🔒 Коопсуз төлөм KAG Pay
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+<script>
+  const prices = {
+    vip: 3500,
+    standard: 1500,
+    economy: 800
+  };
+  const quantities = {
+    vip: 0,
+    standard: 0,
+    economy: 0
+  };
+  function changeQty(type, amount) {
+    quantities[type] += amount;
+    if (quantities[type] < 0) {
+      quantities[type] = 0;
+    }
+    if (quantities[type] > 10) {
+      quantities[type] = 10;
+    }
+    document.getElementById(
+      type + "Qty"
+    ).textContent = quantities[type];
+    updateTotal();
+  }
+  function updateTotal() {
+    const vipTotal =
+      quantities.vip * prices.vip;
+    const standardTotal =
+      quantities.standard * prices.standard;
+    const economyTotal =
+      quantities.economy * prices.economy;
+    document.getElementById(
+      "vipTotal"
+    ).textContent =
+      vipTotal.toLocaleString() + " сом";
+    document.getElementById(
+      "standardTotal"
+    ).textContent =
+      standardTotal.toLocaleString() + " сом";
+    document.getElementById(
+      "economyTotal"
+    ).textContent =
+      economyTotal.toLocaleString() + " сом";
+    const total =
+      vipTotal +
+      standardTotal +
+      economyTotal;
+    document.getElementById(
+      "grandTotal"
+    ).textContent =
+      total.toLocaleString() + " сом";
+  }
+  function checkout() {
+    const total =
+      quantities.vip * prices.vip +
+      quantities.standard * prices.standard +
+      quantities.economy * prices.economy;
+    if (total === 0) {
+      alert(
+        "Алгач билет тандаңыз."
+      );
+      return;
+    }
+    const order = {
+      vip: quantities.vip,
+      standard: quantities.standard,
+      economy: quantities.economy,
+      total: total
+    };
+    localStorage.setItem(
+      "kagTicketOrder",
+      JSON.stringify(order)
+    );
+    window.location.href =
+      "checkout.html";
+  }
+</script>
+</body>
+</html>
