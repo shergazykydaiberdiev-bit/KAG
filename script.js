@@ -4,22 +4,21 @@ const ruBtn = document.getElementById("ruBtn");
 function changeLanguage(language) {
     document.documentElement.lang = language;
 
-    const elements = document.querySelectorAll("[data-kg][data-ru]");
-    elements.forEach(element => {
-        element.textContent =
-            language === "kg"
-                ? element.getAttribute("data-kg")
-                : element.getAttribute("data-ru");
+    // Обычный текст
+    document.querySelectorAll("[data-kg][data-ru]").forEach(el => {
+        el.textContent = language === "kg"
+            ? el.getAttribute("data-kg")
+            : el.getAttribute("data-ru");
     });
 
-    // Обновляем placeholder'ы
+    // Placeholder'ы
     document.querySelectorAll("[data-kg-placeholder][data-ru-placeholder]").forEach(el => {
-        el.placeholder =
-            language === "kg"
-                ? el.getAttribute("data-kg-placeholder")
-                : el.getAttribute("data-ru-placeholder");
+        el.placeholder = language === "kg"
+            ? el.getAttribute("data-kg-placeholder")
+            : el.getAttribute("data-ru-placeholder");
     });
 
+    // Кнопки языка
     if (kgBtn && ruBtn) {
         if (language === "kg") {
             kgBtn.classList.add("active");
@@ -50,15 +49,20 @@ function changeLanguage(language) {
         }
     };
 
-    const page = window.location.pathname.split("/").pop() || "index.html";
+    const path = window.location.pathname;
+    const page = path.split("/").pop() || "index.html";
+
     if (titles[page]) {
         document.title = titles[page][language];
     }
 
     localStorage.setItem("KAG_language", language);
+
+    // Событие для других скриптов (marketplace и т.д.)
+    window.dispatchEvent(new CustomEvent("languageChanged", { detail: language }));
 }
 
-// Кнопки
+// Слушатели кнопок
 if (kgBtn) {
     kgBtn.addEventListener("click", () => changeLanguage("kg"));
 }
@@ -66,6 +70,6 @@ if (ruBtn) {
     ruBtn.addEventListener("click", () => changeLanguage("ru"));
 }
 
-// Загружаем сохранённый язык
+// При загрузке страницы
 const savedLanguage = localStorage.getItem("KAG_language");
 changeLanguage(savedLanguage === "ru" ? "ru" : "kg");
