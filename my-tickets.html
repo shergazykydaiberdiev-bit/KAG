@@ -3,211 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KAG Tickets — Event</title>
+  <title>KAG Tickets — Менин билеттерим</title>
   <link rel="stylesheet" href="ticket.css">
   <style>
-    .event-page {
-      max-width: 1200px;
-      margin: 0 auto;
+    .my-tickets {
+      max-width: 900px;
+      margin: auto;
       padding: 60px 6%;
     }
-    .back {
-      color: #D4AF37;
-      text-decoration: none;
-      display: inline-block;
-      margin-bottom: 30px;
+    .page-title {
+      margin-bottom: 35px;
     }
-    .event-hero {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 45px;
-      align-items: center;
-    }
-    .event-cover {
-      min-height: 450px;
-      border-radius: 25px;
-      background:
-        radial-gradient(circle at 50% 40%, rgba(212,175,55,.25), transparent 40%),
-        linear-gradient(135deg,#173f31,#08150f);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 130px;
-      border: 1px solid rgba(212,175,55,.25);
-    }
-    .event-info .label {
+    .page-title .label {
       color: #D4AF37;
       font-size: 12px;
       letter-spacing: 3px;
       font-weight: bold;
     }
-    .event-info h1 {
-      font-size: clamp(38px,5vw,65px);
-      line-height: 1;
-      margin: 15px 0 25px;
+    .page-title h1 {
+      font-size: 42px;
+      margin-top: 10px;
     }
-    .event-description {
-      color: #bcb5a2;
-      line-height: 1.7;
+    .ticket {
+      background: #0b3326;
+      border: 1px solid rgba(212,175,55,.35);
+      border-radius: 22px;
+      overflow: hidden;
       margin-bottom: 30px;
     }
-    .info-list {
-      display: grid;
-      gap: 15px;
-    }
-    .info-item {
+    .ticket-top {
+      padding: 30px;
       display: flex;
-      gap: 15px;
-      align-items: center;
-      background: #0b3326;
-      padding: 15px;
-      border-radius: 12px;
-    }
-    .info-icon {
-      font-size: 22px;
-    }
-    .info-item strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-    .info-item span {
-      color: #aaa;
-      font-size: 14px;
-    }
-    .tickets-section {
-      margin-top: 70px;
-    }
-    .tickets-section h2 {
-      font-size: 32px;
-      margin-bottom: 25px;
-    }
-    .ticket-layout {
-      display: grid;
-      grid-template-columns: 1fr 350px;
-      gap: 30px;
-    }
-    .ticket-option {
-      background: #0b3326;
-      border: 1px solid rgba(212,175,55,.2);
-      border-radius: 16px;
-      padding: 22px;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
       justify-content: space-between;
+      gap: 25px;
+      border-bottom: 1px dashed rgba(212,175,55,.4);
+    }
+    .ticket-event {
+      flex: 1;
+    }
+    .ticket-event .category {
+      color: #D4AF37;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+    .ticket-event h2 {
+      font-size: 28px;
+      margin: 12px 0 18px;
+    }
+    .ticket-info {
+      display: grid;
+      gap: 10px;
+      color: #c2baa7;
+    }
+    .ticket-info strong {
+      color: #F4EBD0;
+    }
+    .qr {
+      width: 160px;
+      height: 160px;
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr img {
+      width: 100%;
+      height: 100%;
+    }
+    .ticket-bottom {
+      padding: 22px 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 20px;
     }
-    .ticket-option:hover {
-      border-color: #D4AF37;
+    .ticket-data span {
+      display: block;
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 6px;
     }
-    .ticket-name {
-      font-size: 20px;
-      font-weight: bold;
+    .ticket-data strong {
+      font-size: 16px;
     }
-    .ticket-description {
-      color: #999;
-      font-size: 13px;
-      margin-top: 7px;
+    .status {
+      color: #70d49b;
     }
-    .ticket-price {
-      color: #D4AF37;
-      font-weight: bold;
-      margin-top: 8px;
-    }
-    .quantity {
+    .ticket-actions {
+      margin-top: 20px;
       display: flex;
-      align-items: center;
       gap: 12px;
+      flex-wrap: wrap;
     }
-    .quantity button {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+    .action-btn {
+      padding: 12px 18px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
       border: 1px solid #D4AF37;
       background: transparent;
       color: #D4AF37;
-      font-size: 18px;
-      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
     }
-    .quantity span {
-      min-width: 24px;
-      text-align: center;
-      font-weight: bold;
-    }
-    .order-box {
-      background: #0b3326;
-      border: 1px solid rgba(212,175,55,.3);
-      border-radius: 18px;
-      padding: 25px;
-      height: fit-content;
-      position: sticky;
-      top: 100px;
-    }
-    .order-box h3 {
-      margin-bottom: 20px;
-      font-size: 22px;
-    }
-    .order-row {
-      display: flex;
-      justify-content: space-between;
-      margin: 12px 0;
-      color: #bbb;
-    }
-    .order-total {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid rgba(255,255,255,.1);
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .total-price {
-      color: #D4AF37;
-    }
-    .buy-now {
-      width: 100%;
-      margin-top: 25px;
-      padding: 16px;
+    .action-btn.primary {
       background: #D4AF37;
       color: #06251B;
-      border: none;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
     }
-    .buy-now:hover {
-      opacity: 0.9;
-    }
-    .secure {
+    .empty {
       text-align: center;
-      margin-top: 15px;
-      font-size: 13px;
-      color: #888;
+      padding: 80px 20px;
+      background: #0b3326;
+      border-radius: 20px;
+      border: 1px solid rgba(212,175,55,.2);
     }
-    @media(max-width: 850px) {
-      .event-hero {
-        grid-template-columns: 1fr;
-      }
-      .ticket-layout {
-        grid-template-columns: 1fr;
-      }
-      .order-box {
-        position: static;
-      }
+    .empty-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
     }
-    @media(max-width: 550px) {
-      .event-page {
-        padding: 35px 6%;
-      }
-      .ticket-option {
+    .empty h2 {
+      margin-bottom: 10px;
+    }
+    .empty p {
+      color: #999;
+      margin-bottom: 25px;
+    }
+    @media(max-width: 650px) {
+      .ticket-top {
         flex-direction: column;
-        align-items: flex-start;
       }
-      .quantity {
-        width: 100%;
-        justify-content: flex-end;
+      .qr {
+        width: 180px;
+        height: 180px;
+        margin: auto;
+      }
+      .ticket-bottom {
+        grid-template-columns: 1fr 1fr;
+      }
+      .page-title h1 {
+        font-size: 34px;
       }
     }
   </style>
@@ -217,201 +154,99 @@
   <a href="index.html" class="logo">KΛG</a>
   <nav>
     <a href="index.html">Башкы бет</a>
-    <a href="tickets.html" class="active">Tickets</a>
-    <a href="my-tickets.html">Менин билеттерим</a>
+    <a href="tickets.html">Tickets</a>
+    <a href="my-tickets.html" class="active">Менин билеттерим</a>
   </nav>
   <a href="login.html" class="login-btn">Кирүү</a>
 </header>
 
-<main class="event-page">
-  <a href="tickets.html" class="back">← Бардык иш-чаралар</a>
+<main class="my-tickets">
+  <div class="page-title">
+    <div class="label">KΛG TICKETS</div>
+    <h1>Менин билеттерим</h1>
+  </div>
 
-  <section class="event-hero">
-    <div class="event-cover" id="eventIcon">🎤</div>
-    <div class="event-info">
-      <div class="label">KΛG TICKETS</div>
-      <h1 id="eventTitle">Иш-чара</h1>
-      <p class="event-description" id="eventDescription">
-        Кызыктуу иш-чара. Билетти азыр сатып алыңыз.
-      </p>
-      <div class="info-list">
-        <div class="info-item">
-          <div class="info-icon">📅</div>
-          <div>
-            <strong id="eventDate">—</strong>
-            <span id="eventTime">—</span>
-          </div>
-        </div>
-        <div class="info-item">
-          <div class="info-icon">📍</div>
-          <div>
-            <strong id="eventLocation">—</strong>
-            <span>Кыргызстан</span>
-          </div>
-        </div>
-        <div class="info-item">
-          <div class="info-icon">👥</div>
-          <div>
-            <strong>Жаш чеги</strong>
-            <span>12+</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="tickets-section">
-    <h2>🎫 Билет тандаңыз</h2>
-    <div class="ticket-layout">
-      <div>
-        <!-- VIP -->
-        <div class="ticket-option">
-          <div>
-            <div class="ticket-name">VIP</div>
-            <div class="ticket-description">Сахнага жакын атайын зона</div>
-            <div class="ticket-price">3 500 сом</div>
-          </div>
-          <div class="quantity">
-            <button onclick="changeQty('vip', -1)">−</button>
-            <span id="vipQty">0</span>
-            <button onclick="changeQty('vip', 1)">+</button>
-          </div>
-        </div>
-
-        <!-- STANDARD -->
-        <div class="ticket-option">
-          <div>
-            <div class="ticket-name">Standard</div>
-            <div class="ticket-description">Негизги көрүү зонасы</div>
-            <div class="ticket-price">1 500 сом</div>
-          </div>
-          <div class="quantity">
-            <button onclick="changeQty('standard', -1)">−</button>
-            <span id="standardQty">0</span>
-            <button onclick="changeQty('standard', 1)">+</button>
-          </div>
-        </div>
-
-        <!-- ECONOMY -->
-        <div class="ticket-option">
-          <div>
-            <div class="ticket-name">Economy</div>
-            <div class="ticket-description">Бюджеттик билет</div>
-            <div class="ticket-price">800 сом</div>
-          </div>
-          <div class="quantity">
-            <button onclick="changeQty('economy', -1)">−</button>
-            <span id="economyQty">0</span>
-            <button onclick="changeQty('economy', 1)">+</button>
-          </div>
-        </div>
-      </div>
-
-      <aside class="order-box">
-        <h3>Заказ</h3>
-        <div class="order-row">
-          <span>VIP</span>
-          <span id="vipTotal">0 сом</span>
-        </div>
-        <div class="order-row">
-          <span>Standard</span>
-          <span id="standardTotal">0 сом</span>
-        </div>
-        <div class="order-row">
-          <span>Economy</span>
-          <span id="economyTotal">0 сом</span>
-        </div>
-        <div class="order-total">
-          <span>Жалпы:</span>
-          <span class="total-price" id="grandTotal">0 сом</span>
-        </div>
-        <button class="buy-now" onclick="checkout()">Сатып алуу</button>
-        <div class="secure">🔒 Коопсуз төлөм KAG Pay</div>
-      </aside>
-    </div>
-  </section>
+  <div id="ticketContainer"></div>
 </main>
 
 <script>
-  // ===== Загрузка выбранного события =====
-  const selectedEvent = JSON.parse(localStorage.getItem("selectedEvent"));
+  // Читаем массив билетов
+  let tickets = JSON.parse(localStorage.getItem("kagTickets")) || [];
 
-  if (!selectedEvent) {
-    alert("Иш-чара тандалган жок. Башкы бетке кайтабыз.");
-    window.location.href = "tickets.html";
+  // Обратная совместимость: если есть старый одиночный билет
+  const oldTicket = JSON.parse(localStorage.getItem("kagTicket"));
+  if (oldTicket && tickets.length === 0) {
+    tickets = [oldTicket];
+    localStorage.setItem("kagTickets", JSON.stringify(tickets));
   }
 
-  // Заполняем страницу
-  document.getElementById("eventIcon").textContent = selectedEvent.icon || "🎫";
-  document.getElementById("eventTitle").textContent = selectedEvent.title;
-  document.getElementById("eventDate").textContent = selectedEvent.date;
-  document.getElementById("eventTime").textContent = selectedEvent.time || "";
-  document.getElementById("eventLocation").textContent = selectedEvent.location;
-  document.title = "KAG Tickets — " + selectedEvent.title;
+  function renderTickets() {
+    const container = document.getElementById("ticketContainer");
 
-  // ===== Цены и количество =====
-  const prices = {
-    vip: 3500,
-    standard: 1500,
-    economy: 800
-  };
-
-  const quantities = {
-    vip: 0,
-    standard: 0,
-    economy: 0
-  };
-
-  function changeQty(type, amount) {
-    quantities[type] += amount;
-    if (quantities[type] < 0) quantities[type] = 0;
-    if (quantities[type] > 10) quantities[type] = 10;
-
-    document.getElementById(type + "Qty").textContent = quantities[type];
-    updateTotal();
-  }
-
-  function updateTotal() {
-    const vipTotal = quantities.vip * prices.vip;
-    const standardTotal = quantities.standard * prices.standard;
-    const economyTotal = quantities.economy * prices.economy;
-
-    document.getElementById("vipTotal").textContent = vipTotal.toLocaleString() + " сом";
-    document.getElementById("standardTotal").textContent = standardTotal.toLocaleString() + " сом";
-    document.getElementById("economyTotal").textContent = economyTotal.toLocaleString() + " сом";
-
-    const total = vipTotal + standardTotal + economyTotal;
-    document.getElementById("grandTotal").textContent = total.toLocaleString() + " сом";
-  }
-
-  function checkout() {
-    const total =
-      quantities.vip * prices.vip +
-      quantities.standard * prices.standard +
-      quantities.economy * prices.economy;
-
-    if (total === 0) {
-      alert("Алгач билет тандаңыз.");
+    if (!tickets || tickets.length === 0) {
+      container.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">🎫</div>
+          <h2>Сизде азырынча билет жок</h2>
+          <p>Кызыктуу иш-чараларды карап, билет сатып алыңыз.</p>
+          <a href="tickets.html" class="action-btn primary">Билеттерди көрүү</a>
+        </div>
+      `;
       return;
     }
 
-    // Теперь передаём полные данные события
-    const order = {
-      eventId: selectedEvent.id,
-      eventTitle: selectedEvent.title,
-      eventDate: selectedEvent.date,
-      eventTime: selectedEvent.time,
-      eventLocation: selectedEvent.location,
-      eventIcon: selectedEvent.icon,
-      vip: quantities.vip,
-      standard: quantities.standard,
-      economy: quantities.economy,
-      total: total
-    };
+    // Показываем все билеты (новые сверху)
+    let html = "";
+    tickets.slice().reverse().forEach((ticket, index) => {
+      const qrData = encodeURIComponent(
+        ticket.id + "|" + ticket.event + "|" + ticket.name
+      );
 
-    localStorage.setItem("kagTicketOrder", JSON.stringify(order));
-    window.location.href = "checkout.html";
+      html += `
+        <div class="ticket">
+          <div class="ticket-top">
+            <div class="ticket-event">
+              <div class="category">KΛG TICKETS</div>
+              <h2>${ticket.event || "Иш-чара"}</h2>
+              <div class="ticket-info">
+                <div>📅 <strong>${ticket.date || "—"}</strong></div>
+                <div>📍 <strong>${ticket.location || "—"}</strong></div>
+                <div>👤 <strong>${ticket.name || "—"}</strong></div>
+              </div>
+            </div>
+            <div class="qr">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${qrData}" alt="KAG Ticket QR">
+            </div>
+          </div>
+          <div class="ticket-bottom">
+            <div class="ticket-data">
+              <span>Билет номери</span>
+              <strong>${ticket.id}</strong>
+            </div>
+            <div class="ticket-data">
+              <span>Жалпы сумма</span>
+              <strong>${(ticket.total || 0).toLocaleString()} сом</strong>
+            </div>
+            <div class="ticket-data">
+              <span>Статус</span>
+              <strong class="status">✓ Төлөндү</strong>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
+      <div class="ticket-actions">
+        <a href="tickets.html" class="action-btn primary">🎫 Дагы билет алуу</a>
+        <button class="action-btn" onclick="window.print()">🖨 Басып чыгаруу</button>
+      </div>
+    `;
+
+    container.innerHTML = html;
   }
+
+  renderTickets();
 </script>
 </body>
 </html>
