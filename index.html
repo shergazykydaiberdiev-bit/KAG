@@ -108,18 +108,56 @@
 
         <div class="hero-card">
 
-            <div class="card-top">
-                <span>KΛG</span>
-                <span>🇰🇬</span>
-            </div>
+    <div class="card-top">
+        <span>KΛG</span>
+        <span>🇰🇬</span>
+    </div>
 
-            <div class="search-box">
-                🔍
-                <span data-kg="Кандай кызмат керек?"
-                      data-ru="Какая услуга нужна?">
-                    Кандай кызмат керек?
-                </span>
+    <form class="search-box" action="marketplace.html" method="get" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+        <span style="font-size: 18px;">🔍</span>
+        <input 
+            type="text" 
+            name="q"
+            data-kg-placeholder="Кандай кызмат керек?"
+            data-ru-placeholder="Какая услуга нужна?"
+            placeholder="Кандай кызмат керек?"
+            style="flex: 1; border: none; background: transparent; outline: none; color: #607067; font-size: 15px;"
+        >
+    </form>
+
+    <div class="mini-services">
+
+        <a href="marketplace.html?category=Ремонт" style="text-decoration: none; color: inherit;">
+            <div>
+                🔧
+                <small data-kg="Ремонт" data-ru="Ремонт">Ремонт</small>
             </div>
+        </a>
+
+        <a href="marketplace.html?category=Транспорт" style="text-decoration: none; color: inherit;">
+            <div>
+                🚗
+                <small data-kg="Транспорт" data-ru="Транспорт">Транспорт</small>
+            </div>
+        </a>
+
+        <a href="marketplace.html?category=Тазалоо" style="text-decoration: none; color: inherit;">
+            <div>
+                🧹
+                <small data-kg="Тазалоо" data-ru="Уборка">Тазалоо</small>
+            </div>
+        </a>
+
+        <a href="marketplace.html?category=IT" style="text-decoration: none; color: inherit;">
+            <div>
+                💻
+                <small data-kg="IT" data-ru="IT">IT</small>
+            </div>
+        </a>
+
+    </div>
+
+</div>
 
             <div class="mini-services">
 
