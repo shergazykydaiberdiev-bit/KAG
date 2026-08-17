@@ -1,28 +1,51 @@
-<header class="header">
-    <div class="container nav">
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAG — Кирүү</title>
+    <link rel="stylesheet" href="style.css">
 
-        <a href="index.html" class="logo">
-            K<span>Λ</span>G
-        </a>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-        <nav class="menu">
-            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
-        </nav>
+        .auth-page {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+        }
 
-        <div class="nav-right">
-            <div class="language">
-                <button id="kgBtn" class="active">KG</button>
-                <span>|</span>
-                <button id="ruBtn">RU</button>
-            </div>
+        .auth-card {
+            width: 100%;
+            max-width: 430px;
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.035);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
 
-            <a href="login.html" class="login-btn"
-               data-kg="Кирүү" data-ru="Войти">
-                Кирүү
-            </a>
-        </div>
+        .auth-logo {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: #D4AF37;
+            margin-bottom: 15px;
+        }
 
-    </div>
-</header>
+        .auth-title {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            text-align: center;
+            color: #
