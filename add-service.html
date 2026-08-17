@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAG — Кызмат кошуу</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
         .service-page {
             min-height: 85vh;
             padding: 60px 0;
         }
+
         .service-form {
             max-width: 700px;
             margin: auto;
@@ -18,25 +20,31 @@
             border: 1px solid rgba(212,175,55,.3);
             background: rgba(255,255,255,.035);
         }
+
         .form-title {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .form-title h1 {
             font-size: 36px;
             margin-bottom: 8px;
         }
+
         .form-title p {
             color: #9fafa8;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
         }
+
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -49,24 +57,29 @@
             outline: none;
             font-size: 15px;
         }
+
         .form-group select option {
             background: #06251B;
             color: #F4EBD0;
         }
+
         .form-group textarea {
             min-height: 130px;
             resize: vertical;
         }
+
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             border-color: #D4AF37;
         }
+
         .price-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
+
         .submit-btn {
             width: 100%;
             border: none;
@@ -78,9 +91,11 @@
             font-weight: bold;
             cursor: pointer;
         }
+
         .submit-btn:hover {
             opacity: .9;
         }
+
         .success {
             display: none;
             margin-top: 20px;
@@ -90,15 +105,18 @@
             color: #D4AF37;
             text-align: center;
         }
+
         .back-link {
             display: block;
             text-align: center;
             margin-top: 25px;
             color: #9fafa8;
         }
+
         .back-link:hover {
             color: #D4AF37;
         }
+
         @media(max-width:600px) {
             .service-form {
                 padding: 25px 18px;
@@ -113,183 +131,41 @@
     </style>
 </head>
 <body>
+
 <header class="header">
     <div class="container nav">
+
         <a href="index.html" class="logo">
             K<span>Λ</span>G
         </a>
-        <a href="profile.html" class="login-btn">
-            Профиль
-        </a>
+
+        <nav class="menu">
+            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
+            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
+            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
+        </nav>
+
+        <div class="nav-right">
+            <div class="language">
+                <button id="kgBtn" class="active">KG</button>
+                <span>|</span>
+                <button id="ruBtn">RU</button>
+            </div>
+
+            <a href="login.html" class="login-btn"
+               data-kg="Кирүү" data-ru="Войти">
+                Кирүү
+            </a>
+        </div>
+
     </div>
 </header>
+
+
 <main class="service-page">
     <div class="container">
+
         <form class="service-form" id="serviceForm">
+
             <div class="form-title">
-                <span class="gold-text">
-                    KAG MARKETPLACE
-                </span>
-                <h1>
-                    Кызмат кошуу
-                </h1>
-                <p>
-                    Өз кызматыңызды KAG платформасына жарыялаңыз.
-                </p>
-            </div>
-            <div class="form-group">
-                <label>
-                    Кызматтын аталышы
-                </label>
-                <input
-                    type="text"
-                    id="serviceName"
-                    placeholder="Мисалы: Үй тазалоо"
-                    required>
-            </div>
-            <div class="form-group">
-                <label>
-                    Категория
-                </label>
-                <select id="category" required>
-                    <option value="">
-                        Категорияны тандаңыз
-                    </option>
-                    <option value="Ремонт">
-                        🔧 Ремонт
-                    </option>
-                    <option value="Транспорт">
-                        🚗 Транспорт
-                    </option>
-                    <option value="Тазалоо">
-                        🧹 Тазалоо
-                    </option>
-                    <option value="IT">
-                        💻 IT
-                    </option>
-                    <option value="Фото">
-                        📸 Фото & Видео
-                    </option>
-                    <option value="Үй">
-                        🏠 Үй кызматтары
-                    </option>
-                    <option value="Билим">
-                        🎓 Билим берүү
-                    </option>
-                    <option value="Башка">
-                        ✨ Башка
-                    </option>
-                </select>
-            </div>
-            <div class="price-row">
-                <div class="form-group">
-                    <label>
-                        Баасы
-                    </label>
-                    <input
-                        type="number"
-                        id="price"
-                        placeholder="1000"
-                        min="0"
-                        required>
-                </div>
-                <div class="form-group">
-                    <label>
-                        Валюта
-                    </label>
-                    <select id="currency">
-                        <option value="KGS">
-                            сом
-                        </option>
-                        <option value="USD">
-                            $
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>
-                    Шаар
-                </label>
-                <input
-                    type="text"
-                    id="city"
-                    placeholder="Бишкек"
-                    required>
-            </div>
-            <div class="form-group">
-                <label>
-                    Кызматтын сүрөттөмөсү
-                </label>
-                <textarea
-                    id="description"
-                    placeholder="Кызматыңыз тууралуу кененирээк жазыңыз..."
-                    required></textarea>
-            </div>
-            <div class="form-group">
-                <label>
-                    Сүрөт URL (кааласаңыз)
-                </label>
-                <input
-                    type="url"
-                    id="image"
-                    placeholder="https://example.com/image.jpg">
-            </div>
-            <button
-                type="submit"
-                class="submit-btn">
-                + Кызматты жарыялоо
-            </button>
-            <div
-                class="success"
-                id="success">
-                ✅ Кызмат убактылуу сакталды!
-                Кийинки этапта базага автоматтык жазылат.
-            </div>
-            <a
-                href="profile.html"
-                class="back-link">
-                ← Профилге кайтуу
-            </a>
-        </form>
-    </div>
-</main>
-<script>
-const form = document.getElementById("serviceForm");
-form.addEventListener("submit", function(event) {
-    event.preventDefault();
-    const service = {
-        id: Date.now(),
-        name:
-            document.getElementById("serviceName").value,
-        category:
-            document.getElementById("category").value,
-        price:
-            document.getElementById("price").value,
-        currency:
-            document.getElementById("currency").value,
-        city:
-            document.getElementById("city").value,
-        description:
-            document.getElementById("description").value,
-        image:
-            document.getElementById("image").value,
-        date:
-            new Date().toISOString()
-    };
-    let services =
-        JSON.parse(
-            localStorage.getItem("KAG_services") || "[]"
-        );
-    services.push(service);
-    localStorage.setItem(
-        "KAG_services",
-        JSON.stringify(services)
-    );
-    document.getElementById("success").style.display =
-        "block";
-    form.reset();
-});
-</script>
-</body>
-</html>
+                <span class="gold-text">KAG MARKETPLACE</
