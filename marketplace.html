@@ -5,28 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAG — Marketplace</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
         .marketplace {
             min-height: 90vh;
             padding: 55px 0;
         }
+
         .market-head {
             text-align: center;
             margin-bottom: 35px;
         }
+
         .market-head h1 {
             font-size: 42px;
             margin: 10px 0;
         }
+
         .market-head p {
             color: #9fafa8;
         }
+
         .filters {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 12px;
             margin-bottom: 35px;
         }
+
         .filters input,
         .filters select {
             width: 100%;
@@ -37,14 +43,17 @@
             color: #F4EBD0;
             outline: none;
         }
+
         .filters select option {
             background: #06251B;
         }
+
         .service-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
+
         .market-card {
             overflow: hidden;
             border: 1px solid rgba(212,175,55,.18);
@@ -52,10 +61,12 @@
             background: rgba(255,255,255,.035);
             transition: .3s;
         }
+
         .market-card:hover {
             transform: translateY(-5px);
             border-color: #D4AF37;
         }
+
         .service-image {
             height: 190px;
             display: flex;
@@ -65,29 +76,35 @@
             font-size: 55px;
             overflow: hidden;
         }
+
         .service-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .market-info {
             padding: 22px;
         }
+
         .category {
             display: inline-block;
             color: #D4AF37;
             font-size: 12px;
             margin-bottom: 8px;
         }
+
         .market-info h3 {
             font-size: 20px;
             margin-bottom: 8px;
         }
+
         .description {
             color: #9fafa8;
             font-size: 14px;
             min-height: 45px;
         }
+
         .service-bottom {
             display: flex;
             justify-content: space-between;
@@ -95,273 +112,12 @@
             margin-top: 20px;
             gap: 10px;
         }
+
         .price {
             color: #D4AF37;
             font-size: 20px;
             font-weight: bold;
         }
+
         .city {
-            color: #9fafa8;
-            font-size: 13px;
-        }
-        .contact-btn {
-            width: 100%;
-            border: none;
-            margin-top: 18px;
-            padding: 12px;
-            border-radius: 8px;
-            background: #D4AF37;
-            color: #06251B;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .empty {
-            text-align: center;
-            padding: 70px 20px;
-            color: #9fafa8;
-            display: none;
-        }
-        .empty-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
-        @media(max-width:900px) {
-            .service-list {
-                grid-template-columns: repeat(2,1fr);
-            }
-            .filters {
-                grid-template-columns: 1fr 1fr;
-            }
-            .filters input {
-                grid-column: 1 / -1;
-            }
-        }
-        @media(max-width:600px) {
-            .market-head h1 {
-                font-size: 32px;
-            }
-            .service-list {
-                grid-template-columns: 1fr;
-            }
-            .filters {
-                grid-template-columns: 1fr;
-            }
-            .filters input {
-                grid-column: auto;
-            }
-        }
-    </style>
-</head>
-<body>
-<header class="header">
-    <div class="container nav">
-        <a href="index.html" class="logo">
-            K<span>Λ</span>G
-        </a>
-        <nav class="menu">
-            <a href="index.html">Башкы бет</a>
-            <a href="add-service.html">Кызмат кошуу</a>
-        </nav>
-        <div class="nav-right">
-            <a href="profile.html" class="login-btn">
-                Профиль
-            </a>
-        </div>
-    </div>
-</header>
-<main class="marketplace">
-    <div class="container">
-        <div class="market-head">
-            <span class="gold-text">
-                KAG MARKETPLACE
-            </span>
-            <h1>
-                Кызматтарды табыңыз
-            </h1>
-            <p>
-                Кыргызстандагы адистерди жана кызматтарды бир жерден табыңыз.
-            </p>
-        </div>
-        <!-- FILTERS -->
-        <div class="filters">
-            <input
-                type="search"
-                id="search"
-                placeholder="🔍 Кызмат издеңиз...">
-            <select id="categoryFilter">
-                <option value="">
-                    Бардык категориялар
-                </option>
-                <option value="Ремонт">
-                    🔧 Ремонт
-                </option>
-                <option value="Транспорт">
-                    🚗 Транспорт
-                </option>
-                <option value="Тазалоо">
-                    🧹 Тазалоо
-                </option>
-                <option value="IT">
-                    💻 IT
-                </option>
-                <option value="Фото">
-                    📸 Фото & Видео
-                </option>
-                <option value="Үй">
-                    🏠 Үй кызматтары
-                </option>
-                <option value="Билим">
-                    🎓 Билим берүү
-                </option>
-                <option value="Башка">
-                    ✨ Башка
-                </option>
-            </select>
-            <select id="cityFilter">
-                <option value="">
-                    Бардык шаарлар
-                </option>
-                <option value="Бишкек">
-                    Бишкек
-                </option>
-                <option value="Ош">
-                    Ош
-                </option>
-                <option value="Жалал-Абад">
-                    Жалал-Абад
-                </option>
-                <option value="Каракол">
-                    Каракол
-                </option>
-            </select>
-        </div>
-        <!-- SERVICES -->
-        <div class="service-list" id="serviceList"></div>
-        <div class="empty" id="empty">
-            <div class="empty-icon">
-                🔎
-            </div>
-            <h2>
-                Кызмат табылган жок
-            </h2>
-            <p>
-                Башка издөө сөзүн же категорияны тандап көрүңүз.
-            </p>
-        </div>
-    </div>
-</main>
-<script>
-const serviceList =
-    document.getElementById("serviceList");
-const empty =
-    document.getElementById("empty");
-const search =
-    document.getElementById("search");
-const categoryFilter =
-    document.getElementById("categoryFilter");
-const cityFilter =
-    document.getElementById("cityFilter");
-function getServices() {
-    return JSON.parse(
-        localStorage.getItem("KAG_services") || "[]"
-    );
-}
-function renderServices() {
-    const services = getServices();
-    const searchText =
-        search.value.toLowerCase().trim();
-    const category =
-        categoryFilter.value;
-    const city =
-        cityFilter.value;
-    const filtered =
-        services.filter(service => {
-            const matchesSearch =
-                service.name.toLowerCase()
-                    .includes(searchText) ||
-                service.description.toLowerCase()
-                    .includes(searchText);
-            const matchesCategory =
-                !category ||
-                service.category === category;
-            const matchesCity =
-                !city ||
-                service.city === city;
-            return (
-                matchesSearch &&
-                matchesCategory &&
-                matchesCity
-            );
-        });
-    serviceList.innerHTML = "";
-    if (filtered.length === 0) {
-        empty.style.display = "block";
-        return;
-    }
-    empty.style.display = "none";
-    filtered.forEach(service => {
-        const card =
-            document.createElement("div");
-        card.className = "market-card";
-        let imageContent = "🛠️";
-        if (service.image) {
-            imageContent =
-                `<img src="${service.image}"
-                      alt="${service.name}">`;
-        }
-        card.innerHTML = `
-            <div class="service-image">
-                ${imageContent}
-            </div>
-            <div class="market-info">
-                <span class="category">
-                    ${service.category}
-                </span>
-                <h3>
-                    ${service.name}
-                </h3>
-                <p class="description">
-                    ${service.description}
-                </p>
-                <div class="service-bottom">
-                    <div class="price">
-                        ${Number(service.price).toLocaleString()}
-                        ${service.currency}
-                    </div>
-                    <div class="city">
-                        📍 ${service.city}
-                    </div>
-                </div>
-                <button
-                    class="contact-btn"
-                    onclick="contactService('${service.name}')">
-                    Байланышуу
-                </button>
-            </div>
-        `;
-        serviceList.appendChild(card);
-    });
-}
-function contactService(name) {
-    alert(
-        "«" +
-        name +
-        "» кызматы менен байланышуу функциясы кийинки этапта кошулат."
-    );
-}
-search.addEventListener(
-    "input",
-    renderServices
-);
-categoryFilter.addEventListener(
-    "change",
-    renderServices
-);
-cityFilter.addEventListener(
-    "change",
-    renderServices
-);
-renderServices();
-</script>
-</body>
-</html>
+            color: #9
