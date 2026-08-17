@@ -101,6 +101,7 @@
     .summary-event p {
       color: #999;
       font-size: 14px;
+      margin: 4px 0;
     }
     .summary-row {
       display: flex;
@@ -111,10 +112,10 @@
     .summary-total {
       display: flex;
       justify-content: space-between;
-      border-top: 1px solid rgba(255,255,255,.1);
-      padding-top: 20px;
       margin-top: 20px;
-      font-size: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.15);
+      font-size: 20px;
       font-weight: bold;
     }
     .summary-total span:last-child {
@@ -123,298 +124,202 @@
     .pay-btn {
       width: 100%;
       margin-top: 25px;
-      padding: 17px;
-      border: none;
-      border-radius: 10px;
+      padding: 16px;
       background: #D4AF37;
       color: #06251B;
+      border: none;
+      border-radius: 12px;
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
     }
+    .pay-btn:hover {
+      opacity: 0.9;
+    }
     .secure {
       text-align: center;
-      color: #777;
-      font-size: 12px;
-      margin-top: 15px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #888;
     }
-    @media(max-width: 800px) {
+    @media(max-width: 850px) {
       .checkout-grid {
         grid-template-columns: 1fr;
       }
       .summary {
         position: static;
       }
-      .checkout-page h1 {
-        font-size: 34px;
-      }
     }
   </style>
 </head>
 <body>
 <header class="header">
-  <a href="index.html" class="logo">
-    KΛG
-  </a>
+  <a href="index.html" class="logo">KΛG</a>
   <nav>
     <a href="index.html">Башкы бет</a>
-    <a href="tickets.html" class="active">Tickets</a>
+    <a href="tickets.html">Tickets</a>
     <a href="my-tickets.html">Менин билеттерим</a>
   </nav>
-  <button class="login-btn">
-    Кирүү
-  </button>
+  <a href="login.html" class="login-btn">Кирүү</a>
 </header>
+
 <main class="checkout-page">
-  <a href="ticket-details.html" class="back">
-    ← Билет тандоого кайтуу
-  </a>
-  <h1>
-    Төлөм
-  </h1>
+  <a href="ticket-details.html" class="back">← Артка</a>
+  <h1>Төлөм</h1>
+
   <div class="checkout-grid">
     <!-- LEFT -->
     <div>
-      <!-- CUSTOMER -->
+      <!-- CONTACT -->
       <section class="checkout-card">
-        <h2>
-          👤 Сатып алуучу
-        </h2>
+        <h2>👤 Байланыш маалыматтары</h2>
         <div class="form-group">
-          <label>
-            Аты-жөнү
-          </label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Атыңызды жазыңыз"
-          >
+          <label>Толук аты</label>
+          <input id="name" type="text" placeholder="Мисалы: Айбек Жумалиев">
         </div>
         <div class="form-group">
-          <label>
-            Телефон
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            placeholder="+996 700 000 000"
-          >
+          <label>Телефон</label>
+          <input id="phone" type="tel" placeholder="+996 700 000 000">
         </div>
         <div class="form-group">
-          <label>
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="example@gmail.com"
-          >
+          <label>Email</label>
+          <input id="email" type="email" placeholder="example@gmail.com">
         </div>
       </section>
+
       <!-- PAYMENT -->
       <section class="checkout-card">
-        <h2>
-          💳 Төлөм ыкмасы
-        </h2>
+        <h2>💳 Төлөм ыкмасы</h2>
         <label class="payment-option">
-          <input
-            type="radio"
-            name="payment"
-            value="kagpay"
-            checked
-          >
-          <span class="payment-icon">
-            💳
-          </span>
+          <input type="radio" name="payment" value="kagpay" checked>
+          <span class="payment-icon">💳</span>
           <div>
-            <strong>
-              KAG Pay
-            </strong>
-            <p style="color:#888;font-size:13px">
-              Онлайн төлөм
-            </p>
+            <strong>KAG Pay</strong>
+            <p style="color:#888;font-size:13px">Онлайн төлөм</p>
           </div>
         </label>
         <label class="payment-option">
-          <input
-            type="radio"
-            name="payment"
-            value="card"
-          >
-          <span class="payment-icon">
-            🏦
-          </span>
+          <input type="radio" name="payment" value="card">
+          <span class="payment-icon">🏦</span>
           <div>
-            <strong>
-              Банк картасы
-            </strong>
-            <p style="color:#888;font-size:13px">
-              Visa / Mastercard
-            </p>
+            <strong>Банк картасы</strong>
+            <p style="color:#888;font-size:13px">Visa / Mastercard</p>
           </div>
         </label>
         <label class="payment-option">
-          <input
-            type="radio"
-            name="payment"
-            value="balance"
-          >
-          <span class="payment-icon">
-            💰
-          </span>
+          <input type="radio" name="payment" value="balance">
+          <span class="payment-icon">💰</span>
           <div>
-            <strong>
-              KAG Wallet
-            </strong>
-            <p style="color:#888;font-size:13px">
-              Баланс менен төлөө
-            </p>
+            <strong>KAG Wallet</strong>
+            <p style="color:#888;font-size:13px">Баланс менен төлөө</p>
           </div>
         </label>
       </section>
     </div>
-    <!-- RIGHT -->
+
+    <!-- RIGHT - SUMMARY -->
     <aside class="summary">
-      <h2>
-        Заказ
-      </h2>
+      <h2>Заказ</h2>
       <div class="summary-event">
-        <h3 id="eventTitle">
-          Kyrgyz Music Festival
-        </h3>
-        <p>
-          📅 15 Август, 2026
-        </p>
-        <p>
-          📍 Бишкек Арена
-        </p>
+        <h3 id="eventTitle">Иш-чара</h3>
+        <p id="eventDateLine">📅 —</p>
+        <p id="eventLocationLine">📍 —</p>
+      </div>
+
+      <div class="summary-row">
+        <span>VIP</span>
+        <span id="vip">0 × 3 500</span>
       </div>
       <div class="summary-row">
-        <span>
-          VIP
-        </span>
-        <span id="vip">
-          0 × 3 500
-        </span>
+        <span>Standard</span>
+        <span id="standard">0 × 1 500</span>
       </div>
       <div class="summary-row">
-        <span>
-          Standard
-        </span>
-        <span id="standard">
-          0 × 1 500
-        </span>
+        <span>Economy</span>
+        <span id="economy">0 × 800</span>
       </div>
-      <div class="summary-row">
-        <span>
-          Economy
-        </span>
-        <span id="economy">
-          0 × 800
-        </span>
-      </div>
+
       <div class="summary-total">
-        <span>
-          Жалпы
-        </span>
-        <span id="total">
-          0 сом
-        </span>
+        <span>Жалпы</span>
+        <span id="total">0 сом</span>
       </div>
-      <button
-        class="pay-btn"
-        onclick="pay()">
-        Төлөөнү ырастоо
-      </button>
-      <div class="secure">
-        🔒 KAG коопсуз төлөм
-      </div>
+
+      <button class="pay-btn" onclick="pay()">Төлөөнү ырастоо</button>
+      <div class="secure">🔒 KAG коопсуз төлөм</div>
     </aside>
   </div>
 </main>
+
 <script>
-  const order =
-    JSON.parse(
-      localStorage.getItem("kagTicketOrder")
-    ) || {
-      vip: 0,
-      standard: 0,
-      economy: 0,
-      total: 0
-    };
-  document.getElementById("vip").textContent =
-    `${order.vip} × 3 500`;
-  document.getElementById("standard").textContent =
-    `${order.standard} × 1 500`;
-  document.getElementById("economy").textContent =
-    `${order.economy} × 800`;
-  document.getElementById("total").textContent =
-    order.total.toLocaleString() + " сом";
+  // ===== Загрузка заказа =====
+  const order = JSON.parse(localStorage.getItem("kagTicketOrder"));
+
+  if (!order || !order.total || order.total <= 0) {
+    alert("Заказ табылган жок. Иш-чараларды карап чыгыңыз.");
+    window.location.href = "tickets.html";
+  }
+
+  // Заполняем summary реальными данными события
+  document.getElementById("eventTitle").textContent = order.eventTitle || "Иш-чара";
+  document.getElementById("eventDateLine").textContent = "📅 " + (order.eventDate || "—") + (order.eventTime ? " • " + order.eventTime : "");
+  document.getElementById("eventLocationLine").textContent = "📍 " + (order.eventLocation || "—");
+
+  document.getElementById("vip").textContent = `${order.vip || 0} × 3 500`;
+  document.getElementById("standard").textContent = `${order.standard || 0} × 1 500`;
+  document.getElementById("economy").textContent = `${order.economy || 0} × 800`;
+  document.getElementById("total").textContent = (order.total || 0).toLocaleString() + " сом";
+
   function pay() {
-    const name =
-      document.getElementById("name").value.trim();
-    const phone =
-      document.getElementById("phone").value.trim();
-    const email =
-      document.getElementById("email").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+
     if (!name || !phone || !email) {
-      alert(
-        "Сураныч, бардык маалыматтарды толтуруңуз."
-      );
+      alert("Сураныч, бардык маалыматтарды толтуруңуз.");
       return;
     }
-    if (order.total <= 0) {
-      alert(
-        "Заказда билет жок."
-      );
-      window.location.href =
-        "tickets.html";
+
+    if (!order || order.total <= 0) {
+      alert("Заказда билет жок.");
+      window.location.href = "tickets.html";
       return;
     }
-    const payment =
-      document.querySelector(
-        'input[name="payment"]:checked'
-      ).value;
+
+    const payment = document.querySelector('input[name="payment"]:checked').value;
+
+    // Создаём новый билет
     const ticket = {
-      id:
-        "KAG-" +
-        Date.now(),
-      event:
-        "Kyrgyz Music Festival",
-      date:
-        "15 Август, 2026",
-      location:
-        "Бишкек Арена",
-      name:
-        name,
-      phone:
-        phone,
-      email:
-        email,
-      vip:
-        order.vip,
-      standard:
-        order.standard,
-      economy:
-        order.economy,
-      total:
-        order.total,
-      payment:
-        payment,
-      status:
-        "paid",
-      createdAt:
-        new Date().toISOString()
+      id: "KAG-" + Date.now(),
+      eventId: order.eventId,
+      event: order.eventTitle,
+      date: order.eventDate,
+      time: order.eventTime,
+      location: order.eventLocation,
+      icon: order.eventIcon,
+      name: name,
+      phone: phone,
+      email: email,
+      vip: order.vip,
+      standard: order.standard,
+      economy: order.economy,
+      total: order.total,
+      payment: payment,
+      status: "paid",
+      createdAt: new Date().toISOString()
     };
-    localStorage.setItem(
-      "kagTicket",
-      JSON.stringify(ticket)
-    );
-    localStorage.removeItem(
-      "kagTicketOrder"
-    );
-    window.location.href =
-      "my-tickets.html";
+
+    // Сохраняем в массив билетов (поддержка нескольких)
+    let tickets = JSON.parse(localStorage.getItem("kagTickets")) || [];
+    tickets.push(ticket);
+    localStorage.setItem("kagTickets", JSON.stringify(tickets));
+
+    // Для обратной совместимости оставляем и старый ключ
+    localStorage.setItem("kagTicket", JSON.stringify(ticket));
+
+    // Очищаем заказ
+    localStorage.removeItem("kagTicketOrder");
+
+    window.location.href = "my-tickets.html";
   }
 </script>
 </body>
