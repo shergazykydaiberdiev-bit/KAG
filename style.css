@@ -365,3 +365,61 @@ section {
         flex-direction: column;
     }
 }
+/* ===== MOBILE MENU ===== */
+.burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.burger span {
+    width: 24px;
+    height: 2px;
+    background: #D4AF37;
+    transition: 0.3s;
+}
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 78px;
+    left: 0;
+    right: 0;
+    background: rgba(6, 37, 27, 0.98);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 20px;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 999;
+}
+
+.mobile-menu a {
+    color: #F4EBD0;
+    font-size: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.mobile-menu a:hover {
+    color: #D4AF37;
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+@media (max-width: 850px) {
+    .menu {
+        display: none;
+    }
+
+    .burger {
+        display: flex;
+    }
+
+    .nav-right .login-btn {
+        display: none;
+    }
+}
