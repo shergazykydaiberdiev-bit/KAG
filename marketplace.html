@@ -3,38 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAG — Marketplace</title>
+    <title>KAG — Кызматтар</title>
+    <meta name="description" content="KAG — Кыргызстандагы адистерди жана кызматтарды бир жерден табыңыз.">
     <link rel="stylesheet" href="style.css">
-
     <style>
-        .marketplace {
-            min-height: 90vh;
-            padding: 55px 0;
-        }
-
-        .market-head {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .market-head h1 {
-            font-size: 42px;
-            margin: 10px 0;
-        }
-
-        .market-head p {
-            color: #9fafa8;
-        }
-
+        .marketplace { min-height: 90vh; padding: 48px 0 70px; }
+        .market-head { text-align: center; margin-bottom: 28px; }
+        .market-head h1 { font-size: 42px; margin: 10px 0; }
+        .market-head p { color: #9fafa8; }
         .filters {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 12px;
-            margin-bottom: 35px;
+            margin-bottom: 16px;
         }
-
-        .filters input,
-        .filters select {
+        .filters input, .filters select {
             width: 100%;
             padding: 14px;
             border-radius: 9px;
@@ -43,165 +26,133 @@
             color: #F4EBD0;
             outline: none;
         }
-
-        .filters select option {
-            background: #06251B;
+        .filters select option { background: #06251B; }
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            color: #9fafa8;
+            font-size: 14px;
         }
-
-        .service-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
+        .menu a.active { color: #D4AF37; }
+        .service-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .market-card {
             overflow: hidden;
             border: 1px solid rgba(212,175,55,.18);
             border-radius: 16px;
             background: rgba(255,255,255,.035);
             transition: .3s;
+            display: flex;
+            flex-direction: column;
         }
-
-        .market-card:hover {
-            transform: translateY(-5px);
-            border-color: #D4AF37;
-        }
-
+        .market-card:hover { transform: translateY(-5px); border-color: #D4AF37; }
         .service-image {
-            height: 190px;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(212,175,55,.08);
-            font-size: 55px;
+            font-size: 44px;
         }
-
-        .market-info {
-            padding: 22px;
-        }
-
-        .category {
-            display: inline-block;
-            color: #D4AF37;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
-
-        .market-info h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .description {
-            color: #9fafa8;
-            font-size: 14px;
-            min-height: 45px;
-        }
-
-        .service-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .price {
-            color: #D4AF37;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .city {
-            color: #9fafa8;
-            font-size: 13px;
-        }
-
-        .contact-btn {
-            width: 100%;
+        .market-info { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+        .category { display: inline-block; color: #D4AF37; font-size: 12px; margin-bottom: 6px; }
+        .market-info h3 { font-size: 19px; margin-bottom: 6px; }
+        .master { color: #c9d6d0; font-size: 13px; margin-bottom: 8px; }
+        .description { color: #9fafa8; font-size: 14px; min-height: 42px; flex: 1; }
+        .meta { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; margin-top: 16px; }
+        .price { color: #D4AF37; font-size: 20px; font-weight: bold; }
+        .unit, .city { color: #9fafa8; font-size: 13px; }
+        .rating { color: #D4AF37; font-size: 13px; }
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+        .contact-btn, .wa-btn {
             border: none;
-            margin-top: 18px;
-            padding: 12px;
+            padding: 11px;
             border-radius: 8px;
-            background: #D4AF37;
-            color: #06251B;
             font-weight: bold;
             cursor: pointer;
+            font-size: 14px;
         }
-
-        .empty {
-            text-align: center;
-            padding: 70px 20px;
-            color: #9fafa8;
+        .contact-btn { background: #D4AF37; color: #06251B; }
+        .wa-btn { background: transparent; border: 1px solid #D4AF37; color: #D4AF37; }
+        .empty { text-align: center; padding: 70px 20px; color: #9fafa8; display: none; }
+        .empty-icon { font-size: 55px; margin-bottom: 15px; }
+        .modal-bg {
             display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-
-        .empty-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
+        .modal-bg.open { display: flex; }
+        .modal {
+            width: min(420px, 100%);
+            background: #06251B;
+            border: 1px solid rgba(212,175,55,.35);
+            border-radius: 16px;
+            padding: 26px;
         }
-
-        @media(max-width:900px) {
-            .service-list {
-                grid-template-columns: repeat(2,1fr);
-            }
-            .filters {
-                grid-template-columns: 1fr 1fr;
-            }
-            .filters input {
-                grid-column: 1 / -1;
-            }
+        .modal h3 { margin-bottom: 8px; }
+        .modal p { color: #9fafa8; margin-bottom: 18px; }
+        .modal a, .modal button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
         }
-
-        @media(max-width:600px) {
-            .market-head h1 {
-                font-size: 32px;
-            }
-            .service-list {
-                grid-template-columns: 1fr;
-            }
-            .filters {
-                grid-template-columns: 1fr;
-            }
+        .modal .gold { background: #D4AF37; color: #06251B; }
+        .modal .line { border: 1px solid #D4AF37; color: #D4AF37; background: transparent; cursor: pointer; }
+        @media (max-width: 900px) {
+            .service-list { grid-template-columns: repeat(2, 1fr); }
+            .filters { grid-template-columns: 1fr 1fr; }
+            .filters input { grid-column: 1 / -1; }
+        }
+        @media (max-width: 600px) {
+            .market-head h1 { font-size: 32px; }
+            .service-list { grid-template-columns: 1fr; }
+            .filters { grid-template-columns: 1fr; }
+            .card-actions { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-
 <header class="header">
     <div class="container nav">
-
-        <a href="index.html" class="logo">
-            K<span>Λ</span>G
-        </a>
-
+        <a href="index.html" class="logo">K<span>Λ</span>G</a>
         <nav class="menu">
             <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
+            <a href="marketplace.html" class="active" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
             <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
         </nav>
-
         <div class="nav-right">
             <div class="language">
                 <button id="kgBtn" class="active">KG</button>
                 <span>|</span>
                 <button id="ruBtn">RU</button>
             </div>
-
-            <a href="login.html" class="login-btn" data-kg="Кирүү" data-ru="Войти">
-                Кирүү
-            </a>
+            <a href="login.html" class="login-btn" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
+            <div class="burger" id="burger"><span></span><span></span><span></span></div>
         </div>
-
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
+        <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
+        <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
+        <a href="login.html" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
     </div>
 </header>
 
-
 <main class="marketplace">
     <div class="container">
-
         <div class="market-head">
-            <span class="gold-text">KAG MARKETPLACE</span>
+            <span class="gold-text" data-kg="KAG КЫЗМАТТАР" data-ru="KAG УСЛУГИ">KAG КЫЗМАТТАР</span>
             <h1 data-kg="Кызматтарды табыңыз" data-ru="Найдите услуги">Кызматтарды табыңыз</h1>
             <p data-kg="Кыргызстандагы адистерди жана кызматтарды бир жерден табыңыз."
                data-ru="Найдите специалистов и услуги Кыргызстана в одном месте.">
@@ -211,29 +162,17 @@
 
         <div class="filters">
             <input type="text" id="searchInput"
-                   data-kg-placeholder="Кызмат издеңиз..."
-                   data-ru-placeholder="Поиск услуги..."
-                   placeholder="Кызмат издеңиз...">
+                   data-kg-placeholder="Кызмат, мастер же шаар..."
+                   data-ru-placeholder="Услуга, мастер или город..."
+                   placeholder="Кызмат, мастер же шаар...">
+            <select id="categoryFilter"></select>
+            <select id="cityFilter"></select>
+            <select id="sortFilter"></select>
+        </div>
 
-            <select id="categoryFilter">
-                <option value="">Бардык категориялар</option>
-                <option value="Ремонт">🔧 Ремонт</option>
-                <option value="Транспорт">🚗 Транспорт</option>
-                <option value="Тазалоо">🧹 Тазалоо</option>
-                <option value="IT">💻 IT</option>
-                <option value="Фото">📸 Фото & Видео</option>
-                <option value="Үй">🏠 Үй кызматтары</option>
-                <option value="Билим">🎓 Билим берүү</option>
-            </select>
-
-            <select id="cityFilter">
-                <option value="">Бардык шаарлар</option>
-                <option value="Бишкек">Бишкек</option>
-                <option value="Ош">Ош</option>
-                <option value="Жалал-Абад">Жалал-Абад</option>
-                <option value="Каракол">Каракол</option>
-                <option value="Чолпон-Ата">Чолпон-Ата</option>
-            </select>
+        <div class="toolbar">
+            <div id="resultCount"></div>
+            <a href="add-service.html" class="login-btn" data-kg="+ Кызмат кошуу" data-ru="+ Добавить услугу">+ Кызмат кошуу</a>
         </div>
 
         <div class="service-list" id="serviceList"></div>
@@ -246,21 +185,61 @@
                 Башка издөө сөзүн же категорияны тандап көрүңүз.
             </p>
         </div>
-
     </div>
 </main>
 
+<div class="modal-bg" id="contactModal">
+    <div class="modal">
+        <h3 id="modalTitle"></h3>
+        <p id="modalText"></p>
+        <a class="gold" id="modalCall" href="#">Чалуу</a>
+        <a class="gold" id="modalWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="line" id="modalClose" type="button">Жабуу</button>
+    </div>
+</div>
 
+<footer class="footer">
+    <div class="container footer-content">
+        <div>
+            <div class="footer-logo">KΛG</div>
+            <p data-kg="Кыргызстан үчүн жасалган." data-ru="Создано для Кыргызстана.">Кыргызстан үчүн жасалган.</p>
+        </div>
+        <div>
+            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
+            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
+            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
+        </div>
+        <div class="footer-contacts">
+            <a href="https://wa.me/996707901214" target="_blank" class="contact-link">WhatsApp</a>
+            <a href="https://t.me/+996707901214" target="_blank" class="contact-link">Telegram</a>
+            <a href="tel:+996707901214" class="contact-link">+996 707 901 214</a>
+        </div>
+    </div>
+    <div class="copyright">© 2026 KAG. <span data-kg="Бардык укуктар корголгон." data-ru="Все права защищены.">Бардык укуктар корголгон.</span></div>
+</footer>
+
+<script src="script.js"></script>
 <script>
-    const services = [
-        { id: 1, title: "Үй тазалоо", titleRu: "Уборка дома", category: "Тазалоо", description: "Толук үй тазалоо, жумасына 2 жолу", descriptionRu: "Полная уборка дома, 2 раза в неделю", price: 2500, city: "Бишкек", icon: "🧹" },
-        { id: 2, title: "Сантехника оңдоо", titleRu: "Ремонт сантехники", category: "Ремонт", description: "Кран, унитаз, түтүк оңдоо", descriptionRu: "Ремонт кранов, унитазов, труб", price: 1500, city: "Бишкек", icon: "🔧" },
-        { id: 3, title: "Такси Бишкек", titleRu: "Такси Бишкек", category: "Транспорт", description: "Ыңгайлуу жана коопсуз такси", descriptionRu: "Комфортное и безопасное такси", price: 200, city: "Бишкек", icon: "🚗" },
-        { id: 4, title: "Веб-сайт жасау", titleRu: "Создание сайта", category: "IT", description: "Заманбап сайттар жана лендингдер", descriptionRu: "Современные сайты и лендинги", price: 25000, city: "Бишкек", icon: "💻" },
-        { id: 5, title: "Свадебная фотосъёмка", titleRu: "Свадебная фотосъёмка", category: "Фото", description: "Профессиональная свадебная съёмка", descriptionRu: "Профессиональная свадебная съёмка", price: 18000, city: "Ош", icon: "📸" },
-        { id: 6, title: "Репетитор по математике", titleRu: "Репетитор по математике", category: "Билим", description: "Подготовка к ОРТ и школьным экзаменам", descriptionRu: "Подготовка к ОРТ и школьным экзаменам", price: 800, city: "Бишкек", icon: "🎓" },
-        { id: 7, title: "Курулуш жана ремонт", titleRu: "Строительство и ремонт", category: "Үй", description: "Толук ремонт квартира жана үй", descriptionRu: "Полный ремонт квартиры и дома", price: 150000, city: "Бишкек", icon: "🏠" },
-        { id: 8, title: "Жүк ташуу", titleRu: "Грузоперевозки", category: "Транспорт", description: "Шаар ичинде жана шаарлар аралык", descriptionRu: "По городу и междугородние перевозки", price: 3000, city: "Ош", icon: "🚛" }
+    const CATEGORIES = [
+        { id: "Ремонт", kg: "Ремонт", ru: "Ремонт", icon: "🔧" },
+        { id: "Транспорт", kg: "Транспорт", ru: "Транспорт", icon: "🚗" },
+        { id: "Тазалоо", kg: "Тазалоо", ru: "Уборка", icon: "🧹" },
+        { id: "IT", kg: "IT", ru: "IT", icon: "💻" },
+        { id: "Фото", kg: "Фото & Видео", ru: "Фото и видео", icon: "📸" },
+        { id: "Үй", kg: "Үй кызматтары", ru: "Услуги для дома", icon: "🏠" },
+        { id: "Билим", kg: "Билим берүү", ru: "Образование", icon: "🎓" }
+    ];
+    const CITIES = ["Бишкек", "Ош", "Жалал-Абад", "Каракол", "Чолпон-Ата"];
+
+    const SEED = [
+        { id: 1, title: "Үй тазалоо", titleRu: "Уборка дома", category: "Тазалоо", description: "Толук үй тазалоо, жумасына 2 жолу", descriptionRu: "Полная уборка дома, 2 раза в неделю", price: 2500, unit: "иш", city: "Бишкек", icon: "🧹", master: "Айжан К.", phone: "+996707901214", rating: 4.8, orders: 124 },
+        { id: 2, title: "Сантехника оңдоо", titleRu: "Ремонт сантехники", category: "Ремонт", description: "Кран, унитаз, түтүк оңдоо", descriptionRu: "Ремонт кранов, унитазов, труб", price: 1500, unit: "иш", city: "Бишкек", icon: "🔧", master: "Нурлан Б.", phone: "+996707901214", rating: 4.9, orders: 86 },
+        { id: 3, title: "Такси Бишкек", titleRu: "Такси Бишкек", category: "Транспорт", description: "Ыңгайлуу жана коопсуз такси", descriptionRu: "Комфортное и безопасное такси", price: 200, unit: "жол", city: "Бишкек", icon: "🚗", master: "Эрлан Т.", phone: "+996707901214", rating: 4.6, orders: 310 },
+        { id: 4, title: "Веб-сайт жасоо", titleRu: "Создание сайта", category: "IT", description: "Заманбап сайттар жана лендингдер", descriptionRu: "Современные сайты и лендинги", price: 25000, unit: "долбоор", city: "Бишкек", icon: "💻", master: "Бекзат А.", phone: "+996707901214", rating: 5.0, orders: 18 },
+        { id: 5, title: "Үйлөнүү тоюнун фотосъёмкасы", titleRu: "Свадебная фотосъёмка", category: "Фото", description: "Кесипкөй той фотосъёмкасы", descriptionRu: "Профессиональная свадебная съёмка", price: 18000, unit: "күн", city: "Ош", icon: "📸", master: "Айпери С.", phone: "+996707901214", rating: 4.7, orders: 42 },
+        { id: 6, title: "Математика репетитору", titleRu: "Репетитор по математике", category: "Билим", description: "ОРТ жана мектеп экзамендерине даярдоо", descriptionRu: "Подготовка к ОРТ и школьным экзаменам", price: 800, unit: "саат", city: "Бишкек", icon: "🎓", master: "Гүлназ М.", phone: "+996707901214", rating: 4.9, orders: 67 },
+        { id: 7, title: "Курулуш жана ремонт", titleRu: "Строительство и ремонт", category: "Үй", description: "Батир жана үйдүн толук ремонту", descriptionRu: "Полный ремонт квартиры и дома", price: 150000, unit: "баштап", city: "Бишкек", icon: "🏠", master: "Данияр К.", phone: "+996707901214", rating: 4.5, orders: 23 },
+        { id: 8, title: "Жүк ташуу", titleRu: "Грузоперевозки", category: "Транспорт", description: "Шаар ичинде жана шаарлар аралык", descriptionRu: "По городу и междугородние перевозки", price: 3000, unit: "иш", city: "Ош", icon: "🚛", master: "Улан Ж.", phone: "+996707901214", rating: 4.4, orders: 91 }
     ];
 
     const serviceList = document.getElementById("serviceList");
@@ -268,82 +247,177 @@
     const searchInput = document.getElementById("searchInput");
     const categoryFilter = document.getElementById("categoryFilter");
     const cityFilter = document.getElementById("cityFilter");
-
-    // Читаем параметры из URL (из поиска на главной)
-    const urlParams = new URLSearchParams(window.location.search);
-    const q = urlParams.get("q");
-    const cat = urlParams.get("category");
-
-    if (q) searchInput.value = q;
-    if (cat) categoryFilter.value = cat;
+    const sortFilter = document.getElementById("sortFilter");
+    const resultCount = document.getElementById("resultCount");
+    const modal = document.getElementById("contactModal");
 
     function getLang() {
         return localStorage.getItem("KAG_language") || "kg";
     }
 
+    function loadServices() {
+        const extra = JSON.parse(localStorage.getItem("KAG_services") || "[]");
+        const map = new Map();
+        SEED.concat(extra).forEach(function (item) { map.set(item.id, item); });
+        return Array.from(map.values());
+    }
+
+    function catLabel(id, lang) {
+        const found = CATEGORIES.find(function (c) { return c.id === id; });
+        if (!found) return id;
+        return lang === "kg" ? found.kg : found.ru;
+    }
+
+    function unitLabel(unit, lang) {
+        const map = {
+            иш: { kg: "/ иш", ru: "/ работа" },
+            саат: { kg: "/ саат", ru: "/ час" },
+            күн: { kg: "/ күн", ru: "/ день" },
+            жол: { kg: "/ жол", ru: "/ поездка" },
+            долбоор: { kg: "/ долбоор", ru: "/ проект" },
+            баштап: { kg: "баштап", ru: "от" }
+        };
+        return (map[unit] && map[unit][lang]) || "";
+    }
+
+    function fillFilters() {
+        const lang = getLang();
+        const currentCat = categoryFilter.value;
+        const currentCity = cityFilter.value;
+        const currentSort = sortFilter.value;
+
+        categoryFilter.innerHTML = '<option value="">' + (lang === "kg" ? "Бардык категориялар" : "Все категории") + "</option>";
+        CATEGORIES.forEach(function (c) {
+            categoryFilter.innerHTML += '<option value="' + c.id + '">' + c.icon + " " + (lang === "kg" ? c.kg : c.ru) + "</option>";
+        });
+
+        cityFilter.innerHTML = '<option value="">' + (lang === "kg" ? "Бардык шаарлар" : "Все города") + "</option>";
+        CITIES.forEach(function (city) {
+            cityFilter.innerHTML += '<option value="' + city + '">' + city + "</option>";
+        });
+
+        sortFilter.innerHTML =
+            '<option value="new">' + (lang === "kg" ? "Жаңылары" : "Новые") + "</option>" +
+            '<option value="price-asc">' + (lang === "kg" ? "Арзан → кымбат" : "Дешевле") + "</option>" +
+            '<option value="price-desc">' + (lang === "kg" ? "Кымбат → арзан" : "Дороже") + "</option>" +
+            '<option value="rating">' + (lang === "kg" ? "Рейтинг" : "Рейтинг") + "</option>";
+
+        if (currentCat) categoryFilter.value = currentCat;
+        if (currentCity) cityFilter.value = currentCity;
+        if (currentSort) sortFilter.value = currentSort;
+    }
+
+    function phoneDigits(phone) {
+        return String(phone || "").replace(/\D/g, "") || "996707901214";
+    }
+
+    function openContact(service) {
+        const lang = getLang();
+        const title = lang === "kg" ? service.title : (service.titleRu || service.title);
+        document.getElementById("modalTitle").textContent = title;
+        document.getElementById("modalText").textContent =
+            (service.master || "") + " · " + service.city + " · " + (service.phone || "+996 707 901 214");
+        const digits = phoneDigits(service.phone);
+        document.getElementById("modalCall").href = "tel:+" + digits;
+        document.getElementById("modalCall").textContent = lang === "kg" ? "Чалуу" : "Позвонить";
+        document.getElementById("modalWa").href = "https://wa.me/" + digits;
+        document.getElementById("modalClose").textContent = lang === "kg" ? "Жабуу" : "Закрыть";
+        modal.classList.add("open");
+    }
+
     function renderServices(list) {
+        const lang = getLang();
         serviceList.innerHTML = "";
+        resultCount.textContent = lang === "kg"
+            ? list.length + " кызмат табылды"
+            : list.length + " услуг найдено";
 
         if (list.length === 0) {
             emptyState.style.display = "block";
             return;
         }
-
         emptyState.style.display = "none";
-        const lang = getLang();
 
-        list.forEach(service => {
+        list.forEach(function (service) {
             const card = document.createElement("div");
             card.className = "market-card";
-            card.innerHTML = `
-                <div class="service-image">${service.icon}</div>
-                <div class="market-info">
-                    <span class="category">${service.category}</span>
-                    <h3>${lang === "kg" ? service.title : service.titleRu}</h3>
-                    <p class="description">${lang === "kg" ? service.description : service.descriptionRu}</p>
-                    <div class="service-bottom">
-                        <div>
-                            <div class="price">${service.price.toLocaleString()} сом</div>
-                            <div class="city">${service.city}</div>
-                        </div>
-                    </div>
-                    <button class="contact-btn">${lang === "kg" ? "Байланышуу" : "Связаться"}</button>
-                </div>
-            `;
+            const title = lang === "kg" ? service.title : (service.titleRu || service.title);
+            const desc = lang === "kg" ? service.description : (service.descriptionRu || service.description);
+            card.innerHTML =
+                '<div class="service-image">' + (service.icon || "✨") + "</div>" +
+                '<div class="market-info">' +
+                    '<span class="category">' + catLabel(service.category, lang) + "</span>" +
+                    "<h3>" + title + "</h3>" +
+                    '<div class="master">' + (service.master || (lang === "kg" ? "Жеке адис" : "Частный специалист")) + "</div>" +
+                    '<p class="description">' + desc + "</p>" +
+                    '<div class="meta">' +
+                        "<div>" +
+                            '<div class="price">' + Number(service.price).toLocaleString() + " сом</div>" +
+                            '<div class="unit">' + unitLabel(service.unit, lang) + "</div>" +
+                            '<div class="city">' + service.city + "</div>" +
+                        "</div>" +
+                        '<div class="rating">★ ' + (service.rating || "—") +
+                            (service.orders ? " · " + service.orders : "") +
+                        "</div>" +
+                    "</div>" +
+                    '<div class="card-actions">' +
+                        '<button class="contact-btn" type="button">' + (lang === "kg" ? "Байланышуу" : "Связаться") + "</button>" +
+                        '<button class="wa-btn" type="button">WhatsApp</button>' +
+                    "</div>" +
+                "</div>";
+            card.querySelector(".contact-btn").addEventListener("click", function () { openContact(service); });
+            card.querySelector(".wa-btn").addEventListener("click", function () {
+                window.open("https://wa.me/" + phoneDigits(service.phone), "_blank");
+            });
             serviceList.appendChild(card);
         });
     }
 
     function filterServices() {
-        const search = searchInput.value.toLowerCase();
+        const search = searchInput.value.toLowerCase().trim();
         const category = categoryFilter.value;
         const city = cityFilter.value;
         const lang = getLang();
 
-        const filtered = services.filter(s => {
-            const title = (lang === "kg" ? s.title : s.titleRu).toLowerCase();
-            const desc = (lang === "kg" ? s.description : s.descriptionRu).toLowerCase();
-            return (title.includes(search) || desc.includes(search)) &&
+        let filtered = loadServices().filter(function (s) {
+            const title = ((lang === "kg" ? s.title : (s.titleRu || s.title)) || "").toLowerCase();
+            const titleAlt = (s.title + " " + (s.titleRu || "")).toLowerCase();
+            const desc = ((lang === "kg" ? s.description : (s.descriptionRu || s.description)) || "").toLowerCase();
+            const master = (s.master || "").toLowerCase();
+            const hay = title + " " + titleAlt + " " + desc + " " + master + " " + (s.city || "").toLowerCase();
+            return (!search || hay.includes(search)) &&
                    (!category || s.category === category) &&
                    (!city || s.city === city);
+        });
+
+        const sort = sortFilter.value;
+        filtered.sort(function (a, b) {
+            if (sort === "price-asc") return a.price - b.price;
+            if (sort === "price-desc") return b.price - a.price;
+            if (sort === "rating") return (b.rating || 0) - (a.rating || 0);
+            return (b.id || 0) - (a.id || 0);
         });
 
         renderServices(filtered);
     }
 
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("q")) searchInput.value = urlParams.get("q");
+    fillFilters();
+    if (urlParams.get("category")) categoryFilter.value = urlParams.get("category");
+
     searchInput.addEventListener("input", filterServices);
     categoryFilter.addEventListener("change", filterServices);
     cityFilter.addEventListener("change", filterServices);
+    sortFilter.addEventListener("change", filterServices);
+    window.addEventListener("languageChanged", function () {
+        fillFilters();
+        filterServices();
+    });
+    document.getElementById("modalClose").addEventListener("click", function () { modal.classList.remove("open"); });
+    modal.addEventListener("click", function (e) { if (e.target === modal) modal.classList.remove("open"); });
 
-    // Первая отрисовка
     filterServices();
-
-    // При смене языка
-    document.getElementById("kgBtn")?.addEventListener("click", () => setTimeout(filterServices, 50));
-    document.getElementById("ruBtn")?.addEventListener("click", () => setTimeout(filterServices, 50));
 </script>
-
-<script src="script.js"></script>
-
 </body>
 </html>
