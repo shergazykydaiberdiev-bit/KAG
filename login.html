@@ -5,47 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAG — Кирүү</title>
     <link rel="stylesheet" href="style.css">
-
     <style>
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        .auth-page { flex: 1; display: flex; align-items: center; justify-content: center; padding: 50px 20px; }
+        .auth-card { width: 100%; max-width: 430px; padding: 40px; border: 1px solid rgba(212,175,55,.3); border-radius: 20px; background: rgba(255,255,255,.035); box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+        .auth-logo { text-align: center; font-size: 42px; font-weight: 900; letter-spacing: 4px; color: #D4AF37; margin-bottom: 15px; }
+        .auth-title { text-align: center; font-size: 30px; margin-bottom: 8px; }
+        .auth-subtitle { text-align: center; color: #9fafa8; margin-bottom: 28px; font-size: 15px; }
+        .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; background: rgba(255,255,255,.04); padding: 6px; border-radius: 10px; }
+        .auth-tab { border: none; background: transparent; color: #9fafa8; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .auth-tab.active { background: #D4AF37; color: #06251B; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; }
+        .form-group input { width: 100%; padding: 14px; border-radius: 9px; border: 1px solid rgba(212,175,55,.25); background: rgba(255,255,255,.05); color: #F4EBD0; outline: none; font-size: 15px; }
+        .form-group input:focus { border-color: #D4AF37; }
+        .auth-btn { width: 100%; border: none; padding: 15px; border-radius: 9px; background: #D4AF37; color: #06251B; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 6px; }
+        .auth-error { display: none; margin-bottom: 14px; padding: 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,.45); color: #D4AF37; text-align: center; font-size: 14px; }
+        .back-home { display: block; text-align: center; margin-top: 22px; color: #9fafa8; }
+        .name-field { display: none; }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container nav">
+        <a href="index.html" class="logo">K<span>Λ</span>G</a>
+        <div class="nav-right">
+            <div class="language">
+                <button id="kgBtn" class="active">KG</button>
+                <span>|</span>
+                <button id="ruBtn">RU</button>
+            </div>
+            <a href="index.html" class="login-btn" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
+        </div>
+    </div>
+</header>
+<main class="auth-page">
+    <div class="auth-card">
+        <div class="auth-logo">KΛG</div>
+        <h1 class="auth-title" data-kg="Кош келиңиз" data-ru="Добро пожаловать">Кош келиңиз</h1>
+        <p class="auth-subtitle" data-kg="Аккаунтуңузга кириңиз же жаңысын түзүңүз." data-ru="Войдите в аккаунт или создайте новый.">Аккаунтуңузга кириңиз же жаңысын түзүңүз.</p>
+        <div class="auth-tabs">
+            <button type="button" class="auth-tab active" id="loginTab" data-kg="Кирүү" data-ru="Войти">Кирүү</button>
+            <button type="button" class="auth-tab" id="registerTab" data-kg="Катталуу" data-ru="Регистрация">Катталуу</button>
+        </div>
+        <div class="auth-error" id="authError"></div>
+        <form id="authForm">
+            <div class="form-group name-field" id="nameField">
+                <label data-kg="Атыңыз" data-ru="Имя">Атыңыз</label>
+                <input type="text" id="nameInput" data-kg-placeholder="Мисалы: Айбек" data-ru-placeholder="Например: Айбек" placeholder="Мисалы: Айбек">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="emailInput" required placeholder="name@email.com">
+            </div>
+            <div class="form-group">
+                <label data-kg="Сыр сөз" data-ru="Пароль">Сыр сөз</label>
+                <input type="password" id="passwordInput" required minlength="4" data-kg-placeholder="Кемінде 4 символ" data-ru-placeholder="Минимум 4 символа" placeholder="Кемінде 4 символ">
+            </div>
+            <button type="submit" class="auth-btn" id="authSubmit" data-kg="Кирүү" data-ru="Войти">Кирүү</button>
+        </form>
+        <a href="index.html" class="back-home" data-kg="← Башкы бетке кайтуу" data-ru="← Вернуться на главную">← Башкы бетке кайтуу</a>
+    </div>
+</main>
+<script src="script.js"></script>
+<script>
+    const loginTab = document.getElementById("loginTab");
+    const registerTab = document.getElementById("registerTab");
+    const nameField = document.getElementById("nameField");
+    const authSubmit = document.getElementById("authSubmit");
+    const authError = document.getElementById("authError");
+    const authForm = document.getElementById("authForm");
+    let mode = "login";
+    function lang() { return localStorage.getItem("KAG_language") === "ru" ? "ru" : "kg"; }
+    function setMode(next) {
+        mode = next;
+        loginTab.classList.toggle("active", mode === "login");
+        registerTab.classList.toggle("active", mode === "register");
+        nameField.style.display = mode === "register" ? "block" : "none";
+        authSubmit.textContent = mode === "login" ? (lang() === "ru" ? "Войти" : "Кирүү") : (lang() === "ru" ? "Создать аккаунт" : "Аккаунт түзүү");
+        authError.style.display = "none";
+    }
+    loginTab.addEventListener("click", () => setMode("login"));
+    registerTab.addEventListener("click", () => setMode("register"));
+    function showError(text) { authError.textContent = text; authError.style.display = "block"; }
+    authForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("nameInput").value.trim();
+        const email = document.getElementById("emailInput").value.trim().toLowerCase();
+        const password = document.getElementById("passwordInput").value;
+        const users = JSON.parse(localStorage.getItem("KAG_users") || "[]");
+        if (mode === "register") {
+            if (!name) { showError(lang() === "ru" ? "Введите имя." : "Атыңызды жазыңыз."); return; }
+            if (users.some(u => u.email === email)) { showError(lang() === "ru" ? "Этот email уже зарегистрирован." : "Бул email мурда катталган."); return; }
+            const user = { name, email, password, city: "Бишкек", role: "customer" };
+            users.push(user);
+            localStorage.setItem("KAG_users", JSON.stringify(users));
+            localStorage.setItem("KAG_user", JSON.stringify({ name, email, city: user.city, role: user.role }));
+            window.location.href = "profile.html";
+            return;
         }
-
-        .auth-page {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 50px 20px;
+        const found = users.find(u => u.email === email && u.password === password);
+        if (!found) {
+            showError(lang() === "ru" ? "Неверный email или пароль. Сначала зарегистрируйтесь." : "Email же сыр сөз туура эмес. Адегенде катталыңыз.");
+            return;
         }
-
-        .auth-card {
-            width: 100%;
-            max-width: 430px;
-            padding: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.035);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .auth-logo {
-            text-align: center;
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: #D4AF37;
-            margin-bottom: 15px;
-        }
-
-        .auth-title {
-            text-align: center;
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-
-        .auth-subtitle {
-            text-align: center;
-            color: #
+        localStorage.setItem("KAG_user", JSON.stringify({ name: found.name, email: found.email, city: found.city || "Бишкек", role: found.role || "customer" }));
+        window.location.href = "profile.html";
+    });
+</script>
+</body>
+</html>
