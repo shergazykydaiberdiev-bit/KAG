@@ -5,167 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAG — Кызмат кошуу</title>
     <link rel="stylesheet" href="style.css">
-
     <style>
-        .service-page {
-            min-height: 85vh;
-            padding: 60px 0;
-        }
-
-        .service-form {
-            max-width: 700px;
-            margin: auto;
-            padding: 35px;
-            border-radius: 20px;
-            border: 1px solid rgba(212,175,55,.3);
-            background: rgba(255,255,255,.035);
-        }
-
-        .form-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-title h1 {
-            font-size: 36px;
-            margin-bottom: 8px;
-        }
-
-        .form-title p {
-            color: #9fafa8;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px;
-            border-radius: 9px;
-            border: 1px solid rgba(212,175,55,.25);
-            background: rgba(255,255,255,.05);
-            color: #F4EBD0;
-            outline: none;
-            font-size: 15px;
-        }
-
-        .form-group select option {
-            background: #06251B;
-            color: #F4EBD0;
-        }
-
-        .form-group textarea {
-            min-height: 130px;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #D4AF37;
-        }
-
-        .price-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            border: none;
-            padding: 16px;
-            border-radius: 9px;
-            background: #D4AF37;
-            color: #06251B;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            opacity: .9;
-        }
-
-        .success {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(212,175,55,.4);
-            color: #D4AF37;
-            text-align: center;
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            color: #9fafa8;
-        }
-
-        .back-link:hover {
-            color: #D4AF37;
-        }
-
-        @media(max-width:600px) {
-            .service-form {
-                padding: 25px 18px;
-            }
-            .price-row {
-                grid-template-columns: 1fr;
-            }
-            .form-title h1 {
-                font-size: 30px;
-            }
+        .service-page { min-height: 85vh; padding: 60px 0; }
+        .service-form { max-width: 700px; margin: auto; padding: 35px; border-radius: 20px; border: 1px solid rgba(212,175,55,.3); background: rgba(255,255,255,.035); }
+        .form-title { text-align: center; margin-bottom: 30px; }
+        .form-title h1 { font-size: 36px; margin-bottom: 8px; }
+        .form-title p { color: #9fafa8; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px; border-radius: 9px; border: 1px solid rgba(212,175,55,.25); background: rgba(255,255,255,.05); color: #F4EBD0; outline: none; font-size: 15px; }
+        .form-group select option { background: #06251B; color: #F4EBD0; }
+        .form-group textarea { min-height: 130px; resize: vertical; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #D4AF37; }
+        .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .submit-btn { width: 100%; border: none; padding: 16px; border-radius: 9px; background: #D4AF37; color: #06251B; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .success { display: none; margin-top: 20px; padding: 15px; border-radius: 10px; border: 1px solid rgba(212,175,55,.4); color: #D4AF37; text-align: center; }
+        .back-link { display: block; text-align: center; margin-top: 25px; color: #9fafa8; }
+        @media (max-width: 600px) {
+            .service-form { padding: 25px 18px; }
+            .price-row { grid-template-columns: 1fr; }
+            .form-title h1 { font-size: 30px; }
         }
     </style>
 </head>
 <body>
-
 <header class="header">
     <div class="container nav">
-
-        <a href="index.html" class="logo">
-            K<span>Λ</span>G
-        </a>
-
+        <a href="index.html" class="logo">K<span>Λ</span>G</a>
         <nav class="menu">
             <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
             <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
             <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
         </nav>
-
         <div class="nav-right">
             <div class="language">
                 <button id="kgBtn" class="active">KG</button>
                 <span>|</span>
                 <button id="ruBtn">RU</button>
             </div>
-
-            <a href="login.html" class="login-btn"
-               data-kg="Кирүү" data-ru="Войти">
-                Кирүү
-            </a>
+            <a href="login.html" class="login-btn" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
+            <div class="burger" id="burger"><span></span><span></span><span></span></div>
         </div>
-
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
+        <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
+        <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
+        <a href="login.html" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
     </div>
 </header>
-
-
 <main class="service-page">
     <div class="container">
-
         <form class="service-form" id="serviceForm">
-
             <div class="form-title">
-                <span class="gold-text">KAG MARKETPLACE</
+                <span class="gold-text">KAG MARKETPLACE</span>
+                <h1 data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</h1>
+                <p data-kg="Кызматыңызды платформага жарыялаңыз." data-ru="Опубликуйте свою услугу на платформе.">Кызматыңызды платформага жарыялаңыз.</p>
+            </div>
+            <div class="form-group">
+                <label data-kg="Кызматтын аталышы" data-ru="Название услуги">Кызматтын аталышы</label>
+                <input type="text" id="title" required data-kg-placeholder="Мисалы: Сантехника оңдоо" data-ru-placeholder="Например: Ремонт сантехники" placeholder="Мисалы: Сантехника оңдоо">
+            </div>
+            <div class="form-group">
+                <label data-kg="Категория" data-ru="Категория">Категория</label>
+                <select id="category" required>
+                    <option value="">—</option>
+                    <option value="Ремонт">🔧 Ремонт</option>
+                    <option value="Транспорт">🚗 Транспорт</option>
+                    <option value="Тазалоо">🧹 Тазалоо</option>
+                    <option value="IT">💻 IT</option>
+                    <option value="Фото">📸 Фото & Видео</option>
+                    <option value="Үй">🏠 Үй кызматтары</option>
+                    <option value="Билим">🎓 Билим берүү</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-kg="Сүрөттөмө" data-ru="Описание">Сүрөттөмө</label>
+                <textarea id="description" required data-kg-placeholder="Кызмат эмне кылат, канча убакыт, эмне кирет..." data-ru-placeholder="Что входит в услугу, сроки, детали..." placeholder="Кызмат эмне кылат, канча убакыт, эмне кирет..."></textarea>
+            </div>
+            <div class="price-row">
+                <div class="form-group">
+                    <label data-kg="Баасы (сом)" data-ru="Цена (сом)">Баасы (сом)</label>
+                    <input type="number" id="price" min="0" required placeholder="1500">
+                </div>
+                <div class="form-group">
+                    <label data-kg="Шаар" data-ru="Город">Шаар</label>
+                    <select id="city" required>
+                        <option value="Бишкек">Бишкек</option>
+                        <option value="Ош">Ош</option>
+                        <option value="Жалал-Абад">Жалал-Абад</option>
+                        <option value="Каракол">Каракол</option>
+                        <option value="Чолпон-Ата">Чолпон-Ата</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label data-kg="Телефон" data-ru="Телефон">Телефон</label>
+                <input type="tel" id="phone" required placeholder="+996 700 000 000">
+            </div>
+            <button type="submit" class="submit-btn" data-kg="Жарыялоо" data-ru="Опубликовать">Жарыялоо</button>
+            <div class="success" id="successMsg" data-kg="Кызмат сакталды. Marketplace бөлүмүнөн көрө аласыз." data-ru="Услуга сохранена. Её можно увидеть в Marketplace.">Кызмат сакталды. Marketplace бөлүмүнөн көрө аласыз.</div>
+        </form>
+        <a href="marketplace.html" class="back-link" data-kg="← Marketplace'ке кайтуу" data-ru="← Вернуться в Marketplace">← Marketplace'ке кайтуу</a>
+    </div>
+</main>
+<script src="script.js"></script>
+<script>
+    const form = document.getElementById("scriptForm".replace("script","service"));
+    const success = document.getElementById("successMsg");
+    const icons = { "Ремонт":"🔧","Транспорт":"🚗","Тазалоо":"🧹","IT":"💻","Фото":"📸","Үй":"🏠","Билим":"🎓" };
+    document.getElementById("serviceForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const title = document.getElementById("title").value.trim();
+        const category = document.getElementById("category").value;
+        const description = document.getElementById("description").value.trim();
+        const price = Number(document.getElementById("price").value);
+        const city = document.getElementById("city").value;
+        const phone = document.getElementById("phone").value.trim();
+        const extra = JSON.parse(localStorage.getItem("KAG_services") || "[]");
+        extra.push({ id: Date.now(), title, titleRu: title, category, description, descriptionRu: description, price, city, phone, icon: icons[category] || "✨" });
+        localStorage.setItem("KAG_services", JSON.stringify(extra));
+        success.style.display = "block";
+        this.reset();
+        document.getElementById("city").value = "Бишкек";
+        setTimeout(function () { window.location.href = "marketplace.html"; }, 900);
+    });
+</script>
+</body>
+</html>
