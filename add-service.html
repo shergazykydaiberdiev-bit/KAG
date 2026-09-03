@@ -21,6 +21,7 @@
         .submit-btn { width: 100%; border: none; padding: 16px; border-radius: 9px; background: #D4AF37; color: #06251B; font-size: 16px; font-weight: bold; cursor: pointer; }
         .success { display: none; margin-top: 20px; padding: 15px; border-radius: 10px; border: 1px solid rgba(212,175,55,.4); color: #D4AF37; text-align: center; }
         .back-link { display: block; text-align: center; margin-top: 25px; color: #9fafa8; }
+        .menu a.active { color: #D4AF37; }
         @media (max-width: 600px) {
             .service-form { padding: 25px 18px; }
             .price-row { grid-template-columns: 1fr; }
@@ -35,7 +36,7 @@
         <nav class="menu">
             <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
             <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
+            <a href="add-service.html" class="active" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
         </nav>
         <div class="nav-right">
             <div class="language">
@@ -58,9 +59,13 @@
     <div class="container">
         <form class="service-form" id="serviceForm">
             <div class="form-title">
-                <span class="gold-text">KAG MARKETPLACE</span>
+                <span class="gold-text" data-kg="KAG КЫЗМАТТАР" data-ru="KAG УСЛУГИ">KAG КЫЗМАТТАР</span>
                 <h1 data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</h1>
                 <p data-kg="Кызматыңызды платформага жарыялаңыз." data-ru="Опубликуйте свою услугу на платформе.">Кызматыңызды платформага жарыялаңыз.</p>
+            </div>
+            <div class="form-group">
+                <label data-kg="Сиздин атыңыз" data-ru="Ваше имя">Сиздин атыңыз</label>
+                <input type="text" id="master" required data-kg-placeholder="Мисалы: Нурлан Б." data-ru-placeholder="Например: Нурлан Б." placeholder="Мисалы: Нурлан Б.">
             </div>
             <div class="form-group">
                 <label data-kg="Кызматтын аталышы" data-ru="Название услуги">Кызматтын аталышы</label>
@@ -89,6 +94,19 @@
                     <input type="number" id="price" min="0" required placeholder="1500">
                 </div>
                 <div class="form-group">
+                    <label data-kg="Баасы эмне үчүн" data-ru="Цена за">Баасы эмне үчүн</label>
+                    <select id="unit">
+                        <option value="иш">иш / работа</option>
+                        <option value="саат">саат / час</option>
+                        <option value="күн">күн / день</option>
+                        <option value="жол">жол / поездка</option>
+                        <option value="долбоор">долбоор / проект</option>
+                        <option value="баштап">баштап / от</option>
+                    </select>
+                </div>
+            </div>
+            <div class="price-row">
+                <div class="form-group">
                     <label data-kg="Шаар" data-ru="Город">Шаар</label>
                     <select id="city" required>
                         <option value="Бишкек">Бишкек</option>
@@ -98,37 +116,64 @@
                         <option value="Чолпон-Ата">Чолпон-Ата</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label data-kg="Телефон" data-ru="Телефон">Телефон</label>
-                <input type="tel" id="phone" required placeholder="+996 700 000 000">
+                <div class="form-group">
+                    <label data-kg="Телефон / WhatsApp" data-ru="Телефон / WhatsApp">Телефон / WhatsApp</label>
+                    <input type="tel" id="phone" required placeholder="+996 700 000 000">
+                </div>
             </div>
             <button type="submit" class="submit-btn" data-kg="Жарыялоо" data-ru="Опубликовать">Жарыялоо</button>
-            <div class="success" id="successMsg" data-kg="Кызмат сакталды. Marketplace бөлүмүнөн көрө аласыз." data-ru="Услуга сохранена. Её можно увидеть в Marketplace.">Кызмат сакталды. Marketplace бөлүмүнөн көрө аласыз.</div>
+            <div class="success" id="successMsg" data-kg="Кызмат сакталды. Каталогдо көрүнөт." data-ru="Услуга сохранена и появится в каталоге.">Кызмат сакталды. Каталогдо көрүнөт.</div>
         </form>
-        <a href="marketplace.html" class="back-link" data-kg="← Marketplace'ке кайтуу" data-ru="← Вернуться в Marketplace">← Marketplace'ке кайтуу</a>
+        <a href="marketplace.html" class="back-link" data-kg="← Кызматтарга кайтуу" data-ru="← Вернуться к услугам">← Кызматтарга кайтуу</a>
     </div>
 </main>
+<footer class="footer">
+    <div class="container footer-content">
+        <div>
+            <div class="footer-logo">KΛG</div>
+            <p data-kg="Кыргызстан үчүн жасалган." data-ru="Создано для Кыргызстана.">Кыргызстан үчүн жасалган.</p>
+        </div>
+        <div>
+            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
+            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
+            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
+        </div>
+        <div class="footer-contacts">
+            <a href="https://wa.me/996707901214" target="_blank" class="contact-link">WhatsApp</a>
+            <a href="https://t.me/+996707901214" target="_blank" class="contact-link">Telegram</a>
+            <a href="tel:+996707901214" class="contact-link">+996 707 901 214</a>
+        </div>
+    </div>
+    <div class="copyright">© 2026 KAG. <span data-kg="Бардык укуктар корголгон." data-ru="Все права защищены.">Бардык укуктар корголгон.</span></div>
+</footer>
 <script src="script.js"></script>
 <script>
-    const form = document.getElementById("scriptForm".replace("script","service"));
-    const success = document.getElementById("successMsg");
     const icons = { "Ремонт":"🔧","Транспорт":"🚗","Тазалоо":"🧹","IT":"💻","Фото":"📸","Үй":"🏠","Билим":"🎓" };
     document.getElementById("serviceForm").addEventListener("submit", function (e) {
         e.preventDefault();
         const title = document.getElementById("title").value.trim();
-        const category = document.getElementById("category").value;
-        const description = document.getElementById("description").value.trim();
-        const price = Number(document.getElementById("price").value);
-        const city = document.getElementById("city").value;
-        const phone = document.getElementById("phone").value.trim();
         const extra = JSON.parse(localStorage.getItem("KAG_services") || "[]");
-        extra.push({ id: Date.now(), title, titleRu: title, category, description, descriptionRu: description, price, city, phone, icon: icons[category] || "✨" });
+        extra.push({
+            id: Date.now(),
+            title: title,
+            titleRu: title,
+            category: document.getElementById("category").value,
+            description: document.getElementById("description").value.trim(),
+            descriptionRu: document.getElementById("description").value.trim(),
+            price: Number(document.getElementById("price").value),
+            unit: document.getElementById("unit").value,
+            city: document.getElementById("city").value,
+            phone: document.getElementById("phone").value.trim(),
+            master: document.getElementById("master").value.trim(),
+            icon: icons[document.getElementById("category").value] || "✨",
+            rating: 5,
+            orders: 1
+        });
         localStorage.setItem("KAG_services", JSON.stringify(extra));
-        success.style.display = "block";
+        document.getElementById("successMsg").style.display = "block";
         this.reset();
         document.getElementById("city").value = "Бишкек";
-        setTimeout(function () { window.location.href = "marketplace.html"; }, 900);
+        setTimeout(function () { window.location.href = "marketplace.html"; }, 800);
     });
 </script>
 </body>
