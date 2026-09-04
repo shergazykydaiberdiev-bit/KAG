@@ -1,64 +1,236 @@
-const kgBtn = document.getElementById("kgBtn");
-const ruBtn = document.getElementById("ruBtn");
+/* =========================================
+   KAG — MAIN SCRIPT
+   ========================================= */
 
-function changeLanguage(language) {
-    document.documentElement.lang = language;
+const KAG = {
 
-    document.querySelectorAll("[data-kg][data-ru]").forEach(el => {
-        el.textContent = language === "kg"
-            ? el.getAttribute("data-kg")
-            : el.getAttribute("data-ru");
-    });
+    getUser() {
+        return JSON.parse(
+            localStorage.getItem("kagUser")
+        );
+    },
 
-    document.querySelectorAll("[data-kg-placeholder][data-ru-placeholder]").forEach(el => {
-        el.placeholder = language === "kg"
-            ? el.getAttribute("data-kg-placeholder")
-            : el.getAttribute("data-ru-placeholder");
-    });
+    setUser(user) {
+        localStorage.setItem(
+            "kagUser",
+            JSON.stringify(user)
+        );
+    },
 
-    if (kgBtn && ruBtn) {
-        if (language === "kg") {
-            kgBtn.classList.add("active");
-            ruBtn.classList.remove("active");
-        } else {
-            ruBtn.classList.add("active");
-            kgBtn.classList.remove("active");
+    logout() {
+        localStorage.removeItem("kagUser");
+        window.location.href = "login.html";
+    },
+
+
+    getOrders() {
+        return JSON.parse(
+            localStorage.getItem("kagOrders")
+        ) || [];
+    },
+
+    saveOrders(orders) {
+        localStorage.setItem(
+            "kagOrders",
+            JSON.stringify(orders)
+        );
+    },
+
+
+    createOrder(order) {
+
+        const orders = this.getOrders();
+
+        const newOrder = {
+
+            id: "KAG-" +
+                Math.floor(
+                    100000 +
+                    Math.random() * 900000
+                ),
+
+            status: "Заказ түзүлдү",
+
+            createdAt:
+                new Date().toISOString(),
+
+            ...order
+
+        };
+
+        orders.unshift(newOrder);
+
+        this.saveOrders(orders);
+
+        return newOrder;
+
+    },
+
+
+    updateOrderStatus(id, status) {
+
+        const orders = this.getOrders();
+
+        const order =
+            orders.find(
+                o => String(o.id) === String(id)
+            );
+
+        if (!order) return false;
+
+        order.status = status;
+
+        order.updatedAt =
+            new Date().toISOString();
+
+        this.saveOrders(orders);
+
+        return true;
+
+    },
+
+
+    getOrder(id) {
+
+        const orders = this.getOrders();
+
+        return orders.find(
+            o => String(o.id) === String(id)
+        );
+
+    },
+
+
+    addService(service) {
+
+        const services =
+            JSON.parse(
+                localStorage.getItem("kagServices")
+            ) || [];
+
+        service.id =
+            service.id ||
+            "service_" + Date.now();
+
+        service.createdAt =
+            new Date().toISOString();
+
+        services.unshift(service);
+
+        localStorage.setItem(
+            "kagServices",
+            JSON.stringify(services)
+        );
+
+        return service;
+
+    },
+
+
+    getServices() {
+
+        return JSON.parse(
+            localStorage.getItem("kagServices")
+        ) || [];
+
+    },
+
+
+    isLoggedIn() {
+
+        return !!this.getUser();
+
+    },
+
+
+    requireLogin() {
+
+        if (!this.isLoggedIn()) {
+
+            window.location.href =
+                "login.html";
+
+            return false;
+
         }
+
+        return true;
+
     }
 
-    const titles = {
-        "index.html": { kg: "KAG — Кызматтар платформасы", ru: "KAG — Платформа услуг" },
-        "login.html": { kg: "KAG — Кирүү", ru: "KAG — Вход" },
-        "marketplace.html": { kg: "KAG — Marketplace", ru: "KAG — Маркетплейс" },
-        "add-service.html": { kg: "KAG — Кызмат кошуу", ru: "KAG — Добавить услугу" }
-    };
+};
 
-    const path = window.location.pathname;
-    const page = path.split("/").pop() || "index.html";
-    if (titles[page]) document.title = titles[page][language];
 
-    localStorage.setItem("KAG_language", language);
-    window.dispatchEvent(new CustomEvent("languageChanged", { detail: language }));
+/* =========================================
+   HEADER USER
+   ========================================= */
+
+function updateKAGHeader() {
+
+    const user = KAG.getUser();
+
+    const loginButtons =
+        document.querySelectorAll(
+            "[data-kag-login]"
+        );
+
+    loginButtons.forEach(button => {
+
+        if (user) {
+
+            button.textContent =
+                user.name || "Профиль";
+
+            button.href =
+                "profile.html";
+
+        } else {
+
+            button.textContent =
+                "Кирүү";
+
+            button.href =
+                "login.html";
+
+        }
+
+    });
+
 }
 
-if (kgBtn) kgBtn.addEventListener("click", () => changeLanguage("kg"));
-if (ruBtn) ruBtn.addEventListener("click", () => changeLanguage("ru"));
 
-const savedLanguage = localStorage.getItem("KAG_language");
-changeLanguage(savedLanguage === "ru" ? "ru" : "kg");
+/* =========================================
+   LOGOUT BUTTON
+   ========================================= */
 
-const burger = document.getElementById("burger");
-const mobileMenu = document.getElementById("mobileMenu");
+document.addEventListener(
+    "click",
+    function(event) {
 
-if (burger && mobileMenu) {
-    burger.addEventListener("click", function () {
-        mobileMenu.classList.toggle("active");
-        burger.classList.toggle("open");
-    });
-    mobileMenu.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-            mobileMenu.classList.remove("active");
-            burger.classList.remove("open");
-        });
-    });
-}
+        const logoutButton =
+            event.target.closest(
+                "[data-kag-logout]"
+            );
+
+        if (!logoutButton) return;
+
+        event.preventDefault();
+
+        KAG.logout();
+
+    }
+);
+
+
+/* =========================================
+   INITIALIZE
+   ========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updateKAGHeader();
+
+    }
+);
