@@ -1,180 +1,489 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAG — Кызмат кошуу</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .service-page { min-height: 85vh; padding: 60px 0; }
-        .service-form { max-width: 700px; margin: auto; padding: 35px; border-radius: 20px; border: 1px solid rgba(212,175,55,.3); background: rgba(255,255,255,.035); }
-        .form-title { text-align: center; margin-bottom: 30px; }
-        .form-title h1 { font-size: 36px; margin-bottom: 8px; }
-        .form-title p { color: #9fafa8; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px; border-radius: 9px; border: 1px solid rgba(212,175,55,.25); background: rgba(255,255,255,.05); color: #F4EBD0; outline: none; font-size: 15px; }
-        .form-group select option { background: #06251B; color: #F4EBD0; }
-        .form-group textarea { min-height: 130px; resize: vertical; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #D4AF37; }
-        .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .submit-btn { width: 100%; border: none; padding: 16px; border-radius: 9px; background: #D4AF37; color: #06251B; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .success { display: none; margin-top: 20px; padding: 15px; border-radius: 10px; border: 1px solid rgba(212,175,55,.4); color: #D4AF37; text-align: center; }
-        .back-link { display: block; text-align: center; margin-top: 25px; color: #9fafa8; }
-        .menu a.active { color: #D4AF37; }
-        @media (max-width: 600px) {
-            .service-form { padding: 25px 18px; }
-            .price-row { grid-template-columns: 1fr; }
-            .form-title h1 { font-size: 30px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAG — Кызмат кошуу</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .add-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 20px 80px;
+    }
+
+    .add-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .add-header h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .add-header p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .add-layout {
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 25px;
+    }
+
+    .form-card,
+    .preview-card {
+      background: var(--green-light);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+    }
+
+    .form-card h2,
+    .preview-card h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: #06251B;
+      color: white;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .price-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .checkbox-row input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--gold);
+      color: #06251B;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      opacity: .9;
+    }
+
+    .preview-service {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 15px;
+    }
+
+    .preview-category {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .preview-title {
+      font-size: 23px;
+      font-weight: 800;
+      margin: 10px 0;
+    }
+
+    .preview-description {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .preview-price {
+      font-size: 22px;
+      font-weight: 800;
+      margin-top: 18px;
+    }
+
+    .preview-location {
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .info-box {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      background: rgba(212,175,55,.08);
+      border: 1px solid rgba(212,175,55,.2);
+      color: var(--cream);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 25px;
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: var(--gold);
+    }
+
+    @media (max-width: 800px) {
+      .add-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .add-header h1 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .price-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card,
+      .preview-card {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
 <header class="header">
-    <div class="container nav">
-        <a href="index.html" class="logo">K<span>Λ</span>G</a>
-        <nav class="menu">
-            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-            <a href="add-service.html" class="active" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
-        </nav>
-        <div class="nav-right">
-            <div class="language">
-                <button id="kgBtn" class="active">KG</button>
-                <span>|</span>
-                <button id="ruBtn">RU</button>
-            </div>
-            <a href="login.html" class="login-btn" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
-            <div class="burger" id="burger"><span></span><span></span><span></span></div>
-        </div>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-        <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-        <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
-        <a href="login.html" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
-    </div>
+  <div class="container">
+    <a href="index.html" class="logo">KΛG</a>
+
+    <nav class="nav">
+      <a href="index.html">Башкы бет</a>
+      <a href="marketplace.html">Кызматтар</a>
+      <a href="profile.html">Профиль</a>
+    </nav>
+  </div>
 </header>
-<main class="service-page">
-    <div class="container">
-        <form class="service-form" id="serviceForm">
-            <div class="form-title">
-                <span class="gold-text" data-kg="KAG КЫЗМАТТАР" data-ru="KAG УСЛУГИ">KAG КЫЗМАТТАР</span>
-                <h1 data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</h1>
-                <p data-kg="Кызматыңызды платформага жарыялаңыз." data-ru="Опубликуйте свою услугу на платформе.">Кызматыңызды платформага жарыялаңыз.</p>
-            </div>
-            <div class="form-group">
-                <label data-kg="Сиздин атыңыз" data-ru="Ваше имя">Сиздин атыңыз</label>
-                <input type="text" id="master" required data-kg-placeholder="Мисалы: Нурлан Б." data-ru-placeholder="Например: Нурлан Б." placeholder="Мисалы: Нурлан Б.">
-            </div>
-            <div class="form-group">
-                <label data-kg="Кызматтын аталышы" data-ru="Название услуги">Кызматтын аталышы</label>
-                <input type="text" id="title" required data-kg-placeholder="Мисалы: Сантехника оңдоо" data-ru-placeholder="Например: Ремонт сантехники" placeholder="Мисалы: Сантехника оңдоо">
-            </div>
-            <div class="form-group">
-                <label data-kg="Категория" data-ru="Категория">Категория</label>
-                <select id="category" required>
-                    <option value="">—</option>
-                    <option value="Ремонт">🔧 Ремонт</option>
-                    <option value="Транспорт">🚗 Транспорт</option>
-                    <option value="Тазалоо">🧹 Тазалоо</option>
-                    <option value="IT">💻 IT</option>
-                    <option value="Фото">📸 Фото & Видео</option>
-                    <option value="Үй">🏠 Үй кызматтары</option>
-                    <option value="Билим">🎓 Билим берүү</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label data-kg="Сүрөттөмө" data-ru="Описание">Сүрөттөмө</label>
-                <textarea id="description" required data-kg-placeholder="Кызмат эмне кылат, канча убакыт, эмне кирет..." data-ru-placeholder="Что входит в услугу, сроки, детали..." placeholder="Кызмат эмне кылат, канча убакыт, эмне кирет..."></textarea>
-            </div>
-            <div class="price-row">
-                <div class="form-group">
-                    <label data-kg="Баасы (сом)" data-ru="Цена (сом)">Баасы (сом)</label>
-                    <input type="number" id="price" min="0" required placeholder="1500">
-                </div>
-                <div class="form-group">
-                    <label data-kg="Баасы эмне үчүн" data-ru="Цена за">Баасы эмне үчүн</label>
-                    <select id="unit">
-                        <option value="иш">иш / работа</option>
-                        <option value="саат">саат / час</option>
-                        <option value="күн">күн / день</option>
-                        <option value="жол">жол / поездка</option>
-                        <option value="долбоор">долбоор / проект</option>
-                        <option value="баштап">баштап / от</option>
-                    </select>
-                </div>
-            </div>
-            <div class="price-row">
-                <div class="form-group">
-                    <label data-kg="Шаар" data-ru="Город">Шаар</label>
-                    <select id="city" required>
-                        <option value="Бишкек">Бишкек</option>
-                        <option value="Ош">Ош</option>
-                        <option value="Жалал-Абад">Жалал-Абад</option>
-                        <option value="Каракол">Каракол</option>
-                        <option value="Чолпон-Ата">Чолпон-Ата</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-kg="Телефон / WhatsApp" data-ru="Телефон / WhatsApp">Телефон / WhatsApp</label>
-                    <input type="tel" id="phone" required placeholder="+996 700 000 000">
-                </div>
-            </div>
-            <button type="submit" class="submit-btn" data-kg="Жарыялоо" data-ru="Опубликовать">Жарыялоо</button>
-            <div class="success" id="successMsg" data-kg="Кызмат сакталды. Каталогдо көрүнөт." data-ru="Услуга сохранена и появится в каталоге.">Кызмат сакталды. Каталогдо көрүнөт.</div>
-        </form>
-        <a href="marketplace.html" class="back-link" data-kg="← Кызматтарга кайтуу" data-ru="← Вернуться к услугам">← Кызматтарга кайтуу</a>
-    </div>
+
+<main class="add-page">
+
+  <a href="marketplace.html" class="back-link">
+    ← Кызматтарга кайтуу
+  </a>
+
+  <div class="add-header">
+    <h1>Кызматыңызды кошуңуз</h1>
+    <p>
+      KAG аркылуу жаңы кардарларды табыңыз
+    </p>
+  </div>
+
+  <div class="add-layout">
+
+    <!-- FORM -->
+    <section class="form-card">
+
+      <h2>Кызмат жөнүндө</h2>
+
+      <form id="serviceForm">
+
+        <div class="form-group">
+          <label for="category">Категория</label>
+
+          <select id="category" required>
+            <option value="">Категория тандаңыз</option>
+            <option value="Ремонт">🔧 Ремонт</option>
+            <option value="Тазалоо">🧹 Тазалоо</option>
+            <option value="Транспорт">🚚 Транспорт</option>
+            <option value="IT">💻 IT</option>
+            <option value="Фото / Видео">📸 Фото / Видео</option>
+            <option value="Үй кызматтары">🏠 Үй кызматтары</option>
+            <option value="Башка">➕ Башка</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="title">Кызматтын аталышы</label>
+
+          <input
+            type="text"
+            id="title"
+            placeholder="Мисалы: Сантехникалык иштер"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="description">Кызматтын сүрөттөмөсү</label>
+
+          <textarea
+            id="description"
+            placeholder="Кандай кызмат көрсөтөсүз? Тажрыйбаңыз, эмне иштерди жасай турганыңызды жазыңыз."
+            required
+          ></textarea>
+        </div>
+
+        <div class="price-row">
+
+          <div class="form-group">
+            <label for="price">Баасы, сом</label>
+
+            <input
+              type="number"
+              id="price"
+              placeholder="1200"
+              min="0"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="priceType">Баанын түрү</label>
+
+            <select id="priceType">
+              <option value="баштап">Баштап</option>
+              <option value="так">Так баа</option>
+              <option value="макулдашуу">Макулдашуу</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="city">Шаар / район</label>
+
+          <input
+            type="text"
+            id="city"
+            placeholder="Мисалы: Бишкек"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="availability">Учурдагы статус</label>
+
+          <select id="availability">
+            <option value="online">🟢 Азыр бошмун</option>
+            <option value="offline">⚪ Азыр бош эмесмин</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Байланыш телефону</label>
+
+          <input
+            type="tel"
+            id="phone"
+            placeholder="+996..."
+            required
+          >
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="agree" required>
+
+          <label for="agree">
+            Маалыматтарым туура экенин ырастайм
+          </label>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          🚀 Кызматты KAG'га кошуу
+        </button>
+
+      </form>
+
+    </section>
+
+    <!-- PREVIEW -->
+    <aside class="preview-card">
+
+      <h2>Алдын ала көрүнүш</h2>
+
+      <div class="preview-service">
+
+        <div class="preview-category" id="previewCategory">
+          КАТЕГОРИЯ
+        </div>
+
+        <div class="preview-title" id="previewTitle">
+          Кызматтын аталышы
+        </div>
+
+        <div class="preview-description" id="previewDescription">
+          Бул жерде сиздин кызматтын сүрөттөмөсү көрсөтүлөт.
+        </div>
+
+        <div class="preview-price" id="previewPrice">
+          0 сом
+        </div>
+
+        <div class="preview-location" id="previewLocation">
+          📍 Шаар көрсөтүлө элек
+        </div>
+
+      </div>
+
+      <div class="info-box">
+        💡 <strong>KAG кандай иштейт?</strong><br><br>
+
+        1. Кызматыңызды кошосуз.<br>
+        2. Кардарлар сизди табат.<br>
+        3. Заказ аласыз.<br>
+        4. Кызмат көрсөтөсүз.<br>
+        5. Кардар баа берет.<br>
+        6. Рейтинг топтойсуз.
+      </div>
+
+    </aside>
+
+  </div>
+
 </main>
-<footer class="footer">
-    <div class="container footer-content">
-        <div>
-            <div class="footer-logo">KΛG</div>
-            <p data-kg="Кыргызстан үчүн жасалган." data-ru="Создано для Кыргызстана.">Кыргызстан үчүн жасалган.</p>
-        </div>
-        <div>
-            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
-        </div>
-        <div class="footer-contacts">
-            <a href="https://wa.me/996707901214" target="_blank" class="contact-link">WhatsApp</a>
-            <a href="https://t.me/+996707901214" target="_blank" class="contact-link">Telegram</a>
-            <a href="tel:+996707901214" class="contact-link">+996 707 901 214</a>
-        </div>
-    </div>
-    <div class="copyright">© 2026 KAG. <span data-kg="Бардык укуктар корголгон." data-ru="Все права защищены.">Бардык укуктар корголгон.</span></div>
-</footer>
-<script src="script.js"></script>
+
 <script>
-    const icons = { "Ремонт":"🔧","Транспорт":"🚗","Тазалоо":"🧹","IT":"💻","Фото":"📸","Үй":"🏠","Билим":"🎓" };
-    document.getElementById("serviceForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const title = document.getElementById("title").value.trim();
-        const extra = JSON.parse(localStorage.getItem("KAG_services") || "[]");
-        extra.push({
-            id: Date.now(),
-            title: title,
-            titleRu: title,
-            category: document.getElementById("category").value,
-            description: document.getElementById("description").value.trim(),
-            descriptionRu: document.getElementById("description").value.trim(),
-            price: Number(document.getElementById("price").value),
-            unit: document.getElementById("unit").value,
-            city: document.getElementById("city").value,
-            phone: document.getElementById("phone").value.trim(),
-            master: document.getElementById("master").value.trim(),
-            icon: icons[document.getElementById("category").value] || "✨",
-            rating: 5,
-            orders: 1
-        });
-        localStorage.setItem("KAG_services", JSON.stringify(extra));
-        document.getElementById("successMsg").style.display = "block";
-        this.reset();
-        document.getElementById("city").value = "Бишкек";
-        setTimeout(function () { window.location.href = "marketplace.html"; }, 800);
-    });
+const form = document.getElementById("serviceForm");
+
+const category = document.getElementById("category");
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+const price = document.getElementById("price");
+const priceType = document.getElementById("priceType");
+const city = document.getElementById("city");
+const availability = document.getElementById("availability");
+const phone = document.getElementById("phone");
+
+const previewCategory = document.getElementById("previewCategory");
+const previewTitle = document.getElementById("previewTitle");
+const previewDescription = document.getElementById("previewDescription");
+const previewPrice = document.getElementById("previewPrice");
+const previewLocation = document.getElementById("previewLocation");
+
+function updatePreview() {
+
+  previewCategory.textContent =
+    category.value || "КАТЕГОРИЯ";
+
+  previewTitle.textContent =
+    title.value || "Кызматтын аталышы";
+
+  previewDescription.textContent =
+    description.value ||
+    "Бул жерде сиздин кызматтын сүрөттөмөсү көрсөтүлөт.";
+
+  previewPrice.textContent =
+    price.value
+      ? price.value + " сом (" + priceType.value + ")"
+      : "0 сом";
+
+  previewLocation.textContent =
+    city.value
+      ? "📍 " + city.value
+      : "📍 Шаар көрсөтүлө элек";
+}
+
+[
+  category,
+  title,
+  description,
+  price,
+  priceType,
+  city,
+  availability,
+  phone
+].forEach(element => {
+  element.addEventListener("input", updatePreview);
+  element.addEventListener("change", updatePreview);
+});
+
+
+form.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const service = {
+    id: Date.now(),
+    category: category.value,
+    title: title.value,
+    description: description.value,
+    price: Number(price.value),
+    priceType: priceType.value,
+    city: city.value,
+    availability: availability.value,
+    phone: phone.value,
+    rating: 0,
+    reviews: 0,
+    verified: false
+  };
+
+  const services =
+    JSON.parse(localStorage.getItem("kagServices")) || [];
+
+  services.push(service);
+
+  localStorage.setItem(
+    "kagServices",
+    JSON.stringify(services)
+  );
+
+  alert(
+    "✅ Кызматыңыз KAG'га кошулду!\n\n" +
+    "Кийинки кадамда бул кызмат Marketplace'те автоматтык көрүнөт."
+  );
+
+  form.reset();
+  updatePreview();
+});
 </script>
+
 </body>
 </html>
