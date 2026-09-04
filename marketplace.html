@@ -1,728 +1,584 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAG Marketplace — Кызматтар жана мастерлер</title>
-    <meta name="description" content="KAG Marketplace — Кыргызстандагы ишенимдүү адистерди жана кызматтарды табыңыз.">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .marketplace-page {
-            padding: 60px 0 100px;
-        }
-        .market-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        .market-header h1 {
-            font-size: clamp(34px, 5vw, 55px);
-            line-height: 1.1;
-        }
-        .market-header h1 span {
-            color: var(--gold);
-        }
-        .market-header p {
-            color: var(--muted);
-            margin-top: 10px;
-        }
-        .search-large {
-            display: flex;
-            gap: 10px;
-            background: #fff;
-            padding: 8px;
-            border-radius: 12px;
-            max-width: 520px;
-        }
-        .search-large input {
-            flex: 1;
-            min-width: 0;
-            border: 0;
-            outline: 0;
-            padding: 12px;
-            font-size: 15px;
-        }
-        .search-large button {
-            border: 0;
-            background: var(--green);
-            color: var(--gold);
-            border-radius: 8px;
-            padding: 0 18px;
-            cursor: pointer;
-            font-weight: 800;
-        }
-        .market-layout {
-            display: grid;
-            grid-template-columns: 230px 1fr;
-            gap: 25px;
-        }
-        .filters {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            background: rgba(255,255,255,.025);
-            height: fit-content;
-        }
-        .filters h3 {
-            margin-bottom: 15px;
-        }
-        .filter-title {
-            color: var(--gold);
-            font-size: 12px;
-            font-weight: 800;
-            margin: 22px 0 10px;
-            letter-spacing: 1px;
-        }
-        .filter-button {
-            display: block;
-            width: 100%;
-            border: 0;
-            background: transparent;
-            color: var(--muted);
-            text-align: left;
-            padding: 9px 0;
-            cursor: pointer;
-        }
-        .filter-button:hover,
-        .filter-button.active {
-            color: var(--gold);
-        }
-        .master-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
-        .results-count {
-            color: var(--muted);
-            font-size: 14px;
-        }
-        .sort-select {
-            background: var(--green-light);
-            color: var(--cream);
-            border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 8px;
-        }
-        .master-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-        }
-        .master-card {
-            position: relative;
-            border: 1px solid var(--border);
-            border-radius: 17px;
-            padding: 20px;
-            background: rgba(255,255,255,.025);
-            transition: .25s;
-        }
-        .master-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--gold);
-        }
-        .master-top {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-        }
-        .master-avatar {
-            width: 58px;
-            height: 58px;
-            display: grid;
-            place-items: center;
-            border-radius: 50%;
-            background: #123c2d;
-            font-size: 27px;
-            flex-shrink: 0;
-        }
-        .master-name {
-            font-size: 18px;
-            font-weight: 800;
-        }
-        .verified {
-            color: var(--gold);
-            font-size: 12px;
-            font-weight: 700;
-        }
-        .online {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            color: #8fd6a8;
-            font-size: 11px;
-            font-weight: 800;
-        }
-        .master-service {
-            color: var(--muted);
-            font-size: 14px;
-            margin: 18px 0;
-        }
-        .master-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--muted);
-            border-top: 1px solid rgba(255,255,255,.06);
-            padding-top: 14px;
-        }
-        .master-price {
-            color: var(--cream);
-            font-weight: 800;
-        }
-        .master-actions {
-            display: flex;
-            gap: 9px;
-            margin-top: 17px;
-        }
-        .master-actions a {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 800;
-        }
-        .profile-link {
-            border: 1px solid var(--border);
-            color: var(--gold);
-        }
-        .book-link {
-            background: var(--gold);
-            color: var(--green);
-        }
-        .empty-state {
-            display: none;
-            text-align: center;
-            padding: 60px 20px;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            color: var(--muted);
-        }
-        @media (max-width: 850px) {
-            .market-header {
-                display: block;
-            }
-            .search-large {
-                margin-top: 25px;
-                max-width: none;
-            }
-            .market-layout {
-                grid-template-columns: 1fr;
-            }
-            .filters {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            .filters h3,
-            .filter-title {
-                width: 100%;
-            }
-            .filter-button {
-                width: auto;
-                border: 1px solid var(--border);
-                border-radius: 20px;
-                padding: 7px 12px;
-            }
-        }
-        @media (max-width: 600px) {
-            .master-grid {
-                grid-template-columns: 1fr;
-            }
-            .master-toolbar {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KAG — Кызматтар</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .market-page {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px 80px;
+    }
+
+    .market-head {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .market-head h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .market-head p {
+      color: var(--muted);
+    }
+
+    .market-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .market-search {
+      flex: 1;
+      padding: 15px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--green-light);
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .add-btn {
+      padding: 15px 22px;
+      border-radius: 12px;
+      background: var(--gold);
+      color: #06251B;
+      text-decoration: none;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--cream);
+      cursor: pointer;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--gold);
+      color: #06251B;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--green-light);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      transition: .2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .service-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .category {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .online {
+      color: #75d69a;
+      font-size: 13px;
+    }
+
+    .offline {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .service-card h3 {
+      font-size: 21px;
+      margin: 8px 0;
+    }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.5;
+      min-height: 48px;
+    }
+
+    .location {
+      margin-top: 15px;
+      color: var(--cream);
+      font-size: 14px;
+    }
+
+    .service-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .rating {
+      color: var(--gold);
+    }
+
+    .card-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .card-btn {
+      flex: 1;
+      text-align: center;
+      padding: 11px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      color: var(--cream);
+    }
+
+    .card-btn.primary {
+      background: var(--gold);
+      color: #06251B;
+      border: none;
+    }
+
+    .verified {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 9px;
+      border-radius: 8px;
+      background: rgba(212,175,55,.12);
+      color: var(--gold);
+      font-size: 12px;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .market-actions {
+        flex-direction: column;
+      }
+
+      .market-head h1 {
+        font-size: 32px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
 <header class="header">
-    <div class="container nav">
-        <a href="index.html" class="logo">
-            K<span>Λ</span>G
-        </a>
-        <nav class="menu">
-            <a href="index.html">Башкы бет</a>
-            <a href="marketplace.html">Marketplace</a>
-            <a href="index.html#how">Кантип иштейт?</a>
-        </nav>
-        <div class="nav-right">
-            <a href="login.html" class="login-btn">
-                Кирүү
-            </a>
-            <div class="burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div>
+  <div class="container">
+
+    <a href="index.html" class="logo">KΛG</a>
+
+    <nav class="nav">
+      <a href="index.html">Башкы бет</a>
+      <a href="marketplace.html">Кызматтар</a>
+      <a href="add-service.html">Кызмат кошуу</a>
+      <a href="profile.html">Профиль</a>
+    </nav>
+
+  </div>
 </header>
-<main class="marketplace-page">
-    <div class="container">
-        <div class="market-header">
-            <div>
-                <span class="gold-text">KAG MARKETPLACE</span>
-                <h1>
-                    Керектүү <span>мастерди</span> тап.
-                </h1>
-                <p>
-                    Рейтингин, баасын жана азыр бош экенин салыштыр.
-                </p>
-            </div>
-            <form class="search-large" id="searchForm">
-                <input
-                    type="search"
-                    id="searchInput"
-                    placeholder="Мисалы: сантехник, электрик, уборка..."
-                >
-                <button type="submit">
-                    Издөө
-                </button>
-            </form>
-        </div>
-        <div class="market-layout">
-            <!-- FILTERS -->
-            <aside class="filters">
-                <h3>Фильтр</h3>
-                <div class="filter-title">
-                    КЫЗМАТ
-                </div>
-                <button class="filter-button active" data-category="all">
-                    Бардыгы
-                </button>
-                <button class="filter-button" data-category="Ремонт">
-                    🔧 Ремонт
-                </button>
-                <button class="filter-button" data-category="Транспорт">
-                    🚗 Транспорт
-                </button>
-                <button class="filter-button" data-category="Тазалоо">
-                    🧹 Тазалоо
-                </button>
-                <button class="filter-button" data-category="IT">
-                    💻 IT
-                </button>
-                <button class="filter-button" data-category="Фото">
-                    📸 Фото
-                </button>
-                <button class="filter-button" data-category="Үй">
-                    🏠 Үй кызматтары
-                </button>
-                <div class="filter-title">
-                    СТАТУС
-                </div>
-                <button class="filter-button" data-status="available">
-                    🟢 Азыр бош
-                </button>
-                <button class="filter-button" data-status="verified">
-                    🛡️ Verified
-                </button>
-            </aside>
-            <!-- RESULTS -->
-            <section>
-                <div class="master-toolbar">
-                    <div class="results-count">
-                        <strong id="resultsCount">6</strong> мастер табылды
-                    </div>
-                    <select class="sort-select" id="sortSelect">
-                        <option value="rating">
-                            Рейтинг боюнча
-                        </option>
-                        <option value="price">
-                            Баасы боюнча
-                        </option>
-                        <option value="online">
-                            Азыр боштор
-                        </option>
-                    </select>
-                </div>
-                <div class="master-grid" id="masterGrid">
-                    <!-- MASTER 1 -->
-                    <article
-                        class="master-card"
-                        data-name="Азамат"
-                        data-category="Ремонт"
-                        data-rating="4.9"
-                        data-price="1200"
-                        data-online="true"
-                        data-verified="true">
-                        <span class="online">
-                            🟢 АЗЫР БОШ
-                        </span>
-                        <div class="master-top">
-                            <div class="master-avatar">
-                                👨‍🔧
-                            </div>
-                            <div>
-                                <div class="master-name">
-                                    Азамат
-                                </div>
-                                <div class="verified">
-                                    ✓ KAG Verified
-                                </div>
-                            </div>
-                        </div>
-                        <div class="master-service">
-                            🔧 Сантехник • Ремонт
-                        </div>
-                        <div class="master-info">
-                            <span>⭐ 4.9</span>
-                            <span>📍 Бишкек</span>
-                            <span class="master-price">
-                                1 200 сомдон
-                            </span>
-                        </div>
-                        <div class="master-actions">
-                            <a
-                                href="profile.html"
-                                class="profile-link">
-                                Профиль
-                            </a>
-                            <a
-                                href="checkout.html?master=azamat"
-                                class="book-link">
-                                Заказ берүү
-                            </a>
-                        </div>
-                    </article>
-                    <!-- MASTER 2 -->
-                    <article
-                        class="master-card"
-                        data-name="Бекзат"
-                        data-category="Тазалоо"
-                        data-rating="4.8"
-                        data-price="1000"
-                        data-online="true"
-                        data-verified="true">
-                        <span class="online">
-                            🟢 АЗЫР БОШ
-                        </span>
-                        <div class="master-top">
-                            <div class="master-avatar">
-                                🧹
-                            </div>
-                            <div>
-                                <div class="master-name">
-                                    Бекзат
-                                </div>
-                                <div class="verified">
-                                    ✓ KAG Verified
-                                </div>
-                            </div>
-                        </div>
-                        <div class="master-service">
-                            🧹 Үй жана офис тазалоо
-                        </div>
-                        <div class="master-info">
-                            <span>⭐ 4.8</span>
-                            <span>📍 Бишкек</span>
-                            <span class="master-price">
-                                1 000 сомдон
-                            </span>
-                        </div>
-                        <div class="master-actions">
-                            <a href="profile.html"
-                               class="profile-link">
-                                Профиль
-                            </a>
-                            <a href="checkout.html?master=bekzat"
-                               class="book-link">
-                                Заказ берүү
-                            </a>
-                        </div>
-                    </article>
-                    <!-- MASTER 3 -->
-                    <article
-                        class="master-card"
-                        data-name="Нурбек"
-                        data-category="Транспорт"
-                        data-rating="4.7"
-                        data-price="800"
-                        data-online="false"
-                        data-verified="true">
-                        <div class="master-top">
-                            <div class="master-avatar">
-                                🚗
-                            </div>
-                            <div>
-                                <div class="master-name">
-                                    Нурбек
-                                </div>
-                                <div class="verified">
-                                    ✓ KAG Verified
-                                </div>
-                            </div>
-                        </div>
-                        <div class="master-service">
-                            🚗 Жүк ташуу • Айдоочу
-                        </div>
-                        <div class="master-info">
-                            <span>⭐ 4.7</span>
-                            <span>📍 Бишкек</span>
-                            <span class="master-price">
-                                800 сомдон
-                            </span>
-                        </div>
-                        <div class="master-actions">
-                            <a href="profile.html"
-                               class="profile-link">
-                                Профиль
-                            </a>
-                            <a href="checkout.html?master=nurbek"
-                               class="book-link">
-                                Заказ берүү
-                            </a>
-                        </div>
-                    </article>
-                    <!-- MASTER 4 -->
-                    <article
-                        class="master-card"
-                        data-name="Эрмек"
-                        data-category="IT"
-                        data-rating="5.0"
-                        data-price="2500"
-                        data-online="true"
-                        data-verified="true">
-                        <span class="online">
-                            🟢 АЗЫР БОШ
-                        </span>
-                        <div class="master-top">
-                            <div class="master-avatar">
-                                💻
-                            </div>
-                            <div>
-                                <div class="master-name">
-                                    Эрмек
-                                </div>
-                                <div class="verified">
-                                    ✓ KAG Verified
-                                </div>
-                            </div>
-                        </div>
-                        <div class="master-service">
-                            💻 Сайт • Дизайн • IT
-                        </div>
-                        <div class="master-info">
-                            <span>⭐ 5.0</span>
-                            <span>📍 Бишкек</span>
-                            <span class="master-price">
-                                2 500 сомдон
-                            </span>
-                        </div>
-                        <div class="master-actions">
-                            <a href="profile.html"
-                               class="profile-link">
-                                Профиль
-                            </a>
-                            <a href="checkout.html?master=ermek"
-                               class="book-link">
-                                Заказ берүү
-                            </a>
-                        </div>
-                    </article>
-                    <!-- MASTER 5 -->
-                    <article
-                        class="master-card"
-                        data-name="Айбек"
-                        data-category="Фото"
-                        data-rating="4.9"
-                        data-price="3000"
-                        data-online="false"
-                        data-verified="true">
-                        <div class="master-top">
-                            <div class="master-avatar">
-                                📸
-                            </div>
-                            <div>
-                                <div class="master-name">
-                                    Айбек
-                                </div>
-                                <div class="verified">
-                                    ✓ KAG Verified
-                                </div>
-                            </div>
-                        </div>
-                        <div class="master-service">
-                            📸 Фото • Видео
-                        </div>
-                        <div class="master-info">
-                            <span>⭐ 4.9</span>
-                            <span>📍 Бишкек</span>
-                            <span class="master-price">
-                                3 000 сомдон
-                            </span>
-                        </div>
-                        <div class="master-actions">
-                            <a href="profile.html"
-                               class="profile-link">
-                                Профиль
-                            </a>
-                            <a href="checkout.html?master=aibek"
-                               class="book-link">
-                                Заказ берүү
-                            </a>
-                        </div>
-                    </article>
-                    <!-- MASTER 6 -->
-                    <article
-                        class="master-card"
-                        data-name="Руслан"
-                        data-category="Үй"
-                        data-rating="4.6"
-                        data-price="1500"
-                        data-online="true"
-                        data-verified="false">
-                        <span class="online">
-                            🟢 АЗЫР БОШ
-                        </span>
-                        <div class="master-top">
-                            <div class="master-avatar">
-                                🏠
-                            </div>
-                            <div>
-                                <div class="master-name">
-                                    Руслан
-                                </div>
-                            </div>
-                        </div>
-                        <div class="master-service">
-                            🏠 Курулуш • Ремонт
-                        </div>
-                        <div class="master-info">
-                            <span>⭐ 4.6</span>
-                            <span>📍 Бишкек</span>
-                            <span class="master-price">
-                                1 500 сомдон
-                            </span>
-                        </div>
-                        <div class="master-actions">
-                            <a href="profile.html"
-                               class="profile-link">
-                                Профиль
-                            </a>
-                            <a href="checkout.html?master=ruslan"
-                               class="book-link">
-                                Заказ берүү
-                            </a>
-                        </div>
-                    </article>
-                </div>
-                <div class="empty-state" id="emptyState">
-                    <h2>Мастер табылган жок</h2>
-                    <p>
-                        Издөөнү өзгөртүп көрүңүз же башка категорияны тандаңыз.
-                    </p>
-                </div>
-            </section>
-        </div>
-    </div>
+
+
+<main class="market-page">
+
+  <div class="market-head">
+
+    <h1>KAG Marketplace</h1>
+
+    <p>
+      Керектүү адисти таап, кызматка заказ бериңиз
+    </p>
+
+  </div>
+
+
+  <div class="market-actions">
+
+    <input
+      type="text"
+      id="search"
+      class="market-search"
+      placeholder="🔍 Кызмат же адис издеңиз..."
+    >
+
+    <a href="add-service.html" class="add-btn">
+      + Кызмат кошуу
+    </a>
+
+  </div>
+
+
+  <div class="filters">
+
+    <button class="filter-btn active" data-category="all">
+      Баары
+    </button>
+
+    <button class="filter-btn" data-category="Ремонт">
+      🔧 Ремонт
+    </button>
+
+    <button class="filter-btn" data-category="Тазалоо">
+      🧹 Тазалоо
+    </button>
+
+    <button class="filter-btn" data-category="Транспорт">
+      🚚 Транспорт
+    </button>
+
+    <button class="filter-btn" data-category="IT">
+      💻 IT
+    </button>
+
+    <button class="filter-btn" data-category="Фото / Видео">
+      📸 Фото / Видео
+    </button>
+
+    <button class="filter-btn" data-category="Үй кызматтары">
+      🏠 Үй кызматтары
+    </button>
+
+  </div>
+
+
+  <div id="servicesGrid" class="services-grid"></div>
+
 </main>
+
+
 <script>
-const cards = [...document.querySelectorAll(".master-card")];
-const searchInput = document.getElementById("searchInput");
-const searchForm = document.getElementById("searchForm");
-const resultsCount = document.getElementById("resultsCount");
-const emptyState = document.getElementById("emptyState");
-const sortSelect = document.getElementById("sortSelect");
-let currentCategory = "all";
-let currentStatus = "all";
-function filterMasters() {
-    const query = searchInput.value.toLowerCase().trim();
-    let visible = [];
-    cards.forEach(card => {
-        const name = card.dataset.name.toLowerCase();
-        const category = card.dataset.category.toLowerCase();
-        const service = card.innerText.toLowerCase();
-        const matchesSearch =
-            !query ||
-            name.includes(query) ||
-            category.includes(query) ||
-            service.includes(query);
-        const matchesCategory =
-            currentCategory === "all" ||
-            card.dataset.category === currentCategory;
-        let matchesStatus = true;
-        if (currentStatus === "available") {
-            matchesStatus = card.dataset.online === "true";
-        }
-        if (currentStatus === "verified") {
-            matchesStatus = card.dataset.verified === "true";
-        }
-        const show =
-            matchesSearch &&
-            matchesCategory &&
-            matchesStatus;
-        card.style.display = show ? "" : "block";
-        if (!show) {
-            card.style.display = "none";
-        }
-        if (show) {
-            visible.push(card);
-        }
-    });
-    resultsCount.textContent = visible.length;
-    emptyState.style.display =
-        visible.length === 0 ? "block" : "none";
+
+const grid = document.getElementById("servicesGrid");
+const search = document.getElementById("search");
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+let selectedCategory = "all";
+
+
+/* Демо кызматтар */
+
+const demoServices = [
+
+  {
+    id: "demo1",
+    category: "Ремонт",
+    title: "Сантехникалык иштер",
+    description: "Кран, труба, суу агуу жана сантехника оңдоо.",
+    price: 1200,
+    priceType: "баштап",
+    city: "Бишкек",
+    availability: "online",
+    rating: 4.9,
+    reviews: 124,
+    verified: true
+  },
+
+  {
+    id: "demo2",
+    category: "Тазалоо",
+    title: "Үй тазалоо",
+    description: "Үй, квартира жана офис үчүн профессионалдык тазалоо.",
+    price: 1000,
+    priceType: "баштап",
+    city: "Бишкек",
+    availability: "online",
+    rating: 4.8,
+    reviews: 89,
+    verified: true
+  },
+
+  {
+    id: "demo3",
+    category: "Транспорт",
+    title: "Жүк ташуу",
+    description: "Бишкек ичинде жүк ташуу жана көчүрүү кызматы.",
+    price: 800,
+    priceType: "баштап",
+    city: "Бишкек",
+    availability: "offline",
+    rating: 4.7,
+    reviews: 63,
+    verified: true
+  },
+
+  {
+    id: "demo4",
+    category: "IT",
+    title: "Компьютер оңдоо",
+    description: "Windows орнотуу, компьютер жана ноутбук оңдоо.",
+    price: 1500,
+    priceType: "баштап",
+    city: "Бишкек",
+    availability: "online",
+    rating: 5.0,
+    reviews: 51,
+    verified: true
+  },
+
+  {
+    id: "demo5",
+    category: "Фото / Видео",
+    title: "Фото жана видео тартуу",
+    description: "Той, иш-чара жана бизнес үчүн фото-видео.",
+    price: 3000,
+    priceType: "баштап",
+    city: "Бишкек",
+    availability: "offline",
+    rating: 4.9,
+    reviews: 37,
+    verified: true
+  }
+
+];
+
+
+function getServices() {
+
+  const saved =
+    JSON.parse(localStorage.getItem("kagServices")) || [];
+
+  return [...saved, ...demoServices];
+
 }
-document.querySelectorAll(".filter-button").forEach(button => {
-    button.addEventListener("click", () => {
-        document
-            .querySelectorAll(".filter-button")
-            .forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
-        if (button.dataset.category) {
-            currentCategory = button.dataset.category;
-            currentStatus = "all";
-        }
-        if (button.dataset.status) {
-            currentStatus = button.dataset.status;
-            currentCategory = "all";
-        }
-        filterMasters();
-    });
+
+
+function renderServices() {
+
+  const services = getServices();
+
+  const searchText =
+    search.value.toLowerCase().trim();
+
+
+  const filtered = services.filter(service => {
+
+    const matchesCategory =
+      selectedCategory === "all" ||
+      service.category === selectedCategory;
+
+    const text =
+      (
+        service.title +
+        " " +
+        service.description +
+        " " +
+        service.city +
+        " " +
+        service.category
+      ).toLowerCase();
+
+    const matchesSearch =
+      text.includes(searchText);
+
+    return matchesCategory && matchesSearch;
+
+  });
+
+
+  grid.innerHTML = "";
+
+
+  if (filtered.length === 0) {
+
+    grid.innerHTML = `
+      <div class="empty">
+        <h2>Кызмат табылган жок</h2>
+        <p>Башка издөө сөзүн же категорияны колдонуп көрүңүз.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  filtered.forEach(service => {
+
+    const online =
+      service.availability === "online";
+
+
+    const priceText =
+      service.priceType === "макулдашуу"
+        ? "Баасы макулдашуу боюнча"
+        : `${service.price} сом`;
+
+
+    const rating =
+      service.rating > 0
+        ? `⭐ ${service.rating}`
+        : "⭐ Жаңы";
+
+
+    const verified =
+      service.verified
+        ? `<span class="verified">✓ KAG Verified</span>`
+        : "";
+
+
+    const card = document.createElement("div");
+
+    card.className = "service-card";
+
+
+    card.innerHTML = `
+
+      <div class="service-top">
+
+        <span class="category">
+          ${service.category}
+        </span>
+
+        <span class="${online ? "online" : "offline"}">
+          ${online ? "● Азыр бош" : "○ Бош эмес"}
+        </span>
+
+      </div>
+
+
+      <h3>
+        ${service.title}
+      </h3>
+
+
+      <div class="description">
+        ${service.description}
+      </div>
+
+
+      ${verified}
+
+
+      <div class="location">
+        📍 ${service.city}
+      </div>
+
+
+      <div class="service-bottom">
+
+        <div class="price">
+          ${priceText}
+        </div>
+
+        <div class="rating">
+          ${rating}
+        </div>
+
+      </div>
+
+
+      <div class="card-buttons">
+
+        <a
+          href="profile.html?id=${service.id}"
+          class="card-btn"
+        >
+          Профиль
+        </a>
+
+        <a
+          href="checkout.html?service=${service.id}"
+          class="card-btn primary"
+        >
+          Заказ берүү
+        </a>
+
+      </div>
+
+    `;
+
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* Издөө */
+
+search.addEventListener("input", renderServices);
+
+
+/* Категория */
+
+filterButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    filterButtons.forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    selectedCategory =
+      button.dataset.category;
+
+    renderServices();
+
+  });
+
 });
-searchInput.addEventListener("input", filterMasters);
-searchForm.addEventListener("submit", event => {
-    event.preventDefault();
-    filterMasters();
-});
-sortSelect.addEventListener("change", () => {
-    const grid = document.getElementById("masterGrid");
-    const sorted = [...cards].sort((a, b) => {
-        if (sortSelect.value === "rating") {
-            return Number(b.dataset.rating) - Number(a.dataset.rating);
-        }
-        if (sortSelect.value === "price") {
-            return Number(a.dataset.price) - Number(b.dataset.price);
-        }
-        if (sortSelect.value === "online") {
-            return Number(b.dataset.online) - Number(a.dataset.online);
-        }
-    });
-    sorted.forEach(card => grid.appendChild(card));
-    filterMasters();
-});
-const params = new URLSearchParams(window.location.search);
-const urlQuery = params.get("q");
-const urlCategory = params.get("category");
-const urlStatus = params.get("status");
-if (urlQuery) {
-    searchInput.value = urlQuery;
-}
-if (urlCategory) {
-    currentCategory = urlCategory;
-}
-if (urlStatus) {
-    currentStatus = urlStatus;
-}
-filterMasters();
+
+
+/* Баштапкы жүктөө */
+
+renderServices();
+
 </script>
+
 </body>
 </html>
