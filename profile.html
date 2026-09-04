@@ -1,235 +1,621 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAG — Профиль</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        .profile-page {
-            padding: 60px 0;
-            min-height: 80vh;
-        }
+  <title>KAG — Мастер профили</title>
 
-        .profile-card {
-            max-width: 850px;
-            margin: auto;
-            padding: 35px;
-            border: 1px solid rgba(212,175,55,.3);
-            border-radius: 20px;
-            background: rgba(255,255,255,.035);
-        }
+  <link rel="stylesheet" href="style.css">
 
-        .profile-head {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(212,175,55,.2);
-        }
+  <style>
+    .profile-page {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px 80px;
+    }
 
-        .avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #D4AF37;
-            color: #06251B;
-            font-size: 35px;
-            font-weight: bold;
-        }
+    .back-link {
+      color: var(--cream);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
 
-        .profile-name {
-            font-size: 28px;
-        }
+    .back-link:hover {
+      color: var(--gold);
+    }
 
-        .profile-email {
-            color: #9fafa8;
-        }
+    .profile-card {
+      background: var(--green-light);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px;
+    }
 
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 18px;
-            margin-top: 30px;
-        }
+    .profile-top {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .profile-item {
-            padding: 22px;
-            border: 1px solid rgba(212,175,55,.15);
-            border-radius: 12px;
-            background: rgba(255,255,255,.025);
-        }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
 
-        .profile-item span {
-            display: block;
-            color: #9fafa8;
-            font-size: 13px;
-            margin-bottom: 7px;
-        }
+    .profile-info h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
 
-        .profile-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
+    .verified {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(212,175,55,.12);
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+    }
 
-        .profile-btn {
-            padding: 13px 20px;
-            border-radius: 8px;
-            border: 1px solid #D4AF37;
-            color: #D4AF37;
-            background: transparent;
-            cursor: pointer;
-        }
+    .status {
+      margin-top: 10px;
+      color: #75d69a;
+      font-size: 14px;
+    }
 
-        .profile-btn.gold {
-            background: #D4AF37;
-            color: #06251B;
-        }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 25px;
+      margin-top: 30px;
+    }
 
-        @media(max-width:600px) {
-            .profile-head {
-                flex-direction: column;
-                text-align: center;
-            }
+    .section-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+    }
 
-            .profile-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .section-card h2 {
+      margin-top: 0;
+    }
+
+    .rating-box {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .big-rating {
+      font-size: 46px;
+      font-weight: 900;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 20px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .service-item {
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 18px;
+      margin-top: 15px;
+    }
+
+    .service-item h3 {
+      margin: 0 0 8px;
+    }
+
+    .service-price {
+      color: var(--gold);
+      font-size: 21px;
+      font-weight: 800;
+      margin-top: 12px;
+    }
+
+    .order-box {
+      position: sticky;
+      top: 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .order-box h2 {
+      margin-top: 0;
+    }
+
+    .order-price {
+      font-size: 30px;
+      font-weight: 900;
+      margin: 20px 0;
+    }
+
+    .order-btn {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 15px;
+      border-radius: 12px;
+      background: var(--gold);
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .contact-btn {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 13px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .not-found {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    @media (max-width: 800px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .order-box {
+        position: static;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .profile-top {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-info h1 {
+        font-size: 26px;
+      }
+
+      .profile-card {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header class="header">
-    <div class="container nav">
+  <div class="container">
 
-        <a href="index.html" class="logo">
-            K<span>Λ</span>G
-        </a>
+    <a href="index.html" class="logo">KΛG</a>
 
-        <div class="nav-right">
-            <a href="index.html" class="login-btn">Башкы бет</a>
-        </div>
+    <nav class="nav">
+      <a href="index.html">Башкы бет</a>
+      <a href="marketplace.html">Кызматтар</a>
+      <a href="add-service.html">Кызмат кошуу</a>
+      <a href="profile.html">Профиль</a>
+    </nav>
 
-    </div>
+  </div>
 </header>
 
 
 <main class="profile-page">
 
-    <div class="container">
-
-        <div class="profile-card">
-
-            <div class="profile-head">
-
-                <div class="avatar" id="avatar">
-                    K
-                </div>
-
-                <div>
-                    <h1 class="profile-name" id="profileName">
-                        KAG Колдонуучу
-                    </h1>
-
-                    <p class="profile-email" id="profileEmail">
-                        Email көрсөтүлгөн жок
-                    </p>
-                </div>
-
-            </div>
+  <a href="marketplace.html" class="back-link">
+    ← Кызматтарга кайтуу
+  </a>
 
 
-            <div class="profile-grid">
-
-                <div class="profile-item">
-                    <span>📍 Шаар</span>
-                    Бишкек
-                </div>
-
-                <div class="profile-item">
-                    <span>👤 Статус</span>
-                    Кардар
-                </div>
-
-                <div class="profile-item">
-                    <span>⭐ Рейтинг</span>
-                    Азырынча рейтинг жок
-                </div>
-
-                <div class="profile-item">
-                    <span>🛠️ Кызматтар</span>
-                    0 кызмат
-                </div>
-
-            </div>
-
-
-            <div class="profile-actions">
-
-                <button class="profile-btn gold"
-                        onclick="addService()">
-                    + Кызмат кошуу
-                </button>
-
-                <button class="profile-btn"
-                        onclick="editProfile()">
-                    ✏️ Профилди өзгөртүү
-                </button>
-
-                <button class="profile-btn"
-                        onclick="logout()">
-                    🚪 Чыгуу
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
+  <div id="profileContainer"></div>
 
 </main>
 
 
 <script>
 
-function addService() {
-    alert("Кызмат кошуу бөлүмүн кийинки этапта ачабыз.");
-}
+/* ==============================
+   DEMO МАСТЕРЛЕР
+============================== */
 
-function editProfile() {
-    alert("Профиль өзгөртүү функциясы кийинки этапта кошулат.");
-}
+const demoMasters = {
 
-function logout() {
-    localStorage.removeItem("KAG_user");
-    window.location.href = "index.html";
-}
+  demo1: {
+    name: "Азамат",
+    category: "Ремонт",
+    title: "Сантехникалык иштер",
+    description:
+      "Кран, труба, суу агуу жана сантехника оңдоо. Үйгө барып кызмат көрсөтөм.",
+    price: 1200,
+    city: "Бишкек",
+    rating: 4.9,
+    reviews: 124,
+    verified: true,
+    online: true,
+    experience: "8 жыл"
+  },
 
-const user = JSON.parse(
-    localStorage.getItem("KAG_user")
+  demo2: {
+    name: "Бекзат",
+    category: "Тазалоо",
+    title: "Үй тазалоо",
+    description:
+      "Квартира, үй жана офис үчүн профессионалдык тазалоо кызматы.",
+    price: 1000,
+    city: "Бишкек",
+    rating: 4.8,
+    reviews: 89,
+    verified: true,
+    online: true,
+    experience: "5 жыл"
+  },
+
+  demo3: {
+    name: "Нурбек",
+    category: "Транспорт",
+    title: "Жүк ташуу",
+    description:
+      "Бишкек ичинде жүк ташуу, көчүрүү жана жеткирүү кызматы.",
+    price: 800,
+    city: "Бишкек",
+    rating: 4.7,
+    reviews: 63,
+    verified: true,
+    online: false,
+    experience: "6 жыл"
+  },
+
+  demo4: {
+    name: "Эрмек",
+    category: "IT",
+    title: "Компьютер оңдоо",
+    description:
+      "Ноутбук жана компьютер оңдоо. Windows орнотуу, программалар жана диагностика.",
+    price: 1500,
+    city: "Бишкек",
+    rating: 5.0,
+    reviews: 51,
+    verified: true,
+    online: true,
+    experience: "7 жыл"
+  },
+
+  demo5: {
+    name: "Айбек",
+    category: "Фото / Видео",
+    title: "Фото жана видео тартуу",
+    description:
+      "Той, иш-чара, бизнес жана социалдык тармактар үчүн фото-видео.",
+    price: 3000,
+    city: "Бишкек",
+    rating: 4.9,
+    reviews: 37,
+    verified: true,
+    online: false,
+    experience: "4 жыл"
+  }
+
+};
+
+
+/* ==============================
+   URL ID
+============================== */
+
+const params = new URLSearchParams(
+  window.location.search
 );
 
-if (user) {
+const id = params.get("id");
 
-    document.getElementById("profileName").textContent =
-        user.name || "KAG Колдонуучу";
 
-    document.getElementById("profileEmail").textContent =
-        user.email || "Email көрсөтүлгөн жок";
+/* ==============================
+   КЫЗМАТТЫ ТАБУУ
+============================== */
 
-    if (user.name) {
-        document.getElementById("avatar").textContent =
-            user.name.charAt(0).toUpperCase();
-    }
+function findService() {
+
+  if (demoMasters[id]) {
+    return demoMasters[id];
+  }
+
+  const saved =
+    JSON.parse(localStorage.getItem("kagServices")) || [];
+
+  return saved.find(
+    service => String(service.id) === String(id)
+  );
 }
+
+
+/* ==============================
+   ПРОФИЛЬДИ КӨРСӨТҮҮ
+============================== */
+
+function renderProfile() {
+
+  const container =
+    document.getElementById("profileContainer");
+
+  const service = findService();
+
+
+  if (!service) {
+
+    container.innerHTML = `
+      <div class="profile-card not-found">
+
+        <h1>Профиль табылган жок</h1>
+
+        <p class="muted">
+          Бул мастер же кызмат азыр жеткиликтүү эмес.
+        </p>
+
+        <br>
+
+        <a href="marketplace.html"
+           class="order-btn">
+          Marketplace'ке кайтуу
+        </a>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const name =
+    service.name || "KAG Мастери";
+
+
+  const firstLetter =
+    name.charAt(0).toUpperCase();
+
+
+  const rating =
+    service.rating > 0
+      ? service.rating
+      : "Жаңы";
+
+
+  const reviews =
+    service.reviews || 0;
+
+
+  const verified =
+    service.verified
+      ? `<span class="verified">✓ KAG Verified</span>`
+      : "";
+
+
+  const status =
+    service.online === true ||
+    service.availability === "online"
+      ? `<div class="status">● Азыр бош</div>`
+      : `<div class="muted">○ Азыр бош эмес</div>`;
+
+
+  container.innerHTML = `
+
+    <div class="profile-card">
+
+
+      <!-- PROFILE HEADER -->
+
+      <div class="profile-top">
+
+        <div class="avatar">
+          ${firstLetter}
+        </div>
+
+
+        <div class="profile-info">
+
+          <h1>${name}</h1>
+
+          ${verified}
+
+          ${status}
+
+          <div class="muted">
+            📍 ${service.city || "Кыргызстан"}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="profile-grid">
+
+
+        <!-- LEFT -->
+
+        <div>
+
+
+          <!-- ABOUT -->
+
+          <div class="section-card">
+
+            <h2>Мастер жөнүндө</h2>
+
+            <p class="muted">
+              ${service.description}
+            </p>
+
+            <div class="info-row">
+              <span>Категория</span>
+              <strong>${service.category}</strong>
+            </div>
+
+            <div class="info-row">
+              <span>Шаар</span>
+              <strong>${service.city}</strong>
+            </div>
+
+            <div class="info-row">
+              <span>Тажрыйба</span>
+              <strong>${service.experience || "—"}</strong>
+            </div>
+
+          </div>
+
+
+          <!-- RATING -->
+
+          <div class="section-card" style="margin-top:20px;">
+
+            <h2>Рейтинг</h2>
+
+            <div class="rating-box">
+
+              <div class="big-rating">
+                ${rating}
+              </div>
+
+              <div>
+
+                <div class="stars">
+                  ⭐⭐⭐⭐⭐
+                </div>
+
+                <div class="muted">
+                  ${reviews} кардар баалаган
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- SERVICE -->
+
+          <div class="section-card" style="margin-top:20px;">
+
+            <h2>Кызмат</h2>
+
+            <div class="service-item">
+
+              <h3>
+                ${service.title}
+              </h3>
+
+              <div class="muted">
+                ${service.description}
+              </div>
+
+              <div class="service-price">
+                ${service.price || 0} сом
+                <small style="font-size:13px;">
+                  / баштап
+                </small>
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <aside class="order-box">
+
+          <h2>Кызматка заказ</h2>
+
+          <div class="muted">
+            ${service.title}
+          </div>
+
+
+          <div class="order-price">
+
+            ${service.price || 0} сом
+
+          </div>
+
+
+          <a
+            href="checkout.html?service=${service.id || id}"
+            class="order-btn"
+          >
+            Заказ берүү
+          </a>
+
+
+          <a
+            href="tel:"
+            class="contact-btn"
+          >
+            📞 Байланышуу
+          </a>
+
+
+          <div class="info-box">
+
+            🛡️ KAG аркылуу заказ бергенде
+            кызматтын статусун жана заказды
+            көзөмөлдөө мүмкүнчүлүгү болот.
+
+          </div>
+
+        </aside>
+
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+renderProfile();
 
 </script>
 
