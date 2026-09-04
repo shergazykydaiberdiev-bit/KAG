@@ -3,421 +3,726 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAG — Кызматтар</title>
-    <meta name="description" content="KAG — Кыргызстандагы адистерди жана кызматтарды бир жерден табыңыз.">
+    <title>KAG Marketplace — Кызматтар жана мастерлер</title>
+    <meta name="description" content="KAG Marketplace — Кыргызстандагы ишенимдүү адистерди жана кызматтарды табыңыз.">
     <link rel="stylesheet" href="style.css">
     <style>
-        .marketplace { min-height: 90vh; padding: 48px 0 70px; }
-        .market-head { text-align: center; margin-bottom: 28px; }
-        .market-head h1 { font-size: 42px; margin: 10px 0; }
-        .market-head p { color: #9fafa8; }
-        .filters {
+        .marketplace-page {
+            padding: 60px 0 100px;
+        }
+        .market-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .market-header h1 {
+            font-size: clamp(34px, 5vw, 55px);
+            line-height: 1.1;
+        }
+        .market-header h1 span {
+            color: var(--gold);
+        }
+        .market-header p {
+            color: var(--muted);
+            margin-top: 10px;
+        }
+        .search-large {
+            display: flex;
+            gap: 10px;
+            background: #fff;
+            padding: 8px;
+            border-radius: 12px;
+            max-width: 520px;
+        }
+        .search-large input {
+            flex: 1;
+            min-width: 0;
+            border: 0;
+            outline: 0;
+            padding: 12px;
+            font-size: 15px;
+        }
+        .search-large button {
+            border: 0;
+            background: var(--green);
+            color: var(--gold);
+            border-radius: 8px;
+            padding: 0 18px;
+            cursor: pointer;
+            font-weight: 800;
+        }
+        .market-layout {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
+            grid-template-columns: 230px 1fr;
+            gap: 25px;
         }
-        .filters input, .filters select {
+        .filters {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(255,255,255,.025);
+            height: fit-content;
+        }
+        .filters h3 {
+            margin-bottom: 15px;
+        }
+        .filter-title {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 800;
+            margin: 22px 0 10px;
+            letter-spacing: 1px;
+        }
+        .filter-button {
+            display: block;
             width: 100%;
-            padding: 14px;
-            border-radius: 9px;
-            border: 1px solid rgba(212,175,55,.25);
-            background: rgba(255,255,255,.05);
-            color: #F4EBD0;
-            outline: none;
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            text-align: left;
+            padding: 9px 0;
+            cursor: pointer;
         }
-        .filters select option { background: #06251B; }
-        .toolbar {
+        .filter-button:hover,
+        .filter-button.active {
+            color: var(--gold);
+        }
+        .master-toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 22px;
-            color: #9fafa8;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+        .results-count {
+            color: var(--muted);
             font-size: 14px;
         }
-        .menu a.active { color: #D4AF37; }
-        .service-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .market-card {
-            overflow: hidden;
-            border: 1px solid rgba(212,175,55,.18);
-            border-radius: 16px;
-            background: rgba(255,255,255,.035);
-            transition: .3s;
-            display: flex;
-            flex-direction: column;
-        }
-        .market-card:hover { transform: translateY(-5px); border-color: #D4AF37; }
-        .service-image {
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(212,175,55,.08);
-            font-size: 44px;
-        }
-        .market-info { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-        .category { display: inline-block; color: #D4AF37; font-size: 12px; margin-bottom: 6px; }
-        .market-info h3 { font-size: 19px; margin-bottom: 6px; }
-        .master { color: #c9d6d0; font-size: 13px; margin-bottom: 8px; }
-        .description { color: #9fafa8; font-size: 14px; min-height: 42px; flex: 1; }
-        .meta { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; margin-top: 16px; }
-        .price { color: #D4AF37; font-size: 20px; font-weight: bold; }
-        .unit, .city { color: #9fafa8; font-size: 13px; }
-        .rating { color: #D4AF37; font-size: 13px; }
-        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
-        .contact-btn, .wa-btn {
-            border: none;
-            padding: 11px;
+        .sort-select {
+            background: var(--green-light);
+            color: var(--cream);
+            border: 1px solid var(--border);
+            padding: 10px;
             border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
         }
-        .contact-btn { background: #D4AF37; color: #06251B; }
-        .wa-btn { background: transparent; border: 1px solid #D4AF37; color: #D4AF37; }
-        .empty { text-align: center; padding: 70px 20px; color: #9fafa8; display: none; }
-        .empty-icon { font-size: 55px; margin-bottom: 15px; }
-        .modal-bg {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.55);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+        .master-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        .master-card {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 17px;
             padding: 20px;
+            background: rgba(255,255,255,.025);
+            transition: .25s;
         }
-        .modal-bg.open { display: flex; }
-        .modal {
-            width: min(420px, 100%);
-            background: #06251B;
-            border: 1px solid rgba(212,175,55,.35);
-            border-radius: 16px;
-            padding: 26px;
+        .master-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
         }
-        .modal h3 { margin-bottom: 8px; }
-        .modal p { color: #9fafa8; margin-bottom: 18px; }
-        .modal a, .modal button {
-            display: block;
-            width: 100%;
+        .master-top {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+        .master-avatar {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #123c2d;
+            font-size: 27px;
+            flex-shrink: 0;
+        }
+        .master-name {
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .verified {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .online {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            color: #8fd6a8;
+            font-size: 11px;
+            font-weight: 800;
+        }
+        .master-service {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 18px 0;
+        }
+        .master-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding-top: 14px;
+        }
+        .master-price {
+            color: var(--cream);
+            font-weight: 800;
+        }
+        .master-actions {
+            display: flex;
+            gap: 9px;
+            margin-top: 17px;
+        }
+        .master-actions a {
+            flex: 1;
             text-align: center;
-            margin-bottom: 10px;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 800;
         }
-        .modal .gold { background: #D4AF37; color: #06251B; }
-        .modal .line { border: 1px solid #D4AF37; color: #D4AF37; background: transparent; cursor: pointer; }
-        @media (max-width: 900px) {
-            .service-list { grid-template-columns: repeat(2, 1fr); }
-            .filters { grid-template-columns: 1fr 1fr; }
-            .filters input { grid-column: 1 / -1; }
+        .profile-link {
+            border: 1px solid var(--border);
+            color: var(--gold);
+        }
+        .book-link {
+            background: var(--gold);
+            color: var(--green);
+        }
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--muted);
+        }
+        @media (max-width: 850px) {
+            .market-header {
+                display: block;
+            }
+            .search-large {
+                margin-top: 25px;
+                max-width: none;
+            }
+            .market-layout {
+                grid-template-columns: 1fr;
+            }
+            .filters {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .filters h3,
+            .filter-title {
+                width: 100%;
+            }
+            .filter-button {
+                width: auto;
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding: 7px 12px;
+            }
         }
         @media (max-width: 600px) {
-            .market-head h1 { font-size: 32px; }
-            .service-list { grid-template-columns: 1fr; }
-            .filters { grid-template-columns: 1fr; }
-            .card-actions { grid-template-columns: 1fr; }
+            .master-grid {
+                grid-template-columns: 1fr;
+            }
+            .master-toolbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
 <header class="header">
     <div class="container nav">
-        <a href="index.html" class="logo">K<span>Λ</span>G</a>
+        <a href="index.html" class="logo">
+            K<span>Λ</span>G
+        </a>
         <nav class="menu">
-            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-            <a href="marketplace.html" class="active" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
+            <a href="index.html">Башкы бет</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="index.html#how">Кантип иштейт?</a>
         </nav>
         <div class="nav-right">
-            <div class="language">
-                <button id="kgBtn" class="active">KG</button>
-                <span>|</span>
-                <button id="ruBtn">RU</button>
+            <a href="login.html" class="login-btn">
+                Кирүү
+            </a>
+            <div class="burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <a href="login.html" class="login-btn" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
-            <div class="burger" id="burger"><span></span><span></span><span></span></div>
         </div>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-        <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-        <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
-        <a href="login.html" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
     </div>
 </header>
-
-<main class="marketplace">
+<main class="marketplace-page">
     <div class="container">
-        <div class="market-head">
-            <span class="gold-text" data-kg="KAG КЫЗМАТТАР" data-ru="KAG УСЛУГИ">KAG КЫЗМАТТАР</span>
-            <h1 data-kg="Кызматтарды табыңыз" data-ru="Найдите услуги">Кызматтарды табыңыз</h1>
-            <p data-kg="Кыргызстандагы адистерди жана кызматтарды бир жерден табыңыз."
-               data-ru="Найдите специалистов и услуги Кыргызстана в одном месте.">
-                Кыргызстандагы адистерди жана кызматтарды бир жерден табыңыз.
-            </p>
+        <div class="market-header">
+            <div>
+                <span class="gold-text">KAG MARKETPLACE</span>
+                <h1>
+                    Керектүү <span>мастерди</span> тап.
+                </h1>
+                <p>
+                    Рейтингин, баасын жана азыр бош экенин салыштыр.
+                </p>
+            </div>
+            <form class="search-large" id="searchForm">
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Мисалы: сантехник, электрик, уборка..."
+                >
+                <button type="submit">
+                    Издөө
+                </button>
+            </form>
         </div>
-
-        <div class="filters">
-            <input type="text" id="searchInput"
-                   data-kg-placeholder="Кызмат, мастер же шаар..."
-                   data-ru-placeholder="Услуга, мастер или город..."
-                   placeholder="Кызмат, мастер же шаар...">
-            <select id="categoryFilter"></select>
-            <select id="cityFilter"></select>
-            <select id="sortFilter"></select>
-        </div>
-
-        <div class="toolbar">
-            <div id="resultCount"></div>
-            <a href="add-service.html" class="login-btn" data-kg="+ Кызмат кошуу" data-ru="+ Добавить услугу">+ Кызмат кошуу</a>
-        </div>
-
-        <div class="service-list" id="serviceList"></div>
-
-        <div class="empty" id="emptyState">
-            <div class="empty-icon">🔍</div>
-            <h3 data-kg="Кызмат табылган жок" data-ru="Услуги не найдены">Кызмат табылган жок</h3>
-            <p data-kg="Башка издөө сөзүн же категорияны тандап көрүңүз."
-               data-ru="Попробуйте другой поисковый запрос или категорию.">
-                Башка издөө сөзүн же категорияны тандап көрүңүз.
-            </p>
+        <div class="market-layout">
+            <!-- FILTERS -->
+            <aside class="filters">
+                <h3>Фильтр</h3>
+                <div class="filter-title">
+                    КЫЗМАТ
+                </div>
+                <button class="filter-button active" data-category="all">
+                    Бардыгы
+                </button>
+                <button class="filter-button" data-category="Ремонт">
+                    🔧 Ремонт
+                </button>
+                <button class="filter-button" data-category="Транспорт">
+                    🚗 Транспорт
+                </button>
+                <button class="filter-button" data-category="Тазалоо">
+                    🧹 Тазалоо
+                </button>
+                <button class="filter-button" data-category="IT">
+                    💻 IT
+                </button>
+                <button class="filter-button" data-category="Фото">
+                    📸 Фото
+                </button>
+                <button class="filter-button" data-category="Үй">
+                    🏠 Үй кызматтары
+                </button>
+                <div class="filter-title">
+                    СТАТУС
+                </div>
+                <button class="filter-button" data-status="available">
+                    🟢 Азыр бош
+                </button>
+                <button class="filter-button" data-status="verified">
+                    🛡️ Verified
+                </button>
+            </aside>
+            <!-- RESULTS -->
+            <section>
+                <div class="master-toolbar">
+                    <div class="results-count">
+                        <strong id="resultsCount">6</strong> мастер табылды
+                    </div>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="rating">
+                            Рейтинг боюнча
+                        </option>
+                        <option value="price">
+                            Баасы боюнча
+                        </option>
+                        <option value="online">
+                            Азыр боштор
+                        </option>
+                    </select>
+                </div>
+                <div class="master-grid" id="masterGrid">
+                    <!-- MASTER 1 -->
+                    <article
+                        class="master-card"
+                        data-name="Азамат"
+                        data-category="Ремонт"
+                        data-rating="4.9"
+                        data-price="1200"
+                        data-online="true"
+                        data-verified="true">
+                        <span class="online">
+                            🟢 АЗЫР БОШ
+                        </span>
+                        <div class="master-top">
+                            <div class="master-avatar">
+                                👨‍🔧
+                            </div>
+                            <div>
+                                <div class="master-name">
+                                    Азамат
+                                </div>
+                                <div class="verified">
+                                    ✓ KAG Verified
+                                </div>
+                            </div>
+                        </div>
+                        <div class="master-service">
+                            🔧 Сантехник • Ремонт
+                        </div>
+                        <div class="master-info">
+                            <span>⭐ 4.9</span>
+                            <span>📍 Бишкек</span>
+                            <span class="master-price">
+                                1 200 сомдон
+                            </span>
+                        </div>
+                        <div class="master-actions">
+                            <a
+                                href="profile.html"
+                                class="profile-link">
+                                Профиль
+                            </a>
+                            <a
+                                href="checkout.html?master=azamat"
+                                class="book-link">
+                                Заказ берүү
+                            </a>
+                        </div>
+                    </article>
+                    <!-- MASTER 2 -->
+                    <article
+                        class="master-card"
+                        data-name="Бекзат"
+                        data-category="Тазалоо"
+                        data-rating="4.8"
+                        data-price="1000"
+                        data-online="true"
+                        data-verified="true">
+                        <span class="online">
+                            🟢 АЗЫР БОШ
+                        </span>
+                        <div class="master-top">
+                            <div class="master-avatar">
+                                🧹
+                            </div>
+                            <div>
+                                <div class="master-name">
+                                    Бекзат
+                                </div>
+                                <div class="verified">
+                                    ✓ KAG Verified
+                                </div>
+                            </div>
+                        </div>
+                        <div class="master-service">
+                            🧹 Үй жана офис тазалоо
+                        </div>
+                        <div class="master-info">
+                            <span>⭐ 4.8</span>
+                            <span>📍 Бишкек</span>
+                            <span class="master-price">
+                                1 000 сомдон
+                            </span>
+                        </div>
+                        <div class="master-actions">
+                            <a href="profile.html"
+                               class="profile-link">
+                                Профиль
+                            </a>
+                            <a href="checkout.html?master=bekzat"
+                               class="book-link">
+                                Заказ берүү
+                            </a>
+                        </div>
+                    </article>
+                    <!-- MASTER 3 -->
+                    <article
+                        class="master-card"
+                        data-name="Нурбек"
+                        data-category="Транспорт"
+                        data-rating="4.7"
+                        data-price="800"
+                        data-online="false"
+                        data-verified="true">
+                        <div class="master-top">
+                            <div class="master-avatar">
+                                🚗
+                            </div>
+                            <div>
+                                <div class="master-name">
+                                    Нурбек
+                                </div>
+                                <div class="verified">
+                                    ✓ KAG Verified
+                                </div>
+                            </div>
+                        </div>
+                        <div class="master-service">
+                            🚗 Жүк ташуу • Айдоочу
+                        </div>
+                        <div class="master-info">
+                            <span>⭐ 4.7</span>
+                            <span>📍 Бишкек</span>
+                            <span class="master-price">
+                                800 сомдон
+                            </span>
+                        </div>
+                        <div class="master-actions">
+                            <a href="profile.html"
+                               class="profile-link">
+                                Профиль
+                            </a>
+                            <a href="checkout.html?master=nurbek"
+                               class="book-link">
+                                Заказ берүү
+                            </a>
+                        </div>
+                    </article>
+                    <!-- MASTER 4 -->
+                    <article
+                        class="master-card"
+                        data-name="Эрмек"
+                        data-category="IT"
+                        data-rating="5.0"
+                        data-price="2500"
+                        data-online="true"
+                        data-verified="true">
+                        <span class="online">
+                            🟢 АЗЫР БОШ
+                        </span>
+                        <div class="master-top">
+                            <div class="master-avatar">
+                                💻
+                            </div>
+                            <div>
+                                <div class="master-name">
+                                    Эрмек
+                                </div>
+                                <div class="verified">
+                                    ✓ KAG Verified
+                                </div>
+                            </div>
+                        </div>
+                        <div class="master-service">
+                            💻 Сайт • Дизайн • IT
+                        </div>
+                        <div class="master-info">
+                            <span>⭐ 5.0</span>
+                            <span>📍 Бишкек</span>
+                            <span class="master-price">
+                                2 500 сомдон
+                            </span>
+                        </div>
+                        <div class="master-actions">
+                            <a href="profile.html"
+                               class="profile-link">
+                                Профиль
+                            </a>
+                            <a href="checkout.html?master=ermek"
+                               class="book-link">
+                                Заказ берүү
+                            </a>
+                        </div>
+                    </article>
+                    <!-- MASTER 5 -->
+                    <article
+                        class="master-card"
+                        data-name="Айбек"
+                        data-category="Фото"
+                        data-rating="4.9"
+                        data-price="3000"
+                        data-online="false"
+                        data-verified="true">
+                        <div class="master-top">
+                            <div class="master-avatar">
+                                📸
+                            </div>
+                            <div>
+                                <div class="master-name">
+                                    Айбек
+                                </div>
+                                <div class="verified">
+                                    ✓ KAG Verified
+                                </div>
+                            </div>
+                        </div>
+                        <div class="master-service">
+                            📸 Фото • Видео
+                        </div>
+                        <div class="master-info">
+                            <span>⭐ 4.9</span>
+                            <span>📍 Бишкек</span>
+                            <span class="master-price">
+                                3 000 сомдон
+                            </span>
+                        </div>
+                        <div class="master-actions">
+                            <a href="profile.html"
+                               class="profile-link">
+                                Профиль
+                            </a>
+                            <a href="checkout.html?master=aibek"
+                               class="book-link">
+                                Заказ берүү
+                            </a>
+                        </div>
+                    </article>
+                    <!-- MASTER 6 -->
+                    <article
+                        class="master-card"
+                        data-name="Руслан"
+                        data-category="Үй"
+                        data-rating="4.6"
+                        data-price="1500"
+                        data-online="true"
+                        data-verified="false">
+                        <span class="online">
+                            🟢 АЗЫР БОШ
+                        </span>
+                        <div class="master-top">
+                            <div class="master-avatar">
+                                🏠
+                            </div>
+                            <div>
+                                <div class="master-name">
+                                    Руслан
+                                </div>
+                            </div>
+                        </div>
+                        <div class="master-service">
+                            🏠 Курулуш • Ремонт
+                        </div>
+                        <div class="master-info">
+                            <span>⭐ 4.6</span>
+                            <span>📍 Бишкек</span>
+                            <span class="master-price">
+                                1 500 сомдон
+                            </span>
+                        </div>
+                        <div class="master-actions">
+                            <a href="profile.html"
+                               class="profile-link">
+                                Профиль
+                            </a>
+                            <a href="checkout.html?master=ruslan"
+                               class="book-link">
+                                Заказ берүү
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                <div class="empty-state" id="emptyState">
+                    <h2>Мастер табылган жок</h2>
+                    <p>
+                        Издөөнү өзгөртүп көрүңүз же башка категорияны тандаңыз.
+                    </p>
+                </div>
+            </section>
         </div>
     </div>
 </main>
-
-<div class="modal-bg" id="contactModal">
-    <div class="modal">
-        <h3 id="modalTitle"></h3>
-        <p id="modalText"></p>
-        <a class="gold" id="modalCall" href="#">Чалуу</a>
-        <a class="gold" id="modalWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
-        <button class="line" id="modalClose" type="button">Жабуу</button>
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="container footer-content">
-        <div>
-            <div class="footer-logo">KΛG</div>
-            <p data-kg="Кыргызстан үчүн жасалган." data-ru="Создано для Кыргызстана.">Кыргызстан үчүн жасалган.</p>
-        </div>
-        <div>
-            <a href="index.html" data-kg="Башкы бет" data-ru="Главная">Башкы бет</a>
-            <a href="marketplace.html" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-            <a href="add-service.html" data-kg="Кызмат кошуу" data-ru="Добавить услугу">Кызмат кошуу</a>
-        </div>
-        <div class="footer-contacts">
-            <a href="https://wa.me/996707901214" target="_blank" class="contact-link">WhatsApp</a>
-            <a href="https://t.me/+996707901214" target="_blank" class="contact-link">Telegram</a>
-            <a href="tel:+996707901214" class="contact-link">+996 707 901 214</a>
-        </div>
-    </div>
-    <div class="copyright">© 2026 KAG. <span data-kg="Бардык укуктар корголгон." data-ru="Все права защищены.">Бардык укуктар корголгон.</span></div>
-</footer>
-
-<script src="script.js"></script>
 <script>
-    const CATEGORIES = [
-        { id: "Ремонт", kg: "Ремонт", ru: "Ремонт", icon: "🔧" },
-        { id: "Транспорт", kg: "Транспорт", ru: "Транспорт", icon: "🚗" },
-        { id: "Тазалоо", kg: "Тазалоо", ru: "Уборка", icon: "🧹" },
-        { id: "IT", kg: "IT", ru: "IT", icon: "💻" },
-        { id: "Фото", kg: "Фото & Видео", ru: "Фото и видео", icon: "📸" },
-        { id: "Үй", kg: "Үй кызматтары", ru: "Услуги для дома", icon: "🏠" },
-        { id: "Билим", kg: "Билим берүү", ru: "Образование", icon: "🎓" }
-    ];
-    const CITIES = ["Бишкек", "Ош", "Жалал-Абад", "Каракол", "Чолпон-Ата"];
-
-    const SEED = [
-        { id: 1, title: "Үй тазалоо", titleRu: "Уборка дома", category: "Тазалоо", description: "Толук үй тазалоо, жумасына 2 жолу", descriptionRu: "Полная уборка дома, 2 раза в неделю", price: 2500, unit: "иш", city: "Бишкек", icon: "🧹", master: "Айжан К.", phone: "+996707901214", rating: 4.8, orders: 124 },
-        { id: 2, title: "Сантехника оңдоо", titleRu: "Ремонт сантехники", category: "Ремонт", description: "Кран, унитаз, түтүк оңдоо", descriptionRu: "Ремонт кранов, унитазов, труб", price: 1500, unit: "иш", city: "Бишкек", icon: "🔧", master: "Нурлан Б.", phone: "+996707901214", rating: 4.9, orders: 86 },
-        { id: 3, title: "Такси Бишкек", titleRu: "Такси Бишкек", category: "Транспорт", description: "Ыңгайлуу жана коопсуз такси", descriptionRu: "Комфортное и безопасное такси", price: 200, unit: "жол", city: "Бишкек", icon: "🚗", master: "Эрлан Т.", phone: "+996707901214", rating: 4.6, orders: 310 },
-        { id: 4, title: "Веб-сайт жасоо", titleRu: "Создание сайта", category: "IT", description: "Заманбап сайттар жана лендингдер", descriptionRu: "Современные сайты и лендинги", price: 25000, unit: "долбоор", city: "Бишкек", icon: "💻", master: "Бекзат А.", phone: "+996707901214", rating: 5.0, orders: 18 },
-        { id: 5, title: "Үйлөнүү тоюнун фотосъёмкасы", titleRu: "Свадебная фотосъёмка", category: "Фото", description: "Кесипкөй той фотосъёмкасы", descriptionRu: "Профессиональная свадебная съёмка", price: 18000, unit: "күн", city: "Ош", icon: "📸", master: "Айпери С.", phone: "+996707901214", rating: 4.7, orders: 42 },
-        { id: 6, title: "Математика репетитору", titleRu: "Репетитор по математике", category: "Билим", description: "ОРТ жана мектеп экзамендерине даярдоо", descriptionRu: "Подготовка к ОРТ и школьным экзаменам", price: 800, unit: "саат", city: "Бишкек", icon: "🎓", master: "Гүлназ М.", phone: "+996707901214", rating: 4.9, orders: 67 },
-        { id: 7, title: "Курулуш жана ремонт", titleRu: "Строительство и ремонт", category: "Үй", description: "Батир жана үйдүн толук ремонту", descriptionRu: "Полный ремонт квартиры и дома", price: 150000, unit: "баштап", city: "Бишкек", icon: "🏠", master: "Данияр К.", phone: "+996707901214", rating: 4.5, orders: 23 },
-        { id: 8, title: "Жүк ташуу", titleRu: "Грузоперевозки", category: "Транспорт", description: "Шаар ичинде жана шаарлар аралык", descriptionRu: "По городу и междугородние перевозки", price: 3000, unit: "иш", city: "Ош", icon: "🚛", master: "Улан Ж.", phone: "+996707901214", rating: 4.4, orders: 91 }
-    ];
-
-    const serviceList = document.getElementById("serviceList");
-    const emptyState = document.getElementById("emptyState");
-    const searchInput = document.getElementById("searchInput");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const cityFilter = document.getElementById("cityFilter");
-    const sortFilter = document.getElementById("sortFilter");
-    const resultCount = document.getElementById("resultCount");
-    const modal = document.getElementById("contactModal");
-
-    function getLang() {
-        return localStorage.getItem("KAG_language") || "kg";
-    }
-
-    function loadServices() {
-        const extra = JSON.parse(localStorage.getItem("KAG_services") || "[]");
-        const map = new Map();
-        SEED.concat(extra).forEach(function (item) { map.set(item.id, item); });
-        return Array.from(map.values());
-    }
-
-    function catLabel(id, lang) {
-        const found = CATEGORIES.find(function (c) { return c.id === id; });
-        if (!found) return id;
-        return lang === "kg" ? found.kg : found.ru;
-    }
-
-    function unitLabel(unit, lang) {
-        const map = {
-            иш: { kg: "/ иш", ru: "/ работа" },
-            саат: { kg: "/ саат", ru: "/ час" },
-            күн: { kg: "/ күн", ru: "/ день" },
-            жол: { kg: "/ жол", ru: "/ поездка" },
-            долбоор: { kg: "/ долбоор", ru: "/ проект" },
-            баштап: { kg: "баштап", ru: "от" }
-        };
-        return (map[unit] && map[unit][lang]) || "";
-    }
-
-    function fillFilters() {
-        const lang = getLang();
-        const currentCat = categoryFilter.value;
-        const currentCity = cityFilter.value;
-        const currentSort = sortFilter.value;
-
-        categoryFilter.innerHTML = '<option value="">' + (lang === "kg" ? "Бардык категориялар" : "Все категории") + "</option>";
-        CATEGORIES.forEach(function (c) {
-            categoryFilter.innerHTML += '<option value="' + c.id + '">' + c.icon + " " + (lang === "kg" ? c.kg : c.ru) + "</option>";
-        });
-
-        cityFilter.innerHTML = '<option value="">' + (lang === "kg" ? "Бардык шаарлар" : "Все города") + "</option>";
-        CITIES.forEach(function (city) {
-            cityFilter.innerHTML += '<option value="' + city + '">' + city + "</option>";
-        });
-
-        sortFilter.innerHTML =
-            '<option value="new">' + (lang === "kg" ? "Жаңылары" : "Новые") + "</option>" +
-            '<option value="price-asc">' + (lang === "kg" ? "Арзан → кымбат" : "Дешевле") + "</option>" +
-            '<option value="price-desc">' + (lang === "kg" ? "Кымбат → арзан" : "Дороже") + "</option>" +
-            '<option value="rating">' + (lang === "kg" ? "Рейтинг" : "Рейтинг") + "</option>";
-
-        if (currentCat) categoryFilter.value = currentCat;
-        if (currentCity) cityFilter.value = currentCity;
-        if (currentSort) sortFilter.value = currentSort;
-    }
-
-    function phoneDigits(phone) {
-        return String(phone || "").replace(/\D/g, "") || "996707901214";
-    }
-
-    function openContact(service) {
-        const lang = getLang();
-        const title = lang === "kg" ? service.title : (service.titleRu || service.title);
-        document.getElementById("modalTitle").textContent = title;
-        document.getElementById("modalText").textContent =
-            (service.master || "") + " · " + service.city + " · " + (service.phone || "+996 707 901 214");
-        const digits = phoneDigits(service.phone);
-        document.getElementById("modalCall").href = "tel:+" + digits;
-        document.getElementById("modalCall").textContent = lang === "kg" ? "Чалуу" : "Позвонить";
-        document.getElementById("modalWa").href = "https://wa.me/" + digits;
-        document.getElementById("modalClose").textContent = lang === "kg" ? "Жабуу" : "Закрыть";
-        modal.classList.add("open");
-    }
-
-    function renderServices(list) {
-        const lang = getLang();
-        serviceList.innerHTML = "";
-        resultCount.textContent = lang === "kg"
-            ? list.length + " кызмат табылды"
-            : list.length + " услуг найдено";
-
-        if (list.length === 0) {
-            emptyState.style.display = "block";
-            return;
+const cards = [...document.querySelectorAll(".master-card")];
+const searchInput = document.getElementById("searchInput");
+const searchForm = document.getElementById("searchForm");
+const resultsCount = document.getElementById("resultsCount");
+const emptyState = document.getElementById("emptyState");
+const sortSelect = document.getElementById("sortSelect");
+let currentCategory = "all";
+let currentStatus = "all";
+function filterMasters() {
+    const query = searchInput.value.toLowerCase().trim();
+    let visible = [];
+    cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const category = card.dataset.category.toLowerCase();
+        const service = card.innerText.toLowerCase();
+        const matchesSearch =
+            !query ||
+            name.includes(query) ||
+            category.includes(query) ||
+            service.includes(query);
+        const matchesCategory =
+            currentCategory === "all" ||
+            card.dataset.category === currentCategory;
+        let matchesStatus = true;
+        if (currentStatus === "available") {
+            matchesStatus = card.dataset.online === "true";
         }
-        emptyState.style.display = "none";
-
-        list.forEach(function (service) {
-            const card = document.createElement("div");
-            card.className = "market-card";
-            const title = lang === "kg" ? service.title : (service.titleRu || service.title);
-            const desc = lang === "kg" ? service.description : (service.descriptionRu || service.description);
-            card.innerHTML =
-                '<div class="service-image">' + (service.icon || "✨") + "</div>" +
-                '<div class="market-info">' +
-                    '<span class="category">' + catLabel(service.category, lang) + "</span>" +
-                    "<h3>" + title + "</h3>" +
-                    '<div class="master">' + (service.master || (lang === "kg" ? "Жеке адис" : "Частный специалист")) + "</div>" +
-                    '<p class="description">' + desc + "</p>" +
-                    '<div class="meta">' +
-                        "<div>" +
-                            '<div class="price">' + Number(service.price).toLocaleString() + " сом</div>" +
-                            '<div class="unit">' + unitLabel(service.unit, lang) + "</div>" +
-                            '<div class="city">' + service.city + "</div>" +
-                        "</div>" +
-                        '<div class="rating">★ ' + (service.rating || "—") +
-                            (service.orders ? " · " + service.orders : "") +
-                        "</div>" +
-                    "</div>" +
-                    '<div class="card-actions">' +
-                        '<button class="contact-btn" type="button">' + (lang === "kg" ? "Байланышуу" : "Связаться") + "</button>" +
-                        '<button class="wa-btn" type="button">WhatsApp</button>' +
-                    "</div>" +
-                "</div>";
-            card.querySelector(".contact-btn").addEventListener("click", function () { openContact(service); });
-            card.querySelector(".wa-btn").addEventListener("click", function () {
-                window.open("https://wa.me/" + phoneDigits(service.phone), "_blank");
-            });
-            serviceList.appendChild(card);
-        });
-    }
-
-    function filterServices() {
-        const search = searchInput.value.toLowerCase().trim();
-        const category = categoryFilter.value;
-        const city = cityFilter.value;
-        const lang = getLang();
-
-        let filtered = loadServices().filter(function (s) {
-            const title = ((lang === "kg" ? s.title : (s.titleRu || s.title)) || "").toLowerCase();
-            const titleAlt = (s.title + " " + (s.titleRu || "")).toLowerCase();
-            const desc = ((lang === "kg" ? s.description : (s.descriptionRu || s.description)) || "").toLowerCase();
-            const master = (s.master || "").toLowerCase();
-            const hay = title + " " + titleAlt + " " + desc + " " + master + " " + (s.city || "").toLowerCase();
-            return (!search || hay.includes(search)) &&
-                   (!category || s.category === category) &&
-                   (!city || s.city === city);
-        });
-
-        const sort = sortFilter.value;
-        filtered.sort(function (a, b) {
-            if (sort === "price-asc") return a.price - b.price;
-            if (sort === "price-desc") return b.price - a.price;
-            if (sort === "rating") return (b.rating || 0) - (a.rating || 0);
-            return (b.id || 0) - (a.id || 0);
-        });
-
-        renderServices(filtered);
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("q")) searchInput.value = urlParams.get("q");
-    fillFilters();
-    if (urlParams.get("category")) categoryFilter.value = urlParams.get("category");
-
-    searchInput.addEventListener("input", filterServices);
-    categoryFilter.addEventListener("change", filterServices);
-    cityFilter.addEventListener("change", filterServices);
-    sortFilter.addEventListener("change", filterServices);
-    window.addEventListener("languageChanged", function () {
-        fillFilters();
-        filterServices();
+        if (currentStatus === "verified") {
+            matchesStatus = card.dataset.verified === "true";
+        }
+        const show =
+            matchesSearch &&
+            matchesCategory &&
+            matchesStatus;
+        card.style.display = show ? "" : "block";
+        if (!show) {
+            card.style.display = "none";
+        }
+        if (show) {
+            visible.push(card);
+        }
     });
-    document.getElementById("modalClose").addEventListener("click", function () { modal.classList.remove("open"); });
-    modal.addEventListener("click", function (e) { if (e.target === modal) modal.classList.remove("open"); });
-
-    filterServices();
+    resultsCount.textContent = visible.length;
+    emptyState.style.display =
+        visible.length === 0 ? "block" : "none";
+}
+document.querySelectorAll(".filter-button").forEach(button => {
+    button.addEventListener("click", () => {
+        document
+            .querySelectorAll(".filter-button")
+            .forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        if (button.dataset.category) {
+            currentCategory = button.dataset.category;
+            currentStatus = "all";
+        }
+        if (button.dataset.status) {
+            currentStatus = button.dataset.status;
+            currentCategory = "all";
+        }
+        filterMasters();
+    });
+});
+searchInput.addEventListener("input", filterMasters);
+searchForm.addEventListener("submit", event => {
+    event.preventDefault();
+    filterMasters();
+});
+sortSelect.addEventListener("change", () => {
+    const grid = document.getElementById("masterGrid");
+    const sorted = [...cards].sort((a, b) => {
+        if (sortSelect.value === "rating") {
+            return Number(b.dataset.rating) - Number(a.dataset.rating);
+        }
+        if (sortSelect.value === "price") {
+            return Number(a.dataset.price) - Number(b.dataset.price);
+        }
+        if (sortSelect.value === "online") {
+            return Number(b.dataset.online) - Number(a.dataset.online);
+        }
+    });
+    sorted.forEach(card => grid.appendChild(card));
+    filterMasters();
+});
+const params = new URLSearchParams(window.location.search);
+const urlQuery = params.get("q");
+const urlCategory = params.get("category");
+const urlStatus = params.get("status");
+if (urlQuery) {
+    searchInput.value = urlQuery;
+}
+if (urlCategory) {
+    currentCategory = urlCategory;
+}
+if (urlStatus) {
+    currentStatus = urlStatus;
+}
+filterMasters();
 </script>
 </body>
 </html>
