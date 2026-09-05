@@ -1,568 +1,77 @@
 <!DOCTYPE html>
-<html lang="ky">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>KAG — Кирүү</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #06251B;
-            color: #F4EBD0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            padding: 20px 6%;
-            border-bottom: 1px solid rgba(212,175,55,.2);
-            background: #0D3427;
-        }
-
-        .logo {
-            color: #D4AF37;
-            font-size: 30px;
-            font-weight: 800;
-            text-decoration: none;
-        }
-
-        .login-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px 20px;
-        }
-
-        .box {
-            width: 100%;
-            max-width: 460px;
-            background: #0D3427;
-            border: 1px solid rgba(212,175,55,.2);
-            border-radius: 22px;
-            padding: 32px;
-        }
-
-        h1 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: #9BAAA2;
-            margin-bottom: 28px;
-        }
-
-        .role-title {
-            font-size: 14px;
-            color: #9BAAA2;
-            margin-bottom: 10px;
-        }
-
-        .roles {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 22px;
-        }
-
-        .role {
-            padding: 15px;
-            border-radius: 12px;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(244,235,208,.12);
-            color: #F4EBD0;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .role.active {
-            border-color: #D4AF37;
-            background: rgba(212,175,55,.12);
-            color: #D4AF37;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            color: #9BAAA2;
-            margin-bottom: 7px;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 16px;
-            border-radius: 11px;
-            border: 1px solid rgba(244,235,208,.15);
-            background: #06251B;
-            color: #F4EBD0;
-            outline: none;
-            font-size: 15px;
-        }
-
-        input:focus {
-            border-color: #D4AF37;
-        }
-
-        .main-btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: #D4AF37;
-            color: #06251B;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .main-btn:hover {
-            opacity: .9;
-        }
-
-        .switch {
-            text-align: center;
-            margin-top: 20px;
-            color: #9BAAA2;
-            font-size: 14px;
-        }
-
-        .switch span {
-            color: #D4AF37;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .success {
-            margin-top: 15px;
-            padding: 13px;
-            background: rgba(50,180,100,.1);
-            border: 1px solid rgba(50,180,100,.2);
-            border-radius: 10px;
-            color: #8ee0a8;
-            font-size: 14px;
-            display: none;
-        }
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #9BAAA2;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        @media (max-width: 500px) {
-            .box {
-                padding: 24px 20px;
-            }
-
-            h1 {
-                font-size: 26px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<header>
-    <a href="index.html" class="logo">KAG</a>
-</header>
-
-<div class="login-wrapper">
-
-    <div class="box">
-
-        <h1 id="title">KAG'га кирүү</h1>
-
-        <p class="subtitle" id="subtitle">
-            Кызматтарды таап, заказ бериңиз.
-        </p>
-
-        <div class="role-title">
-            Сиз кимсиз?
-        </div>
-
-        <div class="roles">
-
-            <div
-                class="role active"
-                id="customerRole"
-                onclick="selectRole('customer')"
-            >
-                👤 Кардар
-            </div>
-
-            <div
-                class="role"
-                id="masterRole"
-                onclick="selectRole('master')"
-            >
-                🔧 Мастер
-            </div>
-
-        </div>
-
-
-        <form id="authForm">
-
-            <div id="nameField" class="hidden">
-
-                <label>Атыңыз</label>
-
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Мисалы: Шергазы"
-                >
-
-            </div>
-
-
-            <label>Телефон номери</label>
-
-            <input
-                type="tel"
-                id="phone"
-                placeholder="+996 700 000 000"
-                required
-            >
-
-
-            <label>Сыр сөз</label>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="••••••••"
-                required
-            >
-
-
-            <div id="confirmField" class="hidden">
-
-                <label>Сыр сөздү кайталаңыз</label>
-
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="••••••••"
-                >
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="main-btn"
-                id="submitBtn"
-            >
-                Кирүү
-            </button>
-
-        </form>
-
-
-        <div class="success" id="success"></div>
-
-
-        <div class="switch">
-
-            <span id="switchText">
-                Аккаунтуңуз жокпу?
-            </span>
-
-            <span
-                id="switchButton"
-                onclick="toggleMode()"
-            >
-                Катталуу
-            </span>
-
-        </div>
-
-
-        <a href="index.html" class="back">
-            ← Башкы бетке кайтуу
-        </a>
-
-    </div>
-
-</div>
-
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAG Platform — Вход и Регистрация</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.tailwindcss.com"></script>
 <script>
-
-let role = "customer";
-let registerMode = false;
-
-
-function selectRole(selectedRole) {
-
-    role = selectedRole;
-
-    document
-        .getElementById("customerRole")
-        .classList.remove("active");
-
-    document
-        .getElementById("masterRole")
-        .classList.remove("active");
-
-
-    if (role === "customer") {
-
-        document
-            .getElementById("customerRole")
-            .classList.add("active");
-
-        document.getElementById("subtitle").textContent =
-            "Кызматтарды таап, заказ бериңиз.";
-
-    } else {
-
-        document
-            .getElementById("masterRole")
-            .classList.add("active");
-
-        document.getElementById("subtitle").textContent =
-            "Заказдарды алып, кызмат көрсөтүңүз.";
-
-    }
-
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+kagGreen: { 800: '#064e3b', 900: '#022c22' },
+kagGold: { 500: '#d97706', 600: '#b45309' }
 }
-
-
-function toggleMode() {
-
-    registerMode = !registerMode;
-
-    const nameField =
-        document.getElementById("nameField");
-
-    const confirmField =
-        document.getElementById("confirmField");
-
-    const title =
-        document.getElementById("title");
-
-    const submitBtn =
-        document.getElementById("submitBtn");
-
-    const switchText =
-        document.getElementById("switchText");
-
-    const switchButton =
-        document.getElementById("switchButton");
-
-
-    if (registerMode) {
-
-        title.textContent = "KAG'га катталуу";
-
-        nameField.classList.remove("hidden");
-
-        confirmField.classList.remove("hidden");
-
-        submitBtn.textContent = "Катталуу";
-
-        switchText.textContent =
-            "Аккаунтуңуз барбы?";
-
-        switchButton.textContent =
-            "Кирүү";
-
-    } else {
-
-        title.textContent = "KAG'га кирүү";
-
-        nameField.classList.add("hidden");
-
-        confirmField.classList.add("hidden");
-
-        submitBtn.textContent = "Кирүү";
-
-        switchText.textContent =
-            "Аккаунтуңуз жокпу?";
-
-        switchButton.textContent =
-            "Катталуу";
-
-    }
-
 }
-
-
-document
-    .getElementById("authForm")
-    .addEventListener("submit", function(e) {
-
-        e.preventDefault();
-
-        const name =
-            document.getElementById("name").value.trim();
-
-        const phone =
-            document.getElementById("phone").value.trim();
-
-        const password =
-            document.getElementById("password").value;
-
-        const confirmPassword =
-            document.getElementById("confirmPassword").value;
-
-
-        if (registerMode) {
-
-            if (!name) {
-
-                alert("Атыңызды жазыңыз.");
-
-                return;
-
-            }
-
-            if (password.length < 6) {
-
-                alert("Сыр сөз кеминде 6 символ болушу керек.");
-
-                return;
-
-            }
-
-            if (password !== confirmPassword) {
-
-                alert("Сыр сөздөр дал келген жок.");
-
-                return;
-
-            }
-
-
-            const user = {
-
-                id: "user_" + Date.now(),
-
-                name: name,
-
-                phone: phone,
-
-                role: role,
-
-                createdAt: new Date().toISOString()
-
-            };
-
-
-            localStorage.setItem(
-                "kagUser",
-                JSON.stringify(user)
-            );
-
-
-            showSuccess(
-                "Каттоо ийгиликтүү! KAG аккаунтуңуз түзүлдү."
-            );
-
-
-            setTimeout(() => {
-
-                if (role === "master") {
-
-                    window.location.href = "tickets.html";
-
-                } else {
-
-                    window.location.href = "marketplace.html";
-
-                }
-
-            }, 1000);
-
-
-        } else {
-
-            const existingUser =
-                JSON.parse(
-                    localStorage.getItem("kagUser")
-                );
-
-
-            if (!existingUser) {
-
-                alert(
-                    "Аккаунт табылган жок. Адегенде катталыңыз."
-                );
-
-                return;
-
-            }
-
-
-            if (existingUser.phone !== phone) {
-
-                alert("Телефон номери туура эмес.");
-
-                return;
-
-            }
-
-
-            showSuccess(
-                "Кош келиңиз, " +
-                existingUser.name +
-                "!"
-            );
-
-
-            setTimeout(() => {
-
-                if (existingUser.role === "master") {
-
-                    window.location.href = "tickets.html";
-
-                } else {
-
-                    window.location.href = "marketplace.html";
-
-                }
-
-            }, 1000);
-
-        }
-
-    });
-
-
-function showSuccess(message) {
-
-    const success =
-        document.getElementById("success");
-
-    success.textContent = message;
-
-    success.style.display = "block";
-
 }
-
+}
 </script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+<!-- Header Navigation -->
+<header class="bg-slate-950 border-b border-emerald-900/50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<a href="index.html" class="text-2xl font-extrabold text-amber-500 flex items-center gap-2">
+<i class="fa-solid fa-gem text-emerald-500"></i> KAG Platform
+</a>
+<a href="index.html" class="text-sm font-medium text-slate-300 hover:text-amber-400 transition">
+<i class="fa-solid fa-arrow-left mr-1"></i> На главную
+</a>
+</div>
+</header>
+<!-- Main Content / Login Card -->
+<main class="flex-grow flex items-center justify-center px-4 py-12">
+<div class="max-w-md w-full bg-slate-950 border border-emerald-900/50 rounded-3xl p-8 shadow-2xl space-y-6">
+<div class="text-center space-y-2">
+<div class="h-16 w-16 bg-emerald-950 border border-emerald-900/60 rounded-2xl mx-auto flex items-center justify-center text-amber-500 text-2xl font-bold shadow-inner">
+<i class="fa-solid fa-lock"></i>
+</div>
+<h1 class="text-2xl font-extrabold text-white">Добро пожаловать</h1>
+<p class="text-xs text-slate-400">Войдите в свой аккаунт KAG Platform для продолжения</p>
+</div>
+<!-- Login Form -->
+<form onsubmit="event.preventDefault(); showNotification('Успешный вход в систему!', 'success'); setTimeout(() => window.location.href='profile.html', 1000);" class="space-y-4">
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Email или телефон</label>
+<input type="text" required placeholder="shergazy@kagplatform.kg" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<label class="text-xs font-semibold text-slate-300">Пароль</label>
+<a href="#" class="text-xs text-amber-500 hover:underline">Забыли пароль?</a>
+</div>
+<input type="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+<button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 py-3.5 rounded-xl font-bold text-sm transition shadow-lg mt-2">
+Войти в систему
+</button>
+</form>
+<div class="border-t border-emerald-900/30 pt-4 text-center text-xs text-slate-400">
+Нет аккаунта? <a href="#" onclick="alert('Регистрация временно доступна через администратора платформы.');" class="text-amber-500 font-bold hover:underline">Создать аккаунт</a>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-950 border-t border-emerald-900/50 py-6 text-center text-xs text-slate-400">
+© 2026 KAG Platform. Все права защищены.
+</footer>
+<script src="script.js"></script>
 </body>
 </html>
