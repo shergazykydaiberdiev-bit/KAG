@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KAG — Аткаруучу кабинети</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #06251B;
+            color: #F4EBD0;
+        }
+
+        header {
+            padding: 18px 6%;
+            border-bottom: 1px solid rgba(212,175,55,.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #D4AF37;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        header a {
+            color: #F4EBD0;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 35px 20px 70px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #b9b29f;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: #0b3326;
+            border: 1px solid rgba(212,175,55,.25);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .stat span {
+            display: block;
+            color: #b9b29f;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .stat strong {
+            font-size: 27px;
+            color: #D4AF37;
+        }
+
+        .section {
+            background: #0b3326;
+            border: 1px solid rgba(212,175,55,.22);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section h2 {
+            margin-bottom: 18px;
+        }
+
+        .profile {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #D4AF37;
+            color: #06251B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .profile h3 {
+            margin-bottom: 7px;
+        }
+
+        .rating {
+            color: #D4AF37;
+        }
+
+        .task {
+            border: 1px solid rgba(244,235,208,.12);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .task:last-child {
+            margin-bottom: 0;
+        }
+
+        .task-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .task h3 {
+            font-size: 18px;
+        }
+
+        .price {
+            color: #D4AF37;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .task p {
+            color: #b9b29f;
+            margin: 7px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: rgba(212,175,55,.12);
+            color: #D4AF37;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .offer-btn {
+            background: #D4AF37;
+            color: #06251B;
+        }
+
+        .service-btn {
+            background: transparent;
+            color: #D4AF37;
+            border: 1px solid #D4AF37;
+        }
+
+        .orders {
+            display: grid;
+            gap: 12px;
+        }
+
+        .order {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(244,235,208,.12);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .status {
+            color: #D4AF37;
+            font-size: 14px;
+        }
+
+        .empty {
+            color: #aaa;
+            padding: 15px 0;
+        }
+
+        @media (max-width: 800px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            .welcome h1 {
+                font-size: 25px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .profile {
+                align-items: flex-start;
+            }
+
+            .task-top {
+                flex-direction: column;
+            }
+
+            .order {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">KΛG</div>
+    <a href="marketplace.html">← KAG Marketplace</a>
+</header>
+
+<main class="container">
+
+    <div class="welcome">
+        <h1>Аткаруучу кабинети</h1>
+        <p>Кардарлардын тапшырмаларын таап, сунуш жөнөтүңүз.</p>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <span>Рейтинг</span>
+            <strong>4.9 ★</strong>
+        </div>
+
+        <div class="stat">
+            <span>Бүткөн заказдар</span>
+            <strong>24</strong>
+        </div>
+
+        <div class="stat">
+            <span>Киреше</span>
+            <strong>58 500 с</strong>
+        </div>
+
+        <div class="stat">
+            <span>Активдүү заказ</span>
+            <strong>2</strong>
+        </div>
+
+    </div>
+
+    <section class="section">
+
+        <h2>👤 Менин профилим</h2>
+
+        <div class="profile">
+
+            <div class="avatar">А</div>
+
+            <div>
+                <h3>Азамат С.</h3>
+                <p>Электрик • Бишкек</p>
+                <div class="rating">★★★★★ 4.9</div>
+            </div>
+
+        </div>
+
+        <button class="service-btn"
+                onclick="window.location.href='add-service.html'">
+            + Кызмат кошуу
+        </button>
+
+    </section>
+
+    <section class="section">
+
+        <h2>🔥 Жаңы тапшырмалар</h2>
+
+        <div id="tasks"></div>
+
+    </section>
+
+    <section class="section">
+
+        <h2>📦 Менин заказдарым</h2>
+
+        <div class="orders" id="orders"></div>
+
+    </section>
+
+</main>
+
+<script>
+
+const tasks = [
+
+    {
+        id: "KAG-1001",
+        title: "Үйгө электр розетка орнотуп берүү",
+        category: "Электрика",
+        location: "Бишкек",
+        budget: "2 500 сом"
+    },
+
+    {
+        id: "KAG-1002",
+        title: "2 бөлмөлүү батирди тазалоо",
+        category: "Тазалоо",
+        location: "Бишкек",
+        budget: "3 000 сом"
+    },
+
+    {
+        id: "KAG-1003",
+        title: "Сантехника оңдоп берүү",
+        category: "Сантехника",
+        location: "Бишкек",
+        budget: "2 000 сом"
+    }
+
+];
+
+function renderTasks() {
+
+    const container = document.getElementById("tasks");
+
+    container.innerHTML = tasks.map(task => `
+
+        <div class="task">
+
+            <div class="task-top">
+
+                <h3>${task.title}</h3>
+
+                <div class="price">
+                    ${task.budget}
+                </div>
+
+            </div>
+
+            <p>📍 ${task.location}</p>
+
+            <span class="tag">
+                ${task.category}
+            </span>
+
+            <br>
+
+            <button
+                class="offer-btn"
+                onclick="sendOffer('${task.id}', '${task.title}', '${task.budget}')">
+
+                Сунуш жөнөтүү
+
+            </button>
+
+        </div>
+
+    `).join("");
+
+}
+
+function sendOffer(id, title, budget) {
+
+    const price = prompt(
+        "Кардарга канча баага сунуш жөнөтөсүз?",
+        budget.replace(" сом", "").replace(" ", "")
+    );
+
+    if (!price) return;
+
+    const offer = {
+
+        id: "OFFER-" + Date.now(),
+
+        taskId: id,
+
+        taskTitle: title,
+
+        executor: "Азамат С.",
+
+        price: Number(price),
+
+        status: "sent",
+
+        createdAt: new Date().toISOString()
+
+    };
+
+    localStorage.setItem(
+        "kag_offer",
+        JSON.stringify(offer)
+    );
+
+    alert(
+        "✅ Сунуш кардарга жөнөтүлдү!\n\n" +
+        "Баасы: " + price + " сом"
+    );
+
+}
+
+function renderOrders() {
+
+    const container = document.getElementById("orders");
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem("kag_orders") || "[]"
+        );
+
+    if (!orders.length) {
+
+        container.innerHTML =
+            '<div class="empty">Азырынча заказ жок.</div>';
+
+        return;
+    }
+
+    container.innerHTML = orders.map(order => `
+
+        <div class="order">
+
+            <div>
+
+                <strong>
+                    ${order.task?.title || "KAG заказ"}
+                </strong>
+
+                <div class="status">
+                    ${order.status || "new"}
+                </div>
+
+            </div>
+
+            <strong class="price">
+                ${order.price || 0} сом
+            </strong>
+
+        </div>
+
+    `).join("");
+
+}
+
+renderTasks();
+renderOrders();
+
+</script>
+
+</body>
+</html>
