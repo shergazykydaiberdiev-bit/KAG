@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KAG — Заказдар</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .orders-page {
+            max-width: 1000px;
+            margin: auto;
+            padding: 40px 20px 100px;
+        }
+
+        .orders-header {
+            margin-bottom: 30px;
+        }
+
+        .orders-label {
+            color: #D4AF37;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .orders-header h1 {
+            color: #F4EBD0;
+            font-size: 34px;
+            margin: 8px 0;
+        }
+
+        .orders-header p {
+            color: rgba(244,235,208,.6);
+        }
+
+        .orders-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 25px;
+            padding-bottom: 5px;
+        }
+
+        .order-tab {
+            border: 1px solid rgba(244,235,208,.12);
+            background: rgba(255,255,255,.03);
+            color: rgba(244,235,208,.7);
+            border-radius: 12px;
+            padding: 11px 16px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .order-tab.active {
+            background: #D4AF37;
+            color: #06251B;
+            border-color: #D4AF37;
+            font-weight: 700;
+        }
+
+        .orders-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        .order-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(244,235,208,.1);
+            border-radius: 20px;
+            padding: 23px;
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .order-id {
+            color: rgba(244,235,208,.45);
+            font-size: 12px;
+        }
+
+        .order-title {
+            color: #F4EBD0;
+            font-size: 20px;
+            margin: 5px 0;
+        }
+
+        .status {
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-confirmed {
+            background: rgba(212,175,55,.12);
+            color: #D4AF37;
+        }
+
+        .status-progress {
+            background: rgba(70,150,120,.15);
+            color: #8fd3b8;
+        }
+
+        .status-completed {
+            background: rgba(100,180,120,.15);
+            color: #9de0a8;
+        }
+
+        .status-cancelled {
+            background: rgba(200,70,70,.12);
+            color: #ef9999;
+        }
+
+        .order-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: rgba(0,0,0,.12);
+            padding: 13px;
+            border-radius: 12px;
+        }
+
+        .info-box small {
+            display: block;
+            color: rgba(244,235,208,.4);
+            margin-bottom: 5px;
+        }
+
+        .info-box strong {
+            color: #F4EBD0;
+        }
+
+        .executor-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(244,235,208,.08);
+        }
+
+        .executor-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #D4AF37;
+            color: #06251B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .executor-row strong {
+            display: block;
+            color: #F4EBD0;
+        }
+
+        .executor-row span {
+            color: rgba(244,235,208,.5);
+            font-size: 13px;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .order-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 11px;
+            cursor: pointer;
+            font-weight: 700;
+            border: 1px solid rgba(212,175,55,.3);
+        }
+
+        .order-btn.primary {
+            background: #D4AF37;
+            color: #06251B;
+        }
+
+        .order-btn.secondary {
+            background: transparent;
+            color: #F4EBD0;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(244,235,208,.08);
+            border-radius: 20px;
+        }
+
+        .empty-orders .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty-orders h2 {
+            color: #F4EBD0;
+        }
+
+        .empty-orders p {
+            color: rgba(244,235,208,.55);
+            margin-bottom: 22px;
+        }
+
+        .new-task-btn {
+            display: inline-block;
+            background: #D4AF37;
+            color: #06251B;
+            text-decoration: none;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        .progress {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin: 20px 0;
+        }
+
+        .progress-step {
+            text-align: center;
+            font-size: 10px;
+            color: rgba(244,235,208,.35);
+        }
+
+        .progress-dot {
+            height: 6px;
+            border-radius: 10px;
+            background: rgba(244,235,208,.1);
+            margin-bottom: 6px;
+        }
+
+        .progress-step.active .progress-dot {
+            background: #D4AF37;
+        }
+
+        .progress-step.active {
+            color: #D4AF37;
+        }
+
+        @media(max-width:650px) {
+
+            .orders-page {
+                padding: 25px 15px 90px;
+            }
+
+            .orders-header h1 {
+                font-size: 28px;
+            }
+
+            .order-top {
+                flex-direction: column;
+            }
+
+            .order-info {
+                grid-template-columns: 1fr;
+            }
+
+            .order-actions {
+                flex-direction: column;
+            }
+
+            .progress-step {
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="kag-header">
+
+    <div class="header-inner">
+
+        <a href="index.html" class="kag-logo">
+            KAG
+        </a>
+
+        <nav class="desktop-nav">
+
+            <a href="index.html">
+                Башкы бет
+            </a>
+
+            <a href="marketplace.html">
+                Кызматтар
+            </a>
+
+            <a href="tickets.html">
+                Билеттер
+            </a>
+
+            <a href="orders.html">
+                Заказдар
+            </a>
+
+            <a href="profile.html">
+                Профиль
+            </a>
+
+        </nav>
+
+        <a href="login.html" class="login-btn">
+            Кирүү
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="orders-page">
+
+    <div class="orders-header">
+
+        <div class="orders-label">
+            KAG ORDERS
+        </div>
+
+        <h1>
+            Менин заказдарым
+        </h1>
+
+        <p>
+            Бардык тапшырмаларыңызды жана заказдарыңызды бир жерден башкарыңыз.
+        </p>
+
+    </div>
+
+
+    <div class="orders-tabs">
+
+        <button
+            class="order-tab active"
+            onclick="filterOrders('all', this)"
+        >
+            Баары
+        </button>
+
+        <button
+            class="order-tab"
+            onclick="filterOrders('confirmed', this)"
+        >
+            Ырасталган
+        </button>
+
+        <button
+            class="order-tab"
+            onclick="filterOrders('progress', this)"
+        >
+            Иштелүүдө
+        </button>
+
+        <button
+            class="order-tab"
+            onclick="filterOrders('completed', this)"
+        >
+            Бүткөн
+        </button>
+
+    </div>
+
+
+    <div id="ordersList">
+    </div>
+
+</main>
+
+
+<script>
+
+let orders = [];
+
+let currentFilter = "all";
+
+
+function loadOrders() {
+
+    orders =
+        JSON.parse(
+            localStorage.getItem("kag_orders")
+        ) || [];
+
+    renderOrders();
+}
+
+
+function getStatusText(status) {
+
+    const statuses = {
+
+        confirmed: "Ырасталды",
+
+        progress: "Иштелүүдө",
+
+        completed: "Бүттү",
+
+        cancelled: "Жокко чыгарылды"
+
+    };
+
+    return statuses[status] || "Жаңы";
+
+}
+
+
+function getProgress(status) {
+
+    const steps = [
+        "Жаңы",
+        "Тандалды",
+        "Ырасталды",
+        "Иштелүүдө",
+        "Бүттү"
+    ];
+
+    let active = 2;
+
+    if (status === "progress") {
+        active = 3;
+    }
+
+    if (status === "completed") {
+        active = 5;
+    }
+
+    if (status === "cancelled") {
+        active = 0;
+    }
+
+    return steps.map((step, index) => {
+
+        const isActive = index < active;
+
+        return `
+
+            <div class="progress-step ${isActive ? "active" : ""}">
+
+                <div class="progress-dot"></div>
+
+                ${step}
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+function renderOrders() {
+
+    const container =
+        document.getElementById("ordersList");
+
+
+    let filtered = orders;
+
+
+    if (currentFilter !== "all") {
+
+        filtered =
+            orders.filter(
+                order => order.status === currentFilter
+            );
+
+    }
+
+
+    if (!filtered.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-orders">
+
+                <div class="icon">
+                    📦
+                </div>
+
+                <h2>
+                    Заказдар азырынча жок
+                </h2>
+
+                <p>
+                    Керектүү кызматты таап,
+                    биринчи тапшырмаңызды түзүңүз.
+                </p>
+
+                <a
+                    href="marketplace.html"
+                    class="new-task-btn"
+                >
+                    Кызмат табуу
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = `
+
+        <div class="orders-list">
+
+            ${filtered.map(order => `
+
+                <div class="order-card">
+
+                    <div class="order-top">
+
+                        <div>
+
+                            <div class="order-id">
+                                ${order.id}
+                            </div>
+
+                            <div class="order-title">
+                                ${order.taskTitle}
+                            </div>
+
+                        </div>
+
+                        <div class="status status-${order.status}">
+                            ${getStatusText(order.status)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        ${getProgress(order.status)}
+
+                    </div>
+
+
+                    <div class="order-info">
+
+                        <div class="info-box">
+
+                            <small>
+                                Категория
+                            </small>
+
+                            <strong>
+                                ${order.category}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <small>
+                                Дарек
+                            </small>
+
+                            <strong>
+                                ${order.location}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <small>
+                                Баасы
+                            </small>
+
+                            <strong>
+                                ${Number(order.price).toLocaleString()} сом
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="executor-row">
+
+                        <div class="executor-avatar">
+                            ${order.executorName.charAt(0)}
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                ${order.executorName}
+                            </strong>
+
+                            <span>
+                                ${order.executorProfession}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-actions">
+
+                        <button
+                            class="order-btn secondary"
+                            onclick="viewOrder('${order.id}')"
+                        >
+                            Заказды көрүү
+                        </button>
+
+
+                        ${
+                            order.status === "confirmed"
+
+                            ? `
+
+                                <button
+                                    class="order-btn primary"
+                                    onclick="startOrder('${order.id}')"
+                                >
+                                    ▶ Ишти баштоо
+                                </button>
+
+                            `
+
+                            : ""
+
+                        }
+
+
+                        ${
+                            order.status === "progress"
+
+                            ? `
+
+                                <button
+                                    class="order-btn primary"
+                                    onclick="completeOrder('${order.id}')"
+                                >
+                                    ✓ Бүттү
+                                </button>
+
+                            `
+
+                            : ""
+
+                        }
+
+
+                        ${
+                            order.status === "completed"
+
+                            ? `
+
+                                <button
+                                    class="order-btn primary"
+                                    onclick="reviewOrder('${order.id}')"
+                                >
+                                    ⭐ Баалоо
+                                </button>
+
+                            `
+
+                            : ""
+
+                        }
+
+                    </div>
+
+                </div>
+
+            `).join("")}
+
+        </div>
+
+    `;
+
+}
+
+
+function filterOrders(filter, button) {
+
+    currentFilter = filter;
+
+    document
+        .querySelectorAll(".order-tab")
+        .forEach(tab => {
+            tab.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    renderOrders();
+
+}
+
+
+function startOrder(id) {
+
+    const index =
+        orders.findIndex(
+            order => order.id === id
+        );
+
+    if (index === -1) return;
+
+    orders[index].status = "progress";
+
+    localStorage.setItem(
+        "kag_orders",
+        JSON.stringify(orders)
+    );
+
+
+    const current =
+        JSON.parse(
+            localStorage.getItem("kag_current_order")
+        );
+
+    if (current && current.id === id) {
+
+        current.status = "progress";
+
+        localStorage.setItem(
+            "kag_current_order",
+            JSON.stringify(current)
+        );
+
+    }
+
+
+    alert("🚀 Заказ иштелип баштады!");
+
+    renderOrders();
+
+}
+
+
+function completeOrder(id) {
+
+    const index =
+        orders.findIndex(
+            order => order.id === id
+        );
+
+    if (index === -1) return;
+
+
+    orders[index].status = "completed";
+
+    orders[index].completedAt =
+        new Date().toISOString();
+
+
+    localStorage.setItem(
+        "kag_orders",
+        JSON.stringify(orders)
+    );
+
+
+    alert("✅ Заказ ийгиликтүү аяктады!");
+
+    renderOrders();
+
+}
+
+
+function viewOrder(id) {
+
+    const order =
+        orders.find(
+            item => item.id === id
+        );
+
+    if (!order) return;
+
+    localStorage.setItem(
+        "kag_current_order",
+        JSON.stringify(order)
+    );
+
+    alert(
+        "Заказдын деталдары жакында ачылат."
+    );
+
+}
+
+
+function reviewOrder(id) {
+
+    const rating =
+        prompt(
+            "Аткаруучуга 1ден 5ке чейин баа бериңиз:"
+        );
+
+    if (!rating) return;
+
+    if (rating < 1 || rating > 5) {
+
+        alert("1ден 5ке чейинки сан жазыңыз.");
+
+        return;
+    }
+
+
+    const index =
+        orders.findIndex(
+            order => order.id === id
+        );
+
+    if (index === -1) return;
+
+
+    orders[index].rating =
+        Number(rating);
+
+
+    localStorage.setItem(
+        "kag_orders",
+        JSON.stringify(orders)
+    );
+
+
+    alert(
+        "⭐ Рахмат! Сиздин бааңыз сакталды."
+    );
+
+    renderOrders();
+
+}
+
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
