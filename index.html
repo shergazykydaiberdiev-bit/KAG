@@ -1,397 +1,119 @@
 <!DOCTYPE html>
-<html lang="ky">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAG — Кыргызстандагы кызматтар платформасы</title>
-    <meta name="description" content="KAG — Кыргызстандагы ишенимдүү адистерди жана кызматтарды тез табуучу платформа.">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAG Platform — Главная</title>
+<!-- Подключаем внешние стили проекта -->
+<link rel="stylesheet" href="style.css">
+<!-- Tailwind CSS CDN для быстрой адаптивной верстки -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+kagGreen: { 800: '#064e3b', 900: '#022c22' },
+kagGold: { 500: '#d97706', 600: '#b45309' }
+}
+}
+}
+}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+</style>
 </head>
-<body>
-<header class="header">
-    <div class="container nav">
-        <a href="index.html" class="logo">K<span>Λ</span>G</a>
-        <nav class="menu">
-            <a href="#services" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-            <a href="marketplace.html">Marketplace</a>
-            <a href="#how" data-kg="Кантип иштейт?" data-ru="Как работает?">Кантип иштейт?</a>
-            <a href="#about" data-kg="Биз жөнүндө" data-ru="О нас">Биз жөнүндө</a>
-        </nav>
-        <div class="nav-right">
-            <div class="language">
-                <button id="kgBtn" class="active">KG</button>
-                <span>|</span>
-                <button id="ruBtn">RU</button>
-            </div>
-            <a href="login.html"
-               class="login-btn"
-               data-kg="Кирүү"
-               data-ru="Войти">
-                Кирүү
-            </a>
-            <div class="burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#services" data-kg="Кызматтар" data-ru="Услуги">Кызматтар</a>
-        <a href="marketplace.html">Marketplace</a>
-        <a href="#how" data-kg="Кантип иштейт?" data-ru="Как работает?">Кантип иштейт?</a>
-        <a href="#about" data-kg="Биз жөнүндө" data-ru="О нас">Биз жөнүндө</a>
-        <a href="login.html" data-kg="Кирүү" data-ru="Войти">Кирүү</a>
-    </div>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+<!-- Header Navigation -->
+<header class="bg-slate-950 border-b border-emerald-900/50 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<div class="flex items-center space-x-8">
+<a href="index.html" class="text-2xl font-extrabold text-amber-500 flex items-center gap-2">
+<i class="fa-solid fa-gem text-emerald-500"></i> KAG Platform
+</a>
+<nav class="hidden md:flex space-x-6 text-sm font-medium">
+<a href="index.html" class="text-amber-400 transition">Главная</a>
+<a href="marketplace.html" class="text-slate-300 hover:text-amber-400 transition">Маркетплейс</a>
+<a href="tickets.html" class="text-slate-300 hover:text-amber-400 transition">Билеты</a>
+<a href="add-service.html" class="text-slate-300 hover:text-amber-400 transition">+ Добавить услугу</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<a href="checkout.html" class="relative p-2 text-slate-300 hover:text-amber-400 transition" title="Корзина / Оплата">
+<i class="fa-solid fa-cart-shopping text-xl"></i>
+</a>
+<a href="profile.html" class="p-2 text-slate-300 hover:text-amber-400 transition" title="Профиль">
+<i class="fa-solid fa-user text-xl"></i>
+</a>
+<a href="login.html" class="hidden sm:inline-flex items-center px-4 py-2 border border-amber-500 text-amber-500 rounded-xl hover:bg-amber-500/10 font-medium transition text-sm">
+Войти
+</a>
+</div>
+</div>
+<!-- Mobile Navigation bar -->
+<div class="md:hidden flex justify-around bg-slate-950 border-t border-emerald-900/30 py-3 text-xs text-slate-300">
+<a href="index.html" class="flex flex-col items-center text-amber-500"><i class="fa-solid fa-house mb-1"></i>Главная</a>
+<a href="marketplace.html" class="flex flex-col items-center"><i class="fa-solid fa-store mb-1"></i>Маркет</a>
+<a href="tickets.html" class="flex flex-col items-center"><i class="fa-solid fa-ticket mb-1"></i>Билеты</a>
+<a href="checkout.html" class="flex flex-col items-center"><i class="fa-solid fa-cart-shopping mb-1"></i>Корзина</a>
+<a href="profile.html" class="flex flex-col items-center"><i class="fa-solid fa-user mb-1"></i>Профиль</a>
+</div>
 </header>
-<main>
-<!-- ================= HERO ================= -->
-<section class="hero">
-    <div class="container hero-content">
-        <div class="hero-text">
-            <div class="badge">
-                🇰🇬 Кыргызстан үчүн жасалган
-            </div>
-            <h1>
-                Керектүү кызматты
-                <br>
-                <strong>бир жерден тап.</strong>
-            </h1>
-            <p>
-                KAG — ишенимдүү адистерди, кызматтарды жана кардарларды
-                бириктирген жаңы муундагы кыргызстандык платформа.
-            </p>
-            <div class="hero-buttons">
-                <a href="marketplace.html"
-                   class="gold-btn">
-                    Кызмат издөө →
-                </a>
-                <a href="add-service.html"
-                   class="outline-btn">
-                    Кызмат сунуштоо
-                </a>
-            </div>
-        </div>
-        <!-- SEARCH / AI CARD -->
-        <div class="hero-card">
-            <div class="card-top">
-                <span>KΛG</span>
-                <span>🇰🇬</span>
-            </div>
-            <div class="ai-label">
-                🤖 KAG AI
-            </div>
-            <form
-                class="search-box"
-                action="marketplace.html"
-                method="get">
-                <span>🔍</span>
-                <input
-                    type="text"
-                    name="q"
-                    placeholder="Кандай кызмат керек?"
-                    autocomplete="off">
-                <button type="submit">
-                    →
-                </button>
-            </form>
-            <p class="search-hint">
-                Мисалы: «кран оңдош керек», «үй тазалаш керек»
-            </p>
-            <div class="quick-title">
-                Популярдуу кызматтар
-            </div>
-            <div class="mini-services">
-                <a href="marketplace.html?category=Ремонт">
-                    <div>🔧<small>Ремонт</small></div>
-                </a>
-                <a href="marketplace.html?category=Транспорт">
-                    <div>🚗<small>Транспорт</small></div>
-                </a>
-                <a href="marketplace.html?category=Тазалоо">
-                    <div>🧹<small>Тазалоо</small></div>
-                </a>
-                <a href="marketplace.html?category=IT">
-                    <div>💻<small>IT</small></div>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ================= KAG NOW ================= -->
-<section class="now-section">
-    <div class="container">
-        <div class="now-box">
-            <div class="now-icon">⚡</div>
-            <div class="now-content">
-                <span class="now-label">
-                    KAG NOW
-                </span>
-                <h2>
-                    Азыр бош мастерди тап
-                </h2>
-                <p>
-                    Жакын жердеги азыр иштөөгө даяр адистер.
-                </p>
-            </div>
-            <a href="marketplace.html?status=available"
-               class="now-button">
-                Азыр табуу →
-            </a>
-        </div>
-    </div>
-</section>
-<!-- ================= SERVICES ================= -->
-<section class="services" id="services">
-    <div class="container">
-        <div class="section-title">
-            <span>ПОПУЛЯРДУУ</span>
-            <h2>Кызматтар</h2>
-            <p>
-                Керектүү адисти тез жана оңой табыңыз.
-            </p>
-        </div>
-        <div class="service-grid">
-            <a href="marketplace.html?category=Ремонт"
-               class="service-card">
-                <div class="icon">🔧</div>
-                <h3>Ремонт</h3>
-                <p>
-                    Үй жана техника оңдоо
-                </p>
-            </a>
-            <a href="marketplace.html?category=Транспорт"
-               class="service-card">
-                <div class="icon">🚗</div>
-                <h3>Транспорт</h3>
-                <p>
-                    Такси, жүк ташуу жана айдоочулар
-                </p>
-            </a>
-            <a href="marketplace.html?category=Тазалоо"
-               class="service-card">
-                <div class="icon">🧹</div>
-                <h3>Тазалоо</h3>
-                <p>
-                    Үй, офис жана бассейн тазалоо
-                </p>
-            </a>
-            <a href="marketplace.html?category=IT"
-               class="service-card">
-                <div class="icon">💻</div>
-                <h3>IT кызматтар</h3>
-                <p>
-                    Сайт, дизайн жана программалоо
-                </p>
-            </a>
-            <a href="marketplace.html?category=Фото"
-               class="service-card">
-                <div class="icon">📸</div>
-                <h3>Фото & Видео</h3>
-                <p>
-                    Фотографтар жана видеографтар
-                </p>
-            </a>
-            <a href="marketplace.html?category=Үй"
-               class="service-card">
-                <div class="icon">🏠</div>
-                <h3>Үй кызматтары</h3>
-                <p>
-                    Курулуш, ремонт жана дизайн
-                </p>
-            </a>
-            <a href="marketplace.html?category=Билим"
-               class="service-card">
-                <div class="icon">🎓</div>
-                <h3>Билим берүү</h3>
-                <p>
-                    Репетиторлор жана курстар
-                </p>
-            </a>
-            <a href="marketplace.html"
-               class="service-card">
-                <div class="icon">✨</div>
-                <h3>Бардык кызматтар</h3>
-                <p>
-                    Керектүү кызматты табыңыз
-                </p>
-            </a>
-        </div>
-    </div>
-</section>
-<!-- ================= VERIFIED ================= -->
-<section class="verified-section">
-    <div class="container">
-        <div class="verified-box">
-            <div class="verified-symbol">
-                ✓
-            </div>
-            <div>
-                <span class="gold-text">
-                    KAG VERIFIED
-                </span>
-                <h2>
-                    Ишенимдүү мастерди тандаңыз.
-                </h2>
-                <p>
-                    Verified Master — KAG платформасында
-                    текшерүүдөн өткөн кызмат көрсөтүүчү.
-                </p>
-            </div>
-            <a href="marketplace.html?verified=true"
-               class="outline-btn">
-                Verified мастерлер →
-            </a>
-        </div>
-    </div>
-</section>
-<!-- ================= HOW ================= -->
-<section class="how" id="how">
-    <div class="container">
-        <div class="section-title">
-            <span>3 КАДАМ</span>
-            <h2>
-                KAG кантип иштейт?
-            </h2>
-        </div>
-        <div class="steps">
-            <div class="step">
-                <div class="number">
-                    01
-                </div>
-                <h3>
-                    Кызматты тап
-                </h3>
-                <p>
-                    Керектүү кызматты издөө же KAG AI аркылуу табыңыз.
-                </p>
-            </div>
-            <div class="step">
-                <div class="number">
-                    02
-                </div>
-                <h3>
-                    Мастерди танда
-                </h3>
-                <p>
-                    Баасын, рейтингин, жайгашкан жерин жана статусун салыштырыңыз.
-                </p>
-            </div>
-            <div class="step">
-                <div class="number">
-                    03
-                </div>
-                <h3>
-                    Заказ бер
-                </h3>
-                <p>
-                    Мастерди чакырып, иштин статусун KAG аркылуу көзөмөлдөңүз.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ================= FUTURE SYSTEM ================= -->
-<section class="ecosystem">
-    <div class="container">
-        <div class="section-title">
-            <span>KAG ECOSYSTEM</span>
-            <h2>
-                Бир платформа. Көп мүмкүнчүлүк.
-            </h2>
-        </div>
-        <div class="ecosystem-grid">
-            <div class="eco-card">
-                <strong>KAG Home</strong>
-                <span>🏠 Үй кызматтары</span>
-            </div>
-            <div class="eco-card">
-                <strong>KAG Clean</strong>
-                <span>🧹 Тазалоо</span>
-            </div>
-            <div class="eco-card">
-                <strong>KAG Delivery</strong>
-                <span>🚚 Жеткирүү</span>
-            </div>
-            <div class="eco-card">
-                <strong>KAG Pay</strong>
-                <span>💳 Төлөмдөр</span>
-            </div>
-            <div class="eco-card">
-                <strong>KAG AI</strong>
-                <span>🤖 Акылдуу жардамчы</span>
-            </div>
-            <div class="eco-card">
-                <strong>KAG NOW</strong>
-                <span>⚡ Тез заказ</span>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ================= ABOUT ================= -->
-<section class="about" id="about">
-    <div class="container about-box">
-        <div>
-            <span class="gold-text">
-                KAG GROUP
-            </span>
-            <h2>
-                Кыргызстанда жаңы мүмкүнчүлүктөрдү түзөбүз.
-            </h2>
-        </div>
-        <p>
-            KAG — жергиликтүү адистерди жана кардарларды
-            бириктирген санариптик экосистема.
-            Биздин максат — кызматты табууну жөнөкөй,
-            тез жана ишенимдүү кылуу.
-        </p>
-    </div>
-</section>
+<!-- Hero Section -->
+<main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+<div class="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 border border-emerald-900/50 rounded-3xl p-8 sm:p-14 shadow-2xl flex flex-col md:flex-row items-center justify-between">
+<div class="space-y-6 max-w-xl">
+<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Элитная экосистема услуг и билетов</span>
+<h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-white">Добро пожаловать на <span class="text-amber-500">KAG Platform</span></h1>
+<p class="text-slate-300 text-base sm:text-lg">Надежная площадка для профессиональных услуг, эксклюзивных билетов на мероприятия и безопасных сделок в стиле Dark Green & Gold.</p>
+<div class="flex flex-wrap gap-4 pt-2">
+<a href="marketplace.html" class="bg-amber-500 text-slate-950 px-6 py-3.5 rounded-xl font-bold shadow-lg hover:bg-amber-400 transition">Перейти в маркетплейс</a>
+<a href="tickets.html" class="bg-emerald-800 text-white border border-emerald-700 px-6 py-3.5 rounded-xl font-bold shadow hover:bg-emerald-700 transition">Смотреть билеты</a>
+</div>
+</div>
+<div class="mt-10 md:mt-0">
+<div class="bg-slate-950/80 p-8 rounded-2xl text-center text-slate-200 border border-amber-500/20 shadow-2xl">
+<i class="fa-solid fa-shield-halved text-5xl text-amber-500 mb-4"></i>
+<div class="font-bold text-xl text-white">Безопасность высшего уровня</div>
+<p class="text-xs text-slate-400 mt-2">Защищенные транзакции и верифицированные исполнители</p>
+</div>
+</div>
+</div>
+<!-- Quick Features Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<a href="marketplace.html" class="bg-slate-950 p-6 rounded-2xl border border-emerald-900/40 hover:border-amber-500/50 transition group">
+<div class="h-12 w-12 bg-emerald-900/30 text-amber-500 rounded-xl flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition">
+<i class="fa-solid fa-store"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Маркетплейс услуг</h3>
+<p class="text-slate-400 text-sm">Найдите востребованных специалистов или опубликуйте свои предложения в несколько кликов.</p>
+</a>
+<a href="tickets.html" class="bg-slate-950 p-6 rounded-2xl border border-emerald-900/40 hover:border-amber-500/50 transition group">
+<div class="h-12 w-12 bg-emerald-900/30 text-amber-500 rounded-xl flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition">
+<i class="fa-solid fa-ticket"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Электронные билеты</h3>
+<p class="text-slate-400 text-sm">Удобное бронирование билетов на конференции, митапы и культурные события.</p>
+</a>
+<a href="profile.html" class="bg-slate-950 p-6 rounded-2xl border border-emerald-900/40 hover:border-amber-500/50 transition group">
+<div class="h-12 w-12 bg-emerald-900/30 text-amber-500 rounded-xl flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition">
+<i class="fa-solid fa-user-gear"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Личный кабинет</h3>
+<p class="text-slate-400 text-sm">Управляйте своими заказами, билетами и активными объявлениями в профиле.</p>
+</a>
+</div>
 </main>
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-    <div class="container footer-content">
-        <div>
-            <div class="footer-logo">
-                KΛG
-            </div>
-            <p>
-                Кыргызстан үчүн жасалган.
-            </p>
-        </div>
-        <div>
-            <a href="#services">
-                Кызматтар
-            </a>
-            <a href="#how">
-                Кантип иштейт?
-            </a>
-            <a href="#about">
-                Биз жөнүндө
-            </a>
-        </div>
-        <div class="footer-contacts">
-            <a href="https://wa.me/996707901214"
-               target="_blank"
-               class="contact-link">
-                WhatsApp
-            </a>
-            <a href="https://t.me/+996707901214"
-               target="_blank"
-               class="contact-link">
-                Telegram
-            </a>
-            <a href="tel:+996707901214"
-               class="contact-link">
-                +996 707 901 214
-            </a>
-        </div>
-    </div>
-    <div class="copyright">
-        © 2026 KAG.
-        Бардык укуктар корголгон.
-    </div>
+<!-- Footer -->
+<footer class="bg-slate-950 border-t border-emerald-900/50 py-8 mt-auto">
+<div class="max-w-7xl mx-auto px-4 text-center text-sm text-slate-400">
+© 2026 KAG Platform. Все права защищены.
+</div>
 </footer>
+<!-- Подключаем внешний скрипт проекта -->
 <script src="script.js"></script>
 </body>
 </html>
