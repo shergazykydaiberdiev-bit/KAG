@@ -1,623 +1,152 @@
 <!DOCTYPE html>
-<html lang="ky">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>KAG — Мастер профили</title>
-
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    .profile-page {
-      max-width: 1100px;
-      margin: auto;
-      padding: 40px 20px 80px;
-    }
-
-    .back-link {
-      color: var(--cream);
-      text-decoration: none;
-      display: inline-block;
-      margin-bottom: 25px;
-    }
-
-    .back-link:hover {
-      color: var(--gold);
-    }
-
-    .profile-card {
-      background: var(--green-light);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 30px;
-    }
-
-    .profile-top {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-      padding-bottom: 30px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--gold);
-      color: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-
-    .profile-info h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
-    }
-
-    .verified {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 8px;
-      background: rgba(212,175,55,.12);
-      color: var(--gold);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .status {
-      margin-top: 10px;
-      color: #75d69a;
-      font-size: 14px;
-    }
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 25px;
-      margin-top: 30px;
-    }
-
-    .section-card {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-    }
-
-    .section-card h2 {
-      margin-top: 0;
-    }
-
-    .rating-box {
-      display: flex;
-      gap: 30px;
-      align-items: center;
-      margin: 20px 0;
-    }
-
-    .big-rating {
-      font-size: 46px;
-      font-weight: 900;
-    }
-
-    .stars {
-      color: var(--gold);
-      font-size: 20px;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .service-item {
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 18px;
-      margin-top: 15px;
-    }
-
-    .service-item h3 {
-      margin: 0 0 8px;
-    }
-
-    .service-price {
-      color: var(--gold);
-      font-size: 21px;
-      font-weight: 800;
-      margin-top: 12px;
-    }
-
-    .order-box {
-      position: sticky;
-      top: 20px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-    }
-
-    .order-box h2 {
-      margin-top: 0;
-    }
-
-    .order-price {
-      font-size: 30px;
-      font-weight: 900;
-      margin: 20px 0;
-    }
-
-    .order-btn {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-      padding: 15px;
-      border-radius: 12px;
-      background: var(--gold);
-      color: var(--green);
-      text-decoration: none;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-
-    .contact-btn {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-      padding: 13px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      color: var(--cream);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-
-    .info-row:last-child {
-      border-bottom: none;
-    }
-
-    .not-found {
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    @media (max-width: 800px) {
-      .profile-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .order-box {
-        position: static;
-      }
-    }
-
-    @media (max-width: 550px) {
-      .profile-top {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .profile-info h1 {
-        font-size: 26px;
-      }
-
-      .profile-card {
-        padding: 20px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<header class="header">
-  <div class="container">
-
-    <a href="index.html" class="logo">KΛG</a>
-
-    <nav class="nav">
-      <a href="index.html">Башкы бет</a>
-      <a href="marketplace.html">Кызматтар</a>
-      <a href="add-service.html">Кызмат кошуу</a>
-      <a href="profile.html">Профиль</a>
-    </nav>
-
-  </div>
-</header>
-
-
-<main class="profile-page">
-
-  <a href="marketplace.html" class="back-link">
-    ← Кызматтарга кайтуу
-  </a>
-
-
-  <div id="profileContainer"></div>
-
-</main>
-
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAG Platform — Личный кабинет</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.tailwindcss.com"></script>
 <script>
-
-/* ==============================
-   DEMO МАСТЕРЛЕР
-============================== */
-
-const demoMasters = {
-
-  demo1: {
-    name: "Азамат",
-    category: "Ремонт",
-    title: "Сантехникалык иштер",
-    description:
-      "Кран, труба, суу агуу жана сантехника оңдоо. Үйгө барып кызмат көрсөтөм.",
-    price: 1200,
-    city: "Бишкек",
-    rating: 4.9,
-    reviews: 124,
-    verified: true,
-    online: true,
-    experience: "8 жыл"
-  },
-
-  demo2: {
-    name: "Бекзат",
-    category: "Тазалоо",
-    title: "Үй тазалоо",
-    description:
-      "Квартира, үй жана офис үчүн профессионалдык тазалоо кызматы.",
-    price: 1000,
-    city: "Бишкек",
-    rating: 4.8,
-    reviews: 89,
-    verified: true,
-    online: true,
-    experience: "5 жыл"
-  },
-
-  demo3: {
-    name: "Нурбек",
-    category: "Транспорт",
-    title: "Жүк ташуу",
-    description:
-      "Бишкек ичинде жүк ташуу, көчүрүү жана жеткирүү кызматы.",
-    price: 800,
-    city: "Бишкек",
-    rating: 4.7,
-    reviews: 63,
-    verified: true,
-    online: false,
-    experience: "6 жыл"
-  },
-
-  demo4: {
-    name: "Эрмек",
-    category: "IT",
-    title: "Компьютер оңдоо",
-    description:
-      "Ноутбук жана компьютер оңдоо. Windows орнотуу, программалар жана диагностика.",
-    price: 1500,
-    city: "Бишкек",
-    rating: 5.0,
-    reviews: 51,
-    verified: true,
-    online: true,
-    experience: "7 жыл"
-  },
-
-  demo5: {
-    name: "Айбек",
-    category: "Фото / Видео",
-    title: "Фото жана видео тартуу",
-    description:
-      "Той, иш-чара, бизнес жана социалдык тармактар үчүн фото-видео.",
-    price: 3000,
-    city: "Бишкек",
-    rating: 4.9,
-    reviews: 37,
-    verified: true,
-    online: false,
-    experience: "4 жыл"
-  }
-
-};
-
-
-/* ==============================
-   URL ID
-============================== */
-
-const params = new URLSearchParams(
-  window.location.search
-);
-
-const id = params.get("id");
-
-
-/* ==============================
-   КЫЗМАТТЫ ТАБУУ
-============================== */
-
-function findService() {
-
-  if (demoMasters[id]) {
-    return demoMasters[id];
-  }
-
-  const saved =
-    JSON.parse(localStorage.getItem("kagServices")) || [];
-
-  return saved.find(
-    service => String(service.id) === String(id)
-  );
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+kagGreen: { 800: '#064e3b', 900: '#022c22' },
+kagGold: { 500: '#d97706', 600: '#b45309' }
 }
-
-
-/* ==============================
-   ПРОФИЛЬДИ КӨРСӨТҮҮ
-============================== */
-
-function renderProfile() {
-
-  const container =
-    document.getElementById("profileContainer");
-
-  const service = findService();
-
-
-  if (!service) {
-
-    container.innerHTML = `
-      <div class="profile-card not-found">
-
-        <h1>Профиль табылган жок</h1>
-
-        <p class="muted">
-          Бул мастер же кызмат азыр жеткиликтүү эмес.
-        </p>
-
-        <br>
-
-        <a href="marketplace.html"
-           class="order-btn">
-          Marketplace'ке кайтуу
-        </a>
-
-      </div>
-    `;
-
-    return;
-  }
-
-
-  const name =
-    service.name || "KAG Мастери";
-
-
-  const firstLetter =
-    name.charAt(0).toUpperCase();
-
-
-  const rating =
-    service.rating > 0
-      ? service.rating
-      : "Жаңы";
-
-
-  const reviews =
-    service.reviews || 0;
-
-
-  const verified =
-    service.verified
-      ? `<span class="verified">✓ KAG Verified</span>`
-      : "";
-
-
-  const status =
-    service.online === true ||
-    service.availability === "online"
-      ? `<div class="status">● Азыр бош</div>`
-      : `<div class="muted">○ Азыр бош эмес</div>`;
-
-
-  container.innerHTML = `
-
-    <div class="profile-card">
-
-
-      <!-- PROFILE HEADER -->
-
-      <div class="profile-top">
-
-        <div class="avatar">
-          ${firstLetter}
-        </div>
-
-
-        <div class="profile-info">
-
-          <h1>${name}</h1>
-
-          ${verified}
-
-          ${status}
-
-          <div class="muted">
-            📍 ${service.city || "Кыргызстан"}
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="profile-grid">
-
-
-        <!-- LEFT -->
-
-        <div>
-
-
-          <!-- ABOUT -->
-
-          <div class="section-card">
-
-            <h2>Мастер жөнүндө</h2>
-
-            <p class="muted">
-              ${service.description}
-            </p>
-
-            <div class="info-row">
-              <span>Категория</span>
-              <strong>${service.category}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>Шаар</span>
-              <strong>${service.city}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>Тажрыйба</span>
-              <strong>${service.experience || "—"}</strong>
-            </div>
-
-          </div>
-
-
-          <!-- RATING -->
-
-          <div class="section-card" style="margin-top:20px;">
-
-            <h2>Рейтинг</h2>
-
-            <div class="rating-box">
-
-              <div class="big-rating">
-                ${rating}
-              </div>
-
-              <div>
-
-                <div class="stars">
-                  ⭐⭐⭐⭐⭐
-                </div>
-
-                <div class="muted">
-                  ${reviews} кардар баалаган
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- SERVICE -->
-
-          <div class="section-card" style="margin-top:20px;">
-
-            <h2>Кызмат</h2>
-
-            <div class="service-item">
-
-              <h3>
-                ${service.title}
-              </h3>
-
-              <div class="muted">
-                ${service.description}
-              </div>
-
-              <div class="service-price">
-                ${service.price || 0} сом
-                <small style="font-size:13px;">
-                  / баштап
-                </small>
-              </div>
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <!-- RIGHT -->
-
-        <aside class="order-box">
-
-          <h2>Кызматка заказ</h2>
-
-          <div class="muted">
-            ${service.title}
-          </div>
-
-
-          <div class="order-price">
-
-            ${service.price || 0} сом
-
-          </div>
-
-
-          <a
-            href="checkout.html?service=${service.id || id}"
-            class="order-btn"
-          >
-            Заказ берүү
-          </a>
-
-
-          <a
-            href="tel:"
-            class="contact-btn"
-          >
-            📞 Байланышуу
-          </a>
-
-
-          <div class="info-box">
-
-            🛡️ KAG аркылуу заказ бергенде
-            кызматтын статусун жана заказды
-            көзөмөлдөө мүмкүнчүлүгү болот.
-
-          </div>
-
-        </aside>
-
-
-      </div>
-
-    </div>
-
-  `;
-
 }
-
-
-renderProfile();
-
+}
+}
 </script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+<!-- Header Navigation -->
+<header class="bg-slate-950 border-b border-emerald-900/50 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<div class="flex items-center space-x-8">
+<a href="index.html" class="text-2xl font-extrabold text-amber-500 flex items-center gap-2">
+<i class="fa-solid fa-gem text-emerald-500"></i> KAG Platform
+</a>
+<nav class="hidden md:flex space-x-6 text-sm font-medium">
+<a href="index.html" class="text-slate-300 hover:text-amber-400 transition">Главная</a>
+<a href="marketplace.html" class="text-slate-300 hover:text-amber-400 transition">Маркетплейс</a>
+<a href="tickets.html" class="text-slate-300 hover:text-amber-400 transition">Билеты</a>
+<a href="add-service.html" class="text-slate-300 hover:text-amber-400 transition">+ Добавить услугу</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<a href="checkout.html" class="relative p-2 text-slate-300 hover:text-amber-400 transition" title="Корзина / Оплата">
+<i class="fa-solid fa-cart-shopping text-xl"></i>
+</a>
+<a href="profile.html" class="p-2 text-amber-400 transition" title="Профиль">
+<i class="fa-solid fa-user text-xl"></i>
+</a>
+<a href="login.html" class="hidden sm:inline-flex items-center px-4 py-2 border border-amber-500 text-amber-500 rounded-xl hover:bg-amber-500/10 font-medium transition text-sm">
+Выйти
+</a>
+</div>
+</div>
+<!-- Mobile Navigation bar -->
+<div class="md:hidden flex justify-around bg-slate-950 border-t border-emerald-900/30 py-3 text-xs text-slate-300">
+<a href="index.html" class="flex flex-col items-center"><i class="fa-solid fa-house mb-1"></i>Главная</a>
+<a href="marketplace.html" class="flex flex-col items-center"><i class="fa-solid fa-store mb-1"></i>Маркет</a>
+<a href="tickets.html" class="flex flex-col items-center"><i class="fa-solid fa-ticket mb-1"></i>Билеты</a>
+<a href="checkout.html" class="flex flex-col items-center"><i class="fa-solid fa-cart-shopping mb-1"></i>Корзина</a>
+<a href="profile.html" class="flex flex-col items-center text-amber-500"><i class="fa-solid fa-user mb-1"></i>Профиль</a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+<!-- Profile Header Card -->
+<div class="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 border border-emerald-900/50 rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-5">
+<div class="h-20 w-20 bg-emerald-900/50 border-2 border-amber-500 rounded-2xl flex items-center justify-center text-amber-500 text-3xl font-extrabold shadow-inner">
+ШД
+</div>
+<div>
+<h1 class="text-2xl font-extrabold text-white">Шергазы Дайбердиев</h1>
+<p class="text-slate-400 text-sm mt-0.5">shergazy@kagplatform.kg • Верифицированный участник</p>
+<span class="inline-block mt-2 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-3 py-1 rounded-full">Премиум аккаунт</span>
+</div>
+</div>
+<div class="flex gap-3">
+<a href="add-service.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-5 py-2.5 rounded-xl font-bold text-sm transition shadow">
++ Добавить услугу
+</a>
+<a href="login.html" class="bg-slate-950 border border-emerald-900/60 hover:border-amber-500 text-slate-300 px-5 py-2.5 rounded-xl font-medium text-sm transition">
+Выйти
+</a>
+</div>
+</div>
+<!-- Dashboard Tabs / Sections -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Active Tickets & Bookings -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-slate-950 p-6 rounded-2xl border border-emerald-900/40 shadow-xl space-y-4">
+<h2 class="text-xl font-bold text-white flex items-center gap-2">
+<i class="fa-solid fa-ticket text-amber-500"></i> Мои электронные билеты
+</h2>
+<div class="space-y-3">
+<!-- Ticket item -->
+<div class="bg-slate-900 p-4 rounded-xl border border-emerald-900/30 flex items-center justify-between gap-4">
+<div>
+<h3 class="font-bold text-white text-base">KAG Tech Summit 2026</h3>
+<p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-calendar text-amber-500 mr-1"></i> 15 Октября, 2026 • Hyatt Regency, Бишкек</p>
+</div>
+<span class="bg-emerald-950 border border-emerald-800 text-emerald-400 text-xs font-bold px-3 py-1.5 rounded-lg">Активен</span>
+</div>
+</div>
+</div>
+<div class="bg-slate-950 p-6 rounded-2xl border border-emerald-900/40 shadow-xl space-y-4">
+<h2 class="text-xl font-bold text-white flex items-center gap-2">
+<i class="fa-solid fa-box-archive text-amber-500"></i> Активные заказы услуг
+</h2>
+<div class="space-y-3">
+<!-- Order item -->
+<div class="bg-slate-900 p-4 rounded-xl border border-emerald-900/30 flex items-center justify-between gap-4">
+<div>
+<h3 class="font-bold text-white text-base">Fullstack Web App</h3>
+<p class="text-xs text-slate-400 mt-1">Стоимость: <span class="text-amber-500 font-bold">15 000 сом</span></p>
+</div>
+<span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-lg">В работе</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile Settings / Info -->
+<div class="bg-slate-950 p-6 rounded-2xl border border-emerald-900/40 h-fit space-y-6 shadow-xl">
+<h2 class="text-xl font-bold text-white border-b border-emerald-900/30 pb-4">Настройки профиля</h2>
+<div class="space-y-4 text-sm">
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Имя пользователя</label>
+<input type="text" value="Шергазы Дайбердиев" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Email</label>
+<input type="email" value="shergazy@kagplatform.kg" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-1">Телефон / Telegram</label>
+<input type="text" value="+996 (555) 00-00-00" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+</div>
+<button onclick="alert('Изменения успешно сохранены!')" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 py-3 rounded-xl font-bold transition shadow-lg text-center block">
+Сохранить изменения
+</button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-950 border-t border-emerald-900/50 py-8 mt-auto">
+<div class="max-w-7xl mx-auto px-4 text-center text-sm text-slate-400">
+© 2026 KAG Platform. Все права защищены.
+</div>
+</footer>
+<script src="script.js"></script>
 </body>
 </html>
