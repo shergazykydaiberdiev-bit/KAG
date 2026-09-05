@@ -1,489 +1,123 @@
 <!DOCTYPE html>
-<html lang="ky">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KAG — Кызмат кошуу</title>
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    .add-page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 50px 20px 80px;
-    }
-
-    .add-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .add-header h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .add-header p {
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    .add-layout {
-      display: grid;
-      grid-template-columns: 1.4fr .8fr;
-      gap: 25px;
-    }
-
-    .form-card,
-    .preview-card {
-      background: var(--green-light);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px;
-    }
-
-    .form-card h2,
-    .preview-card h2 {
-      margin-top: 0;
-      margin-bottom: 25px;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 14px 15px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: #06251B;
-      color: white;
-      font-size: 15px;
-      outline: none;
-    }
-
-    .form-group textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--gold);
-    }
-
-    .price-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .checkbox-row input {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--gold);
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 16px;
-      border: 0;
-      border-radius: 12px;
-      background: var(--gold);
-      color: #06251B;
-      font-weight: 800;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .submit-btn:hover {
-      opacity: .9;
-    }
-
-    .preview-service {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-top: 15px;
-    }
-
-    .preview-category {
-      color: var(--gold);
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .preview-title {
-      font-size: 23px;
-      font-weight: 800;
-      margin: 10px 0;
-    }
-
-    .preview-description {
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .preview-price {
-      font-size: 22px;
-      font-weight: 800;
-      margin-top: 18px;
-    }
-
-    .preview-location {
-      color: var(--muted);
-      margin-top: 10px;
-    }
-
-    .info-box {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 12px;
-      background: rgba(212,175,55,.08);
-      border: 1px solid rgba(212,175,55,.2);
-      color: var(--cream);
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 25px;
-      color: var(--cream);
-      text-decoration: none;
-    }
-
-    .back-link:hover {
-      color: var(--gold);
-    }
-
-    @media (max-width: 800px) {
-      .add-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .add-header h1 {
-        font-size: 32px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .price-row {
-        grid-template-columns: 1fr;
-      }
-
-      .form-card,
-      .preview-card {
-        padding: 20px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<header class="header">
-  <div class="container">
-    <a href="index.html" class="logo">KΛG</a>
-
-    <nav class="nav">
-      <a href="index.html">Башкы бет</a>
-      <a href="marketplace.html">Кызматтар</a>
-      <a href="profile.html">Профиль</a>
-    </nav>
-  </div>
-</header>
-
-<main class="add-page">
-
-  <a href="marketplace.html" class="back-link">
-    ← Кызматтарга кайтуу
-  </a>
-
-  <div class="add-header">
-    <h1>Кызматыңызды кошуңуз</h1>
-    <p>
-      KAG аркылуу жаңы кардарларды табыңыз
-    </p>
-  </div>
-
-  <div class="add-layout">
-
-    <!-- FORM -->
-    <section class="form-card">
-
-      <h2>Кызмат жөнүндө</h2>
-
-      <form id="serviceForm">
-
-        <div class="form-group">
-          <label for="category">Категория</label>
-
-          <select id="category" required>
-            <option value="">Категория тандаңыз</option>
-            <option value="Ремонт">🔧 Ремонт</option>
-            <option value="Тазалоо">🧹 Тазалоо</option>
-            <option value="Транспорт">🚚 Транспорт</option>
-            <option value="IT">💻 IT</option>
-            <option value="Фото / Видео">📸 Фото / Видео</option>
-            <option value="Үй кызматтары">🏠 Үй кызматтары</option>
-            <option value="Башка">➕ Башка</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="title">Кызматтын аталышы</label>
-
-          <input
-            type="text"
-            id="title"
-            placeholder="Мисалы: Сантехникалык иштер"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="description">Кызматтын сүрөттөмөсү</label>
-
-          <textarea
-            id="description"
-            placeholder="Кандай кызмат көрсөтөсүз? Тажрыйбаңыз, эмне иштерди жасай турганыңызды жазыңыз."
-            required
-          ></textarea>
-        </div>
-
-        <div class="price-row">
-
-          <div class="form-group">
-            <label for="price">Баасы, сом</label>
-
-            <input
-              type="number"
-              id="price"
-              placeholder="1200"
-              min="0"
-              required
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="priceType">Баанын түрү</label>
-
-            <select id="priceType">
-              <option value="баштап">Баштап</option>
-              <option value="так">Так баа</option>
-              <option value="макулдашуу">Макулдашуу</option>
-            </select>
-          </div>
-
-        </div>
-
-        <div class="form-group">
-          <label for="city">Шаар / район</label>
-
-          <input
-            type="text"
-            id="city"
-            placeholder="Мисалы: Бишкек"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="availability">Учурдагы статус</label>
-
-          <select id="availability">
-            <option value="online">🟢 Азыр бошмун</option>
-            <option value="offline">⚪ Азыр бош эмесмин</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Байланыш телефону</label>
-
-          <input
-            type="tel"
-            id="phone"
-            placeholder="+996..."
-            required
-          >
-        </div>
-
-        <div class="checkbox-row">
-          <input type="checkbox" id="agree" required>
-
-          <label for="agree">
-            Маалыматтарым туура экенин ырастайм
-          </label>
-        </div>
-
-        <button type="submit" class="submit-btn">
-          🚀 Кызматты KAG'га кошуу
-        </button>
-
-      </form>
-
-    </section>
-
-    <!-- PREVIEW -->
-    <aside class="preview-card">
-
-      <h2>Алдын ала көрүнүш</h2>
-
-      <div class="preview-service">
-
-        <div class="preview-category" id="previewCategory">
-          КАТЕГОРИЯ
-        </div>
-
-        <div class="preview-title" id="previewTitle">
-          Кызматтын аталышы
-        </div>
-
-        <div class="preview-description" id="previewDescription">
-          Бул жерде сиздин кызматтын сүрөттөмөсү көрсөтүлөт.
-        </div>
-
-        <div class="preview-price" id="previewPrice">
-          0 сом
-        </div>
-
-        <div class="preview-location" id="previewLocation">
-          📍 Шаар көрсөтүлө элек
-        </div>
-
-      </div>
-
-      <div class="info-box">
-        💡 <strong>KAG кандай иштейт?</strong><br><br>
-
-        1. Кызматыңызды кошосуз.<br>
-        2. Кардарлар сизди табат.<br>
-        3. Заказ аласыз.<br>
-        4. Кызмат көрсөтөсүз.<br>
-        5. Кардар баа берет.<br>
-        6. Рейтинг топтойсуз.
-      </div>
-
-    </aside>
-
-  </div>
-
-</main>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAG Platform — Добавить услугу</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.tailwindcss.com"></script>
 <script>
-const form = document.getElementById("serviceForm");
-
-const category = document.getElementById("category");
-const title = document.getElementById("title");
-const description = document.getElementById("description");
-const price = document.getElementById("price");
-const priceType = document.getElementById("priceType");
-const city = document.getElementById("city");
-const availability = document.getElementById("availability");
-const phone = document.getElementById("phone");
-
-const previewCategory = document.getElementById("previewCategory");
-const previewTitle = document.getElementById("previewTitle");
-const previewDescription = document.getElementById("previewDescription");
-const previewPrice = document.getElementById("previewPrice");
-const previewLocation = document.getElementById("previewLocation");
-
-function updatePreview() {
-
-  previewCategory.textContent =
-    category.value || "КАТЕГОРИЯ";
-
-  previewTitle.textContent =
-    title.value || "Кызматтын аталышы";
-
-  previewDescription.textContent =
-    description.value ||
-    "Бул жерде сиздин кызматтын сүрөттөмөсү көрсөтүлөт.";
-
-  previewPrice.textContent =
-    price.value
-      ? price.value + " сом (" + priceType.value + ")"
-      : "0 сом";
-
-  previewLocation.textContent =
-    city.value
-      ? "📍 " + city.value
-      : "📍 Шаар көрсөтүлө элек";
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+kagGreen: { 800: '#064e3b', 900: '#022c22' },
+kagGold: { 500: '#d97706', 600: '#b45309' }
 }
-
-[
-  category,
-  title,
-  description,
-  price,
-  priceType,
-  city,
-  availability,
-  phone
-].forEach(element => {
-  element.addEventListener("input", updatePreview);
-  element.addEventListener("change", updatePreview);
-});
-
-
-form.addEventListener("submit", function(e) {
-
-  e.preventDefault();
-
-  const service = {
-    id: Date.now(),
-    category: category.value,
-    title: title.value,
-    description: description.value,
-    price: Number(price.value),
-    priceType: priceType.value,
-    city: city.value,
-    availability: availability.value,
-    phone: phone.value,
-    rating: 0,
-    reviews: 0,
-    verified: false
-  };
-
-  const services =
-    JSON.parse(localStorage.getItem("kagServices")) || [];
-
-  services.push(service);
-
-  localStorage.setItem(
-    "kagServices",
-    JSON.stringify(services)
-  );
-
-  alert(
-    "✅ Кызматыңыз KAG'га кошулду!\n\n" +
-    "Кийинки кадамда бул кызмат Marketplace'те автоматтык көрүнөт."
-  );
-
-  form.reset();
-  updatePreview();
-});
+}
+}
+}
 </script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+<!-- Header Navigation -->
+<header class="bg-slate-950 border-b border-emerald-900/50 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<div class="flex items-center space-x-8">
+<a href="index.html" class="text-2xl font-extrabold text-amber-500 flex items-center gap-2">
+<i class="fa-solid fa-gem text-emerald-500"></i> KAG Platform
+</a>
+<nav class="hidden md:flex space-x-6 text-sm font-medium">
+<a href="index.html" class="text-slate-300 hover:text-amber-400 transition">Главная</a>
+<a href="marketplace.html" class="text-slate-300 hover:text-amber-400 transition">Маркетплейс</a>
+<a href="tickets.html" class="text-slate-300 hover:text-amber-400 transition">Билеты</a>
+<a href="add-service.html" class="text-amber-400 transition">+ Добавить услугу</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<a href="checkout.html" class="relative p-2 text-slate-300 hover:text-amber-400 transition" title="Корзина / Оплата">
+<i class="fa-solid fa-cart-shopping text-xl"></i>
+</a>
+<a href="profile.html" class="p-2 text-slate-300 hover:text-amber-400 transition" title="Профиль">
+<i class="fa-solid fa-user text-xl"></i>
+</a>
+<a href="login.html" class="hidden sm:inline-flex items-center px-4 py-2 border border-amber-500 text-amber-500 rounded-xl hover:bg-amber-500/10 font-medium transition text-sm">
+Войти
+</a>
+</div>
+</div>
+<!-- Mobile Navigation bar -->
+<div class="md:hidden flex justify-around bg-slate-950 border-t border-emerald-900/30 py-3 text-xs text-slate-300">
+<a href="index.html" class="flex flex-col items-center"><i class="fa-solid fa-house mb-1"></i>Главная</a>
+<a href="marketplace.html" class="flex flex-col items-center"><i class="fa-solid fa-store mb-1"></i>Маркет</a>
+<a href="tickets.html" class="flex flex-col items-center"><i class="fa-solid fa-ticket mb-1"></i>Билеты</a>
+<a href="checkout.html" class="flex flex-col items-center"><i class="fa-solid fa-cart-shopping mb-1"></i>Корзина</a>
+<a href="profile.html" class="flex flex-col items-center"><i class="fa-solid fa-user mb-1"></i>Профиль</a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+<!-- Page Title Section -->
+<div class="border-b border-emerald-900/40 pb-6">
+<h1 class="text-3xl font-extrabold text-white flex items-center gap-3">
+<i class="fa-solid fa-circle-plus text-amber-500"></i> Публикация новой услуги
+</h1>
+<p class="text-slate-400 text-sm mt-1">Заполните детали вашей услуги, чтобы она появилась на маркетплейсе KAG Platform.</p>
+</div>
+<!-- Add Service Form Card -->
+<div class="bg-slate-950 p-8 rounded-3xl border border-emerald-900/40 shadow-2xl space-y-6">
+<form onsubmit="event.preventDefault(); alert('Услуга успешно добавлена на маркетплейс!'); window.location.href='marketplace.html';" class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-2">Название услуги</label>
+<input type="text" required placeholder="Например: Разработка Telegram Bot" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-2">Категория</label>
+<select class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+<option>Разработка (Web / Apps)</option>
+<option>Дизайн (UI/UX / Branding)</option>
+<option>Маркетинг & SEO</option>
+<option>Консультации & Менторство</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-2">Стоимость (в сомах)</label>
+<input type="number" required placeholder="10000" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-2">Срок выполнения (дней)</label>
+<input type="number" placeholder="5" class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-300 mb-2">Подробное описание услуги</label>
+<textarea rows="5" required placeholder="Опишите, что входит в вашу услугу, стек технологий или этапы работы..." class="w-full bg-slate-900 border border-emerald-900/60 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500"></textarea>
+</div>
+<div class="pt-4 flex items-center justify-end gap-4">
+<a href="marketplace.html" class="px-6 py-3 rounded-xl border border-emerald-900/60 text-slate-300 hover:border-amber-500 transition text-sm font-medium">
+Отмена
+</a>
+<button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-8 py-3 rounded-xl font-bold text-sm transition shadow-lg">
+Опубликовать услугу
+</button>
+</div>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-950 border-t border-emerald-900/50 py-8 mt-auto">
+<div class="max-w-7xl mx-auto px-4 text-center text-sm text-slate-400">
+© 2026 KAG Platform. Все права защищены.
+</div>
+</footer>
+<script src="script.js"></script>
 </body>
 </html>
