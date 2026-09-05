@@ -1,185 +1,374 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ky">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAG Platform — Маркетплейс услуг</title>
-<!-- Подключаем внешние стили проекта -->
-<link rel="stylesheet" href="style.css">
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-kagGreen: { 800: '#064e3b', 900: '#022c22' },
-kagGold: { 500: '#d97706', 600: '#b45309' }
-}
-}
-}
-}
-</script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-body { font-family: 'Inter', sans-serif; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAG — Кызматтар</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
-<!-- Header Navigation -->
-<header class="bg-slate-950 border-b border-emerald-900/50 sticky top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-<div class="flex items-center space-x-8">
-<a href="index.html" class="text-2xl font-extrabold text-amber-500 flex items-center gap-2">
-<i class="fa-solid fa-gem text-emerald-500"></i> KAG Platform
-</a>
-<nav class="hidden md:flex space-x-6 text-sm font-medium">
-<a href="index.html" class="text-slate-300 hover:text-amber-400 transition">Главная</a>
-<a href="marketplace.html" class="text-amber-400 transition">Маркетплейс</a>
-<a href="tickets.html" class="text-slate-300 hover:text-amber-400 transition">Билеты</a>
-<a href="add-service.html" class="text-slate-300 hover:text-amber-400 transition">+ Добавить услугу</a>
-</nav>
-</div>
-<div class="flex items-center space-x-4">
-<a href="checkout.html" class="relative p-2 text-slate-300 hover:text-amber-400 transition" title="Корзина / Оплата">
-<i class="fa-solid fa-cart-shopping text-xl"></i>
-</a>
-<a href="profile.html" class="p-2 text-slate-300 hover:text-amber-400 transition" title="Профиль">
-<i class="fa-solid fa-user text-xl"></i>
-</a>
-<a href="login.html" class="hidden sm:inline-flex items-center px-4 py-2 border border-amber-500 text-amber-500 rounded-xl hover:bg-amber-500/10 font-medium transition text-sm">
-Войти
-</a>
-</div>
-</div>
-<!-- Mobile Navigation bar -->
-<div class="md:hidden flex justify-around bg-slate-950 border-t border-emerald-900/30 py-3 text-xs text-slate-300">
-<a href="index.html" class="flex flex-col items-center"><i class="fa-solid fa-house mb-1"></i>Главная</a>
-<a href="marketplace.html" class="flex flex-col items-center text-amber-500"><i class="fa-solid fa-store mb-1"></i>Маркет</a>
-<a href="tickets.html" class="flex flex-col items-center"><i class="fa-solid fa-ticket mb-1"></i>Билеты</a>
-<a href="checkout.html" class="flex flex-col items-center"><i class="fa-solid fa-cart-shopping mb-1"></i>Корзина</a>
-<a href="profile.html" class="flex flex-col items-center"><i class="fa-solid fa-user mb-1"></i>Профиль</a>
-</div>
+<body>
+<!-- HEADER -->
+<header class="kag-header">
+    <div class="header-inner">
+        <a href="index.html" class="kag-logo">
+            KAG
+        </a>
+        <nav class="desktop-nav">
+            <a href="index.html">Башкы бет</a>
+            <a href="marketplace.html" class="active">Кызматтар</a>
+            <a href="tickets.html">Tickets</a>
+            <a href="cart.html">Корзина</a>
+            <a href="profile.html">Профиль</a>
+        </nav>
+        <a href="login.html" class="login-btn">
+            Кирүү
+        </a>
+    </div>
 </header>
-<!-- Main Content -->
-<main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-<!-- Page Title & Search Bar -->
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-emerald-900/40 pb-6">
-<div>
-<h1 class="text-3xl font-extrabold text-white flex items-center gap-3">
-<i class="fa-solid fa-store text-amber-500"></i> Маркетплейс услуг
-</h1>
-<p class="text-slate-400 text-sm mt-1">Выбирайте проверенные IT-услуги, консультируйтесь с экспертами и развивайте бизнес.</p>
-</div>
-<!-- Search Filter Bar -->
-<div class="flex items-center gap-2">
-<input type="text" placeholder="Поиск услуг..." class="bg-slate-950 border border-emerald-900/60 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 w-full sm:w-64">
-<button class="bg-amber-500 text-slate-950 px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-amber-400 transition">
-<i class="fa-solid fa-search"></i>
-</button>
-</div>
-</div>
-<!-- Categories Filter Pills -->
-<div class="flex flex-wrap gap-2">
-<button class="bg-amber-500 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold transition">Все услуги</button>
-<button class="bg-slate-950 border border-emerald-900/50 text-slate-300 hover:border-amber-500/50 px-4 py-2 rounded-xl text-xs font-medium transition">Разработка</button>
-<button class="bg-slate-950 border border-emerald-900/50 text-slate-300 hover:border-amber-500/50 px-4 py-2 rounded-xl text-xs font-medium transition">Маркетинг</button>
-<button class="bg-slate-950 border border-emerald-900/50 text-slate-300 hover:border-amber-500/50 px-4 py-2 rounded-xl text-xs font-medium transition">Дизайн</button>
-<button class="bg-slate-950 border border-emerald-900/50 text-slate-300 hover:border-amber-500/50 px-4 py-2 rounded-xl text-xs font-medium transition">Консультации</button>
-</div>
-<!-- Services Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Service Item 1 -->
-<div class="bg-slate-950 rounded-2xl border border-emerald-900/40 overflow-hidden hover:border-amber-500/50 transition flex flex-col justify-between shadow-xl">
-<div>
-<div class="h-44 bg-gradient-to-br from-emerald-950 to-slate-900 p-6 flex flex-col justify-between relative border-b border-emerald-900/30">
-<span class="absolute top-4 right-4 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-3 py-1 rounded-full">Разработка</span>
-<i class="fa-solid fa-code text-4xl text-amber-500"></i>
-<h3 class="text-xl font-bold text-white mt-2">Fullstack Web App</h3>
-</div>
-<div class="p-6 space-y-3 text-sm text-slate-300">
-<p class="text-slate-400 text-xs line-clamp-2">Создание современных веб-приложений под ключ с использованием React, Node.js и Tailwind.</p>
-<div class="flex items-center gap-2 text-xs text-amber-400 pt-2">
-<i class="fa-solid fa-star"></i>
-<span class="font-bold text-white">4.9</span>
-<span class="text-slate-400">(24 заказа)</span>
-</div>
-</div>
-</div>
-<div class="p-6 pt-0 flex items-center justify-between border-t border-emerald-900/20 mt-4">
-<div>
-<span class="text-xs text-slate-400 block">Стоимость</span>
-<span class="text-xl font-extrabold text-amber-500">15 000 сом</span>
-</div>
-<a href="checkout.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2.5 rounded-xl font-bold text-sm transition shadow">
-Заказать
-</a>
-</div>
-</div>
-<!-- Service Item 2 -->
-<div class="bg-slate-950 rounded-2xl border border-emerald-900/40 overflow-hidden hover:border-amber-500/50 transition flex flex-col justify-between shadow-xl">
-<div>
-<div class="h-44 bg-gradient-to-br from-emerald-950 to-slate-900 p-6 flex flex-col justify-between relative border-b border-emerald-900/30">
-<span class="absolute top-4 right-4 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-3 py-1 rounded-full">Дизайн</span>
-<i class="fa-solid fa-palette text-4xl text-amber-500"></i>
-<h3 class="text-xl font-bold text-white mt-2">UI/UX Brand Identity</h3>
-</div>
-<div class="p-6 space-y-3 text-sm text-slate-300">
-<p class="text-slate-400 text-xs line-clamp-2">Разработка уникального фирменного стиля, гайдлайнов и пользовательских интерфейсов.</p>
-<div class="flex items-center gap-2 text-xs text-amber-400 pt-2">
-<i class="fa-solid fa-star"></i>
-<span class="font-bold text-white">5.0</span>
-<span class="text-slate-400">(18 заказов)</span>
-</div>
-</div>
-</div>
-<div class="p-6 pt-0 flex items-center justify-between border-t border-emerald-900/20 mt-4">
-<div>
-<span class="text-xs text-slate-400 block">Стоимость</span>
-<span class="text-xl font-extrabold text-amber-500">8 500 сом</span>
-</div>
-<a href="checkout.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2.5 rounded-xl font-bold text-sm transition shadow">
-Заказать
-</a>
-</div>
-</div>
-<!-- Service Item 3 -->
-<div class="bg-slate-950 rounded-2xl border border-emerald-900/40 overflow-hidden hover:border-amber-500/50 transition flex flex-col justify-between shadow-xl">
-<div>
-<div class="h-44 bg-gradient-to-br from-emerald-950 to-slate-900 p-6 flex flex-col justify-between relative border-b border-emerald-900/30">
-<span class="absolute top-4 right-4 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-3 py-1 rounded-full">Маркетинг</span>
-<i class="fa-solid fa-bullhorn text-4xl text-amber-500"></i>
-<h3 class="text-xl font-bold text-white mt-2">SEO & Target Strategy</h3>
-</div>
-<div class="p-6 space-y-3 text-sm text-slate-300">
-<p class="text-slate-400 text-xs line-clamp-2">Комплексное продвижение проекта в соцсетях и поисковых системах для роста продаж.</p>
-<div class="flex items-center gap-2 text-xs text-amber-400 pt-2">
-<i class="fa-solid fa-star"></i>
-<span class="font-bold text-white">4.8</span>
-<span class="text-slate-400">(31 заказ)</span>
-</div>
-</div>
-</div>
-<div class="p-6 pt-0 flex items-center justify-between border-t border-emerald-900/20 mt-4">
-<div>
-<span class="text-xs text-slate-400 block">Стоимость</span>
-<span class="text-xl font-extrabold text-amber-500">6 000 сом</span>
-</div>
-<a href="checkout.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2.5 rounded-xl font-bold text-sm transition shadow">
-Заказать
-</a>
-</div>
-</div>
-</div>
+<!-- MAIN -->
+<main>
+    <!-- HERO -->
+    <section class="marketplace-hero">
+        <div class="hero-content">
+            <span class="hero-label">
+                KAG PLATFORM
+            </span>
+            <h1>
+                Кандай кызмат<br>
+                <span>керек?</span>
+            </h1>
+            <p>
+                Керектүү адисти табыңыз же өзүңүздүн
+                кызматыңызды сунуштап, жаңы кардарларды табыңыз.
+            </p>
+            <!-- SEARCH -->
+            <div class="search-box">
+                <div class="search-input">
+                    <span>🔎</span>
+                    <input
+                        type="text"
+                        id="serviceSearch"
+                        placeholder="Мисалы: сантехник, тазалоо, ремонт..."
+                    >
+                </div>
+                <button onclick="searchServices()">
+                    Издөө
+                </button>
+            </div>
+            <!-- LOCATION -->
+            <div class="location-box">
+                📍 Бишкек
+                <span>⌄</span>
+            </div>
+        </div>
+    </section>
+    <!-- CATEGORIES -->
+    <section class="categories-section">
+        <div class="section-heading">
+            <div>
+                <span class="section-label">
+                    КАТЕГОРИЯЛАР
+                </span>
+                <h2>
+                    Кызматты тандаңыз
+                </h2>
+            </div>
+            <button class="view-all" onclick="showAllCategories()">
+                Баарын көрүү →
+            </button>
+        </div>
+        <div class="categories-grid">
+            <button class="category-card"
+                    onclick="selectCategory('Ремонт')">
+                <div class="category-icon">🔧</div>
+                <strong>Ремонт</strong>
+                <span>Үй жана кеңсе</span>
+            </button>
+            <button class="category-card"
+                    onclick="selectCategory('Тазалоо')">
+                <div class="category-icon">🧹</div>
+                <strong>Тазалоо</strong>
+                <span>Үй тазалоо</span>
+            </button>
+            <button class="category-card"
+                    onclick="selectCategory('Курулуш')">
+                <div class="category-icon">🏗️</div>
+                <strong>Курулуш</strong>
+                <span>Мастерлер</span>
+            </button>
+            <button class="category-card"
+                    onclick="selectCategory('Жеткирүү')">
+                <div class="category-icon">🚚</div>
+                <strong>Жеткирүү</strong>
+                <span>Курьерлер</span>
+            </button>
+            <button class="category-card"
+                    onclick="selectCategory('Үй кызматтары')">
+                <div class="category-icon">🏠</div>
+                <strong>Үй кызматтары</strong>
+                <span>Ар түрдүү</span>
+            </button>
+            <button class="category-card"
+                    onclick="selectCategory('Авто')">
+                <div class="category-icon">🚗</div>
+                <strong>Авто</strong>
+                <span>Авто кызматтары</span>
+            </button>
+            <button class="category-card"
+                    onclick="selectCategory('IT')">
+                <div class="category-icon">💻</div>
+                <strong>IT & Digital</strong>
+                <span>Технология</span>
+            </button>
+            <button class="category-card"
+                    onclick="selectCategory('Дизайн')">
+                <div class="category-icon">🎨</div>
+                <strong>Дизайн</strong>
+                <span>Creative</span>
+            </button>
+        </div>
+    </section>
+    <!-- CREATE TASK -->
+    <section class="create-task-section">
+        <div class="create-task-content">
+            <span class="section-label">
+                KAG SMART FLOW
+            </span>
+            <h2>
+                Өзүңүзгө керектүү<br>
+                адисти табыңыз
+            </h2>
+            <p>
+                Тапшырмаңызды жазыңыз. KAG'дагы аткаруучулар
+                сизге өз сунуштарын жөнөтүшөт.
+            </p>
+            <button
+                class="gold-button"
+                onclick="createTask()">
+                + Тапшырма түзүү
+            </button>
+        </div>
+        <div class="flow-steps">
+            <div class="flow-step">
+                <span>01</span>
+                <div>
+                    <strong>Тапшырма түзүңүз</strong>
+                    <p>Эмне керек экенин жазыңыз</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <span>02</span>
+                <div>
+                    <strong>Сунуштарды алыңыз</strong>
+                    <p>Мастерлер өз баасын сунуштайт</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <span>03</span>
+                <div>
+                    <strong>Салыштырыңыз</strong>
+                    <p>Бааны жана рейтингди салыштырыңыз</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <span>04</span>
+                <div>
+                    <strong>Мастерди тандаңыз</strong>
+                    <p>Заказды баштаңыз</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- POPULAR EXECUTORS -->
+    <section class="executors-section">
+        <div class="section-heading">
+            <div>
+                <span class="section-label">
+                    ИШЕНИМДҮҮ АТКАРУУЧУЛАР
+                </span>
+                <h2>
+                    Популярдуу мастерлер
+                </h2>
+            </div>
+            <button class="view-all">
+                Баарын көрүү →
+            </button>
+        </div>
+        <div class="executors-grid">
+            <!-- EXECUTOR 1 -->
+            <article class="executor-card">
+                <div class="executor-top">
+                    <div class="executor-avatar">
+                        А
+                    </div>
+                    <span class="verified">
+                        ✓ Verified
+                    </span>
+                </div>
+                <h3>
+                    Азамат С.
+                </h3>
+                <p class="executor-service">
+                    Сантехник
+                </p>
+                <div class="rating">
+                    ⭐ <strong>4.9</strong>
+                    <span>127 заказ</span>
+                </div>
+                <div class="executor-info">
+                    📍 Бишкек
+                    <br>
+                    ⚡ 5 мүнөттө жооп берет
+                </div>
+                <div class="executor-price">
+                    <span>Баасы</span>
+                    <strong>1 500 сомдон</strong>
+                </div>
+                <div class="executor-actions">
+                    <button
+                        class="outline-btn"
+                        onclick="viewExecutor('Азамат С.')">
+                        Профиль
+                    </button>
+                    <button
+                        class="gold-small-btn"
+                        onclick="orderExecutor('Азамат С.')">
+                        Заказ берүү
+                    </button>
+                </div>
+            </article>
+            <!-- EXECUTOR 2 -->
+            <article class="executor-card">
+                <div class="executor-top">
+                    <div class="executor-avatar">
+                        Б
+                    </div>
+                    <span class="verified">
+                        ✓ Verified
+                    </span>
+                </div>
+                <h3>
+                    Бекзат К.
+                </h3>
+                <p class="executor-service">
+                    Электрик
+                </p>
+                <div class="rating">
+                    ⭐ <strong>4.8</strong>
+                    <span>94 заказ</span>
+                </div>
+                <div class="executor-info">
+                    📍 Бишкек
+                    <br>
+                    ⚡ 10 мүнөттө жооп берет
+                </div>
+                <div class="executor-price">
+                    <span>Баасы</span>
+                    <strong>1 000 сомдон</strong>
+                </div>
+                <div class="executor-actions">
+                    <button
+                        class="outline-btn"
+                        onclick="viewExecutor('Бекзат К.')">
+                        Профиль
+                    </button>
+                    <button
+                        class="gold-small-btn"
+                        onclick="orderExecutor('Бекзат К.')">
+                        Заказ берүү
+                    </button>
+                </div>
+            </article>
+            <!-- EXECUTOR 3 -->
+            <article class="executor-card">
+                <div class="executor-top">
+                    <div class="executor-avatar">
+                        Н
+                    </div>
+                    <span class="verified">
+                        ✓ Verified
+                    </span>
+                </div>
+                <h3>
+                    Нурбек Т.
+                </h3>
+                <p class="executor-service">
+                    Үй тазалоо
+                </p>
+                <div class="rating">
+                    ⭐ <strong>5.0</strong>
+                    <span>63 заказ</span>
+                </div>
+                <div class="executor-info">
+                    📍 Бишкек
+                    <br>
+                    ⚡ 3 мүнөттө жооп берет
+                </div>
+                <div class="executor-price">
+                    <span>Баасы</span>
+                    <strong>800 сомдон</strong>
+                </div>
+                <div class="executor-actions">
+                    <button
+                        class="outline-btn"
+                        onclick="viewExecutor('Нурбек Т.')">
+                        Профиль
+                    </button>
+                    <button
+                        class="gold-small-btn"
+                        onclick="orderExecutor('Нурбек Т.')">
+                        Заказ берүү
+                    </button>
+                </div>
+            </article>
+        </div>
+    </section>
+    <!-- BECOME EXECUTOR -->
+    <section class="executor-cta">
+        <div>
+            <span class="section-label">
+                KAG FOR BUSINESS
+            </span>
+            <h2>
+                Кызматыңызды<br>
+                KAG'га сунуштаңыз
+            </h2>
+            <p>
+                Жаңы кардарларды табыңыз, заказ алыңыз
+                жана кирешеңизди өстүрүңүз.
+            </p>
+        </div>
+        <button
+            class="gold-button"
+            onclick="becomeExecutor()">
+            Аткаруучу болуу →
+        </button>
+    </section>
 </main>
-<!-- Footer -->
-<footer class="bg-slate-950 border-t border-emerald-900/50 py-8 mt-auto">
-<div class="max-w-7xl mx-auto px-4 text-center text-sm text-slate-400">
-© 2026 KAG Platform. Все права защищены.
-</div>
-</footer>
-<!-- Подключаем внешний скрипт проекта -->
+<!-- MOBILE NAVIGATION -->
+<nav class="mobile-bottom-nav">
+    <a href="index.html">
+        <span>⌂</span>
+        <small>Башкы бет</small>
+    </a>
+    <a href="marketplace.html" class="active">
+        <span>⌕</span>
+        <small>Кызматтар</small>
+    </a>
+    <button onclick="createTask()">
+        <span>＋</span>
+        <small>Тапшырма</small>
+    </button>
+    <a href="orders.html">
+        <span>▣</span>
+        <small>Заказдар</small>
+    </a>
+    <a href="profile.html">
+        <span>◯</span>
+        <small>Профиль</small>
+    </a>
+</nav>
+<!-- JAVASCRIPT -->
 <script src="script.js"></script>
 </body>
 </html>
