@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KAG — Сунуштар</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .offers-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 35px 20px 100px;
+        }
+
+        .offers-header {
+            margin-bottom: 25px;
+        }
+
+        .offers-label {
+            color: #D4AF37;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .offers-header h1 {
+            color: #F4EBD0;
+            font-size: 34px;
+            margin: 8px 0;
+        }
+
+        .offers-header p {
+            color: rgba(244,235,208,.6);
+        }
+
+        .task-preview {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(212,175,55,.2);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .task-preview h2 {
+            color: #F4EBD0;
+            margin-top: 0;
+        }
+
+        .task-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            background: rgba(212,175,55,.08);
+            border: 1px solid rgba(212,175,55,.15);
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: #F4EBD0;
+            font-size: 13px;
+        }
+
+        .offers-count {
+            color: #D4AF37;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .offers-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .offer-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(244,235,208,.1);
+            border-radius: 20px;
+            padding: 22px;
+            transition: .2s;
+        }
+
+        .offer-card:hover {
+            border-color: rgba(212,175,55,.5);
+            transform: translateY(-2px);
+        }
+
+        .offer-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .executor {
+            display: flex;
+            gap: 13px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #D4AF37;
+            color: #06251B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .executor h3 {
+            color: #F4EBD0;
+            margin: 0 0 4px;
+        }
+
+        .executor p {
+            color: rgba(244,235,208,.55);
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .verified {
+            color: #D4AF37;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .offer-price {
+            text-align: right;
+        }
+
+        .offer-price strong {
+            color: #D4AF37;
+            font-size: 22px;
+        }
+
+        .offer-price span {
+            display: block;
+            color: rgba(244,235,208,.5);
+            font-size: 12px;
+        }
+
+        .offer-message {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0,0,0,.15);
+            border-radius: 12px;
+            color: rgba(244,235,208,.75);
+            line-height: 1.6;
+        }
+
+        .offer-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .detail {
+            background: rgba(255,255,255,.03);
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .detail small {
+            display: block;
+            color: rgba(244,235,208,.45);
+            margin-bottom: 4px;
+        }
+
+        .detail strong {
+            color: #F4EBD0;
+        }
+
+        .offer-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 13px;
+            border-radius: 11px;
+            cursor: pointer;
+            font-weight: 700;
+            border: 1px solid rgba(212,175,55,.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #F4EBD0;
+        }
+
+        .btn-gold {
+            background: #D4AF37;
+            color: #06251B;
+            border-color: #D4AF37;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255,255,255,.03);
+            border-radius: 20px;
+            border: 1px solid rgba(244,235,208,.08);
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty h2 {
+            color: #F4EBD0;
+        }
+
+        .empty p {
+            color: rgba(244,235,208,.55);
+        }
+
+        @media (max-width: 650px) {
+
+            .offers-page {
+                padding: 25px 15px 90px;
+            }
+
+            .offers-header h1 {
+                font-size: 28px;
+            }
+
+            .offer-top {
+                flex-direction: column;
+            }
+
+            .offer-price {
+                text-align: left;
+            }
+
+            .offer-details {
+                grid-template-columns: 1fr;
+            }
+
+            .offer-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="kag-header">
+
+    <div class="header-inner">
+
+        <a href="index.html" class="kag-logo">
+            KAG
+        </a>
+
+        <nav class="desktop-nav">
+            <a href="index.html">Башкы бет</a>
+            <a href="marketplace.html">Кызматтар</a>
+            <a href="tickets.html">Билеттер</a>
+            <a href="orders.html">Заказдар</a>
+            <a href="profile.html">Профиль</a>
+        </nav>
+
+        <a href="login.html" class="login-btn">
+            Кирүү
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="offers-page">
+
+    <div class="offers-header">
+
+        <div class="offers-label">
+            KAG SMART MATCH
+        </div>
+
+        <h1>Аткаруучулардын сунуштары</h1>
+
+        <p>
+            Сунуштарды салыштырып, өзүңүзгө ылайыктуу аткаруучуну тандаңыз.
+        </p>
+
+    </div>
+
+
+    <div id="taskPreview"></div>
+
+
+    <div id="offersContainer"></div>
+
+</main>
+
+
+<script>
+
+const demoOffers = [
+
+    {
+        id: "offer1",
+        executorId: "exec1",
+        name: "Азамат С.",
+        profession: "Сантехник",
+        rating: "4.9",
+        reviews: 126,
+        price: 2500,
+        time: "Бүгүн",
+        duration: "1–2 саат",
+        verified: true,
+        message:
+            "Кранды текшерип, керектүү тетиктерди алмаштырып берем. Жумушка кепилдик берем."
+    },
+
+    {
+        id: "offer2",
+        executorId: "exec2",
+        name: "Бекзат К.",
+        profession: "Сантехник",
+        rating: "5.0",
+        reviews: 89,
+        price: 3000,
+        time: "Эртең",
+        duration: "1 саат",
+        verified: true,
+        message:
+            "Тажрыйбам 7 жылдан ашык. Көйгөйдү ошол жерден аныктап, оңдоп берем."
+    },
+
+    {
+        id: "offer3",
+        executorId: "exec3",
+        name: "Нурбек Т.",
+        profession: "Уста",
+        rating: "4.8",
+        reviews: 64,
+        price: 2200,
+        time: "Бүгүн",
+        duration: "2 саат",
+        verified: true,
+        message:
+            "Баасы алдын ала белгилүү. Кошумча төлөмдөр болсо, кардар менен макулдашылат."
+    }
+
+];
+
+
+function loadTask() {
+
+    const task =
+        JSON.parse(
+            localStorage.getItem("kag_current_task")
+        );
+
+    const container =
+        document.getElementById("taskPreview");
+
+    if (!task) {
+
+        container.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">📋</div>
+                <h2>Тапшырма табылган жок</h2>
+                <p>
+                    Адегенде KAG аркылуу тапшырма түзүңүз.
+                </p>
+                <a
+                    href="task.html"
+                    class="btn btn-gold"
+                    style="display:inline-block;text-decoration:none;margin-top:15px;"
+                >
+                    Тапшырма түзүү
+                </a>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="task-preview">
+
+            <h2>
+                ${task.title}
+            </h2>
+
+            <p style="color:rgba(244,235,208,.6);">
+                ${task.description}
+            </p>
+
+            <div class="task-meta">
+
+                <div class="meta-item">
+                    📂 ${task.category}
+                </div>
+
+                <div class="meta-item">
+                    📍 ${task.location}
+                </div>
+
+                <div class="meta-item">
+                    💰 ${task.budget} сом
+                </div>
+
+                ${
+                    task.date
+                    ? `<div class="meta-item">
+                        📅 ${task.date}
+                    </div>`
+                    : ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function renderOffers() {
+
+    const container =
+        document.getElementById("offersContainer");
+
+    container.innerHTML = `
+
+        <div class="offers-count">
+            ${demoOffers.length} аткаруучудан сунуш келди
+        </div>
+
+        <div class="offers-grid">
+
+            ${demoOffers.map(offer => `
+
+                <div class="offer-card">
+
+                    <div class="offer-top">
+
+                        <div class="executor">
+
+                            <div class="avatar">
+                                ${offer.name.charAt(0)}
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    ${offer.name}
+                                </h3>
+
+                                <p>
+                                    ${offer.profession}
+                                </p>
+
+                                ${
+                                    offer.verified
+                                    ? `<div class="verified">
+                                        ✓ Текшерилген аткаруучу
+                                    </div>`
+                                    : ""
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="offer-price">
+
+                            <strong>
+                                ${offer.price.toLocaleString()} сом
+                            </strong>
+
+                            <span>
+                                ⭐ ${offer.rating} · ${offer.reviews} отзыв
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="offer-message">
+                        ${offer.message}
+                    </div>
+
+
+                    <div class="offer-details">
+
+                        <div class="detail">
+                            <small>Баштоо</small>
+                            <strong>
+                                ${offer.time}
+                            </strong>
+                        </div>
+
+                        <div class="detail">
+                            <small>Мөөнөт</small>
+                            <strong>
+                                ${offer.duration}
+                            </strong>
+                        </div>
+
+                        <div class="detail">
+                            <small>Рейтинг</small>
+                            <strong>
+                                ⭐ ${offer.rating}
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="offer-actions">
+
+                        <button
+                            class="btn btn-outline"
+                            onclick="viewExecutor('${offer.executorId}')"
+                        >
+                            Профилди көрүү
+                        </button>
+
+                        <button
+                            class="btn btn-gold"
+                            onclick="selectOffer('${offer.id}')"
+                        >
+                            Тандоо
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `).join("")}
+
+        </div>
+
+    `;
+
+}
+
+
+function viewExecutor(id) {
+
+    localStorage.setItem(
+        "kag_selected_executor",
+        id
+    );
+
+    alert(
+        "Аткаруучунун профили жакында ачылат."
+    );
+
+}
+
+
+function selectOffer(offerId) {
+
+    const offer =
+        demoOffers.find(
+            item => item.id === offerId
+        );
+
+    if (!offer) return;
+
+
+    const task =
+        JSON.parse(
+            localStorage.getItem("kag_current_task")
+        );
+
+    if (!task) {
+        alert("Тапшырма табылган жок.");
+        return;
+    }
+
+
+    const order = {
+
+        id: "ORDER-" + Date.now(),
+
+        taskId: task.id,
+
+        taskTitle: task.title,
+
+        category: task.category,
+
+        location: task.location,
+
+        executorId: offer.executorId,
+
+        executorName: offer.name,
+
+        executorProfession: offer.profession,
+
+        price: offer.price,
+
+        duration: offer.duration,
+
+        status: "selected",
+
+        createdAt: new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        "kag_current_order",
+        JSON.stringify(order)
+    );
+
+
+    localStorage.setItem(
+        "kag_selected_executor",
+        offer.executorId
+    );
+
+
+    alert(
+        `✅ ${offer.name} тандалды!`
+    );
+
+
+    window.location.href =
+        "checkout.html";
+
+}
+
+
+loadTask();
+renderOffers();
+
+</script>
+
+</body>
+</html>
