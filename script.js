@@ -114,7 +114,7 @@ function createTask() {
        task түзүү үчүн өзүнчө task.html
        жасасаң, ушул жерди task.html кыл.
     */
-    window.location.href = "add-service.html";
+;window.location.href = "task.html";
 }
 /* =========================================
    VIEW EXECUTOR
