@@ -1,439 +1,637 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAG — Профиль</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background: #06251B;
-            color: #F4EBD0;
-        }
-        header {
-            height: 70px;
-            padding: 0 6%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(212,175,55,.25);
-        }
-        .logo {
-            color: #D4AF37;
-            font-size: 27px;
-            font-weight: 900;
-        }
-        nav {
-            display: flex;
-            gap: 22px;
-        }
-        nav a {
-            color: #F4EBD0;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        nav a:hover {
-            color: #D4AF37;
-        }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 35px 20px 80px;
-        }
-        .profile-card {
-            background: #0b3326;
-            border: 1px solid rgba(212,175,55,.3);
-            border-radius: 22px;
-            padding: 30px;
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-        .avatar {
-            width: 105px;
-            height: 105px;
-            border-radius: 50%;
-            background: #D4AF37;
-            color: #06251B;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            font-weight: 900;
-            flex-shrink: 0;
-        }
-        .profile-info h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        .role {
-            color: #b9b29f;
-            margin-bottom: 10px;
-        }
-        .rating {
-            color: #D4AF37;
-            font-weight: bold;
-        }
-        .verified {
-            display: inline-block;
-            margin-left: 8px;
-            padding: 5px 9px;
-            border-radius: 20px;
-            background: rgba(212,175,55,.13);
-            color: #D4AF37;
-            font-size: 12px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .stat {
-            background: #0b3326;
-            border: 1px solid rgba(212,175,55,.2);
-            border-radius: 16px;
-            padding: 22px;
-            text-align: center;
-        }
-        .stat strong {
-            display: block;
-            color: #D4AF37;
-            font-size: 27px;
-            margin-bottom: 6px;
-        }
-        .stat span {
-            color: #b9b29f;
-            font-size: 13px;
-        }
-        .section {
-            background: #0b3326;
-            border: 1px solid rgba(212,175,55,.2);
-            border-radius: 18px;
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-        .section h2 {
-            margin-bottom: 18px;
-        }
-        .service {
-            padding: 17px 0;
-            border-bottom: 1px solid rgba(244,235,208,.1);
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
-        .service:last-child {
-            border-bottom: none;
-        }
-        .service h3 {
-            margin-bottom: 6px;
-            font-size: 17px;
-        }
-        .service p {
-            color: #aaa;
-            font-size: 14px;
-        }
-        .service-price {
-            color: #D4AF37;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        .review {
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(244,235,208,.1);
-        }
-        .review:last-child {
-            border-bottom: none;
-        }
-        .review-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .review-stars {
-            color: #D4AF37;
-            margin-bottom: 7px;
-        }
-        .review p {
-            color: #b9b29f;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        button {
-            padding: 12px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            border: none;
-        }
-        .primary {
-            background: #D4AF37;
-            color: #06251B;
-        }
-        .secondary {
-            background: transparent;
-            border: 1px solid #D4AF37;
-            color: #D4AF37;
-        }
-        .danger {
-            background: #572222;
-            color: #F4EBD0;
-        }
-        .bottom-nav {
-            display: none;
-        }
-        @media (max-width: 700px) {
-            header {
-                padding: 0 20px;
-            }
-            nav {
-                display: none;
-            }
-            .profile-card {
-                flex-direction: column;
-                text-align: center;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .service {
-                flex-direction: column;
-            }
-            .bottom-nav {
-                display: flex;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                height: 62px;
-                background: #06251B;
-                border-top: 1px solid rgba(212,175,55,.25);
-                justify-content: space-around;
-                align-items: center;
-                z-index: 10;
-            }
-            .bottom-nav a {
-                color: #F4EBD0;
-                text-decoration: none;
-                font-size: 12px;
-                text-align: center;
-            }
-            .bottom-nav a:first-child {
-                color: #D4AF37;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAG — Профиль</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#06251B;
+  color:#F4EBD0;
+  min-height:100vh;
+}
+
+header{
+  background:#041b13;
+  border-bottom:1px solid #D4AF37;
+  padding:16px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  color:#D4AF37;
+  font-size:26px;
+  font-weight:800;
+  text-decoration:none;
+}
+
+nav{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+nav a{
+  color:#F4EBD0;
+  text-decoration:none;
+  font-size:14px;
+}
+
+nav a:hover{
+  color:#D4AF37;
+}
+
+.container{
+  max-width:1000px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+h1{
+  color:#D4AF37;
+  margin-bottom:25px;
+}
+
+.profile-card{
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.4);
+  border-radius:18px;
+  padding:30px;
+  margin-bottom:25px;
+}
+
+.avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#D4AF37;
+  color:#06251B;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.name{
+  font-size:25px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.role{
+  color:#D4AF37;
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  margin:15px 0 7px;
+  color:#ddd0aa;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #476b5b;
+  background:#06251B;
+  color:#F4EBD0;
+  outline:none;
+}
+
+input:focus{
+  border-color:#D4AF37;
+}
+
+button,
+.btn{
+  display:inline-block;
+  padding:13px 20px;
+  border:none;
+  border-radius:10px;
+  background:#D4AF37;
+  color:#06251B;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+  margin-top:18px;
+}
+
+button:hover,
+.btn:hover{
+  opacity:.9;
+}
+
+.btn-secondary{
+  background:#123f30;
+  color:#F4EBD0;
+  border:1px solid #476b5b;
+}
+
+.btn-danger{
+  background:#8b2f2f;
+  color:white;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.stat{
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.3);
+  border-radius:15px;
+  padding:22px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:28px;
+  color:#D4AF37;
+  margin-bottom:7px;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.action{
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.3);
+  border-radius:15px;
+  padding:20px;
+  text-decoration:none;
+  color:#F4EBD0;
+  transition:.2s;
+}
+
+.action:hover{
+  transform:translateY(-2px);
+  border-color:#D4AF37;
+}
+
+.action span{
+  display:block;
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.action b{
+  color:#D4AF37;
+}
+
+.recent{
+  margin-top:25px;
+}
+
+.order{
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.25);
+  border-radius:12px;
+  padding:18px;
+  margin-top:12px;
+}
+
+.order-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.status{
+  color:#D4AF37;
+  font-weight:bold;
+}
+
+.empty{
+  padding:25px;
+  text-align:center;
+  color:#aaa;
+  background:#0a3023;
+  border-radius:12px;
+}
+
+.hidden{
+  display:none;
+}
+
+.login-box{
+  text-align:center;
+  padding:50px 20px;
+}
+
+@media(max-width:700px){
+
+  nav a:nth-child(1),
+  nav a:nth-child(2){
+    display:none;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+
+  .container{
+    margin-top:25px;
+  }
+}
+</style>
 </head>
+
 <body>
+
 <header>
-    <div class="logo">KΛG</div>
-    <nav>
-        <a href="index.html">Башкы бет</a>
-        <a href="marketplace.html">Кызматтар</a>
-        <a href="orders.html">Заказдар</a>
-        <a href="tickets.html">Билеттер</a>
-    </nav>
+  <a href="index.html" class="logo">KAG</a>
+
+  <nav>
+    <a href="marketplace.html">Кызматтар</a>
+    <a href="cart.html">🛒 Корзина</a>
+    <a href="orders.html">📦 Заказдар</a>
+    <a href="profile.html">👤 Профиль</a>
+  </nav>
 </header>
-<main class="container">
-    <!-- PROFILE -->
-    <section class="profile-card">
-        <div class="avatar">
-            А
-        </div>
-        <div class="profile-info">
-            <h1>Азамат С.</h1>
-            <div class="role">
-                Электрик • Бишкек
-            </div>
-            <div class="rating">
-                ★★★★★ 4.9
-                <span class="verified">
-                    ✓ Текшерилген
-                </span>
-            </div>
-            <div class="actions">
-                <button
-                    class="primary"
-                    onclick="editProfile()">
-                    Профилди өзгөртүү
-                </button>
-                <button
-                    class="secondary"
-                    onclick="window.location.href='executor-dashboard.html'">
-                    Мастер кабинети
-                </button>
-            </div>
-        </div>
-    </section>
-    <!-- STATISTICS -->
-    <section class="grid">
-        <div class="stat">
-            <strong>24</strong>
-            <span>Бүткөн заказ</span>
-        </div>
-        <div class="stat">
-            <strong>4.9</strong>
-            <span>Рейтинг</span>
-        </div>
-        <div class="stat">
-            <strong>58.5K</strong>
-            <span>Жалпы киреше</span>
-        </div>
-    </section>
-    <!-- SERVICES -->
-    <section class="section">
-        <h2>🛠 Менин кызматтарым</h2>
-        <div class="service">
-            <div>
-                <h3>Электр розетка орнотуу</h3>
-                <p>Үйгө барып орнотуп берүү</p>
-            </div>
-            <div class="service-price">
-                500 сом
-            </div>
-        </div>
-        <div class="service">
-            <div>
-                <h3>Люстра орнотуу</h3>
-                <p>Люстра жана светильник орнотуу</p>
-            </div>
-            <div class="service-price">
-                1 000 сом
-            </div>
-        </div>
-        <div class="service">
-            <div>
-                <h3>Электр зымдарын оңдоо</h3>
-                <p>Диагностика жана оңдоо</p>
-            </div>
-            <div class="service-price">
-                1 500 сом
-            </div>
-        </div>
-    </section>
-    <!-- REVIEWS -->
-    <section class="section">
-        <h2>⭐ Кардарлардын пикирлери</h2>
-        <div class="review">
-            <div class="review-name">
-                Нурбек
-            </div>
-            <div class="review-stars">
-                ★★★★★
-            </div>
-            <p>
-                Жумушун тез жана сапаттуу жасап берди.
-                Баасы да жакшы. Рахмат!
-            </p>
-        </div>
-        <div class="review">
-            <div class="review-name">
-                Бекзат
-            </div>
-            <div class="review-stars">
-                ★★★★★
-            </div>
-            <p>
-                Убакытында келди, ишти жакшы бүтүрдү.
-            </p>
-        </div>
-        <div class="review">
-            <div class="review-name">
-                Айдана
-            </div>
-            <div class="review-stars">
-                ★★★★☆
-            </div>
-            <p>
-                Жакшы мастер. Сунуштайм.
-            </p>
-        </div>
-    </section>
-    <!-- ACCOUNT -->
-    <section class="section">
-        <h2>⚙️ Аккаунт</h2>
-        <div class="actions">
-            <button
-                class="secondary"
-                onclick="window.location.href='login.html'">
-                Аккаунтка кирүү
-            </button>
-            <button
-                class="danger"
-                onclick="logout()">
-                Чыгуу
-            </button>
-        </div>
-    </section>
-</main>
-<!-- MOBILE NAV -->
-<div class="bottom-nav">
-    <a href="index.html">
-        🏠<br>Башкы
-    </a>
-    <a href="marketplace.html">
-        🔎<br>Кызмат
-    </a>
-    <a href="orders.html">
-        📦<br>Заказ
-    </a>
-    <a href="profile.html">
-        👤<br>Профиль
-    </a>
+
+
+<div class="container">
+
+  <!-- LOGIN REQUIRED -->
+  <div id="loginBox" class="profile-card login-box hidden">
+    <h1>Профиль</h1>
+    <p>Профилди көрүү үчүн аккаунтка кириңиз.</p>
+    <a href="login.html" class="btn">Кирүү</a>
+  </div>
+
+
+  <!-- PROFILE -->
+  <div id="profileContent" class="hidden">
+
+    <h1>Менин профилим</h1>
+
+    <div class="profile-card">
+
+      <div class="avatar" id="avatar">K</div>
+
+      <div class="name" id="displayName">KAG Колдонуучу</div>
+
+      <div class="role" id="displayRole">Кардар</div>
+
+      <label>Атыңыз</label>
+      <input
+        type="text"
+        id="nameInput"
+        placeholder="Атыңызды жазыңыз"
+      >
+
+      <label>Телефон / Email</label>
+      <input
+        type="text"
+        id="loginInput"
+        readonly
+      >
+
+      <button onclick="saveProfile()">
+        Сактоо
+      </button>
+
+      <button
+        onclick="logout()"
+        class="btn-danger"
+      >
+        Чыгуу
+      </button>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong id="ordersCount">0</strong>
+        Заказ
+      </div>
+
+      <div class="stat">
+        <strong id="tasksCount">0</strong>
+        Тапшырма
+      </div>
+
+      <div class="stat">
+        <strong id="cartCount">0</strong>
+        Корзина
+      </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <div class="actions">
+
+      <a href="marketplace.html" class="action">
+        <span>🔎</span>
+        <b>Кызмат издөө</b>
+        <p>Керектүү мастерди табыңыз.</p>
+      </a>
+
+      <a href="task.html" class="action">
+        <span>📝</span>
+        <b>Тапшырма түзүү</b>
+        <p>Өзүңүздүн тапшырмаңызды жарыялаңыз.</p>
+      </a>
+
+      <a href="orders.html" class="action">
+        <span>📦</span>
+        <b>Заказдарым</b>
+        <p>Заказдарыңызды көрүңүз.</p>
+      </a>
+
+    </div>
+
+
+    <!-- RECENT ORDERS -->
+
+    <div class="recent">
+
+      <h1>Акыркы заказдар</h1>
+
+      <div id="recentOrders"></div>
+
+    </div>
+
+  </div>
+
 </div>
+
+
 <script>
-function editProfile() {
-    const name = prompt(
-        "Атыңызды жазыңыз:",
-        "Азамат С."
-    );
-    if (!name) return;
-    document.querySelector(".profile-info h1").textContent = name;
-    document.querySelector(".avatar").textContent =
-        name.charAt(0).toUpperCase();
-    localStorage.setItem(
-        "kag_profile_name",
-        name
-    );
+
+let user = JSON.parse(
+  localStorage.getItem("kagUser")
+);
+
+const loginBox =
+  document.getElementById("loginBox");
+
+const profileContent =
+  document.getElementById("profileContent");
+
+
+/* =========================
+   AUTH CHECK
+========================= */
+
+if(!user){
+
+  loginBox.classList.remove("hidden");
+
+}else{
+
+  profileContent.classList.remove("hidden");
+
+  loadProfile();
+
 }
-function logout() {
-    if (
-        confirm(
-            "KAG аккаунтунан чыгасызбы?"
-        )
-    ) {
-        localStorage.removeItem(
-            "kag_user"
-        );
-        window.location.href =
-            "login.html";
-    }
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+function loadProfile(){
+
+  const savedName =
+    user.name ||
+    user.login ||
+    "KAG Колдонуучу";
+
+  document.getElementById("displayName")
+    .textContent = savedName;
+
+  document.getElementById("nameInput")
+    .value = user.name || "";
+
+  document.getElementById("loginInput")
+    .value = user.login || "";
+
+  const role =
+    user.role === "executor"
+      ? "Мастер"
+      : "Кардар";
+
+  document.getElementById("displayRole")
+    .textContent = role;
+
+  document.getElementById("avatar")
+    .textContent =
+      savedName.charAt(0).toUpperCase();
+
+
+  loadStats();
+
+  loadRecentOrders();
+
 }
-const savedName =
-    localStorage.getItem(
-        "kag_profile_name"
+
+
+/* =========================
+   SAVE PROFILE
+========================= */
+
+function saveProfile(){
+
+  const name =
+    document.getElementById("nameInput")
+      .value.trim();
+
+  if(!name){
+
+    alert("Атыңызды жазыңыз.");
+
+    return;
+  }
+
+  user.name = name;
+
+  localStorage.setItem(
+    "kagUser",
+    JSON.stringify(user)
+  );
+
+  document.getElementById("displayName")
+    .textContent = name;
+
+  document.getElementById("avatar")
+    .textContent =
+      name.charAt(0).toUpperCase();
+
+  alert("Профиль сакталды.");
+
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+function loadStats(){
+
+  const orders =
+    JSON.parse(
+      localStorage.getItem("kagOrders") || "[]"
     );
-if (savedName) {
-    document.querySelector(
-        ".profile-info h1"
-    ).textContent = savedName;
-    document.querySelector(
-        ".avatar"
-    ).textContent =
-        savedName.charAt(0).toUpperCase();
+
+  const tasks =
+    JSON.parse(
+      localStorage.getItem("kagTasks") || "[]"
+    );
+
+  const cart =
+    JSON.parse(
+      localStorage.getItem("kagCart") || "[]"
+    );
+
+
+  document.getElementById("ordersCount")
+    .textContent = orders.length;
+
+  document.getElementById("tasksCount")
+    .textContent = tasks.length;
+
+  document.getElementById("cartCount")
+    .textContent = cart.length;
+
 }
+
+
+/* =========================
+   RECENT ORDERS
+========================= */
+
+function loadRecentOrders(){
+
+  const container =
+    document.getElementById("recentOrders");
+
+  const orders =
+    JSON.parse(
+      localStorage.getItem("kagOrders") || "[]"
+    );
+
+
+  if(!orders.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Азырынча заказ жок.
+        <br>
+        <a
+          href="marketplace.html"
+          class="btn"
+        >
+          Кызмат издөө
+        </a>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const recent =
+    orders.slice(-3).reverse();
+
+
+  container.innerHTML =
+    recent.map(order => {
+
+      const date =
+        order.createdAt
+          ? new Date(order.createdAt)
+              .toLocaleDateString("ky-KG")
+          : "";
+
+      return `
+
+        <div class="order">
+
+          <div class="order-top">
+
+            <strong>
+              ${order.id || "KAG заказ"}
+            </strong>
+
+            <span class="status">
+              ${order.status || "Жаңы заказ"}
+            </span>
+
+          </div>
+
+          <p style="margin-top:10px;">
+            Сумма:
+            <strong>
+              ${Number(order.total || 0)
+                .toLocaleString()} сом
+            </strong>
+          </p>
+
+          <p style="margin-top:5px;color:#aaa;">
+            ${date}
+          </p>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+  if(!confirm("Аккаунттан чыгасызбы?")){
+    return;
+  }
+
+  localStorage.removeItem("kagUser");
+
+  window.location.href =
+    "index.html";
+
+}
+
 </script>
+
 </body>
 </html>
