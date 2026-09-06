@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KAG — Корзина</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+    margin:0;
+    background:#06251B;
+    color:#F4EBD0;
+    font-family:Arial,sans-serif;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 25px;
+    background:#041C15;
+    border-bottom:1px solid #D4AF37;
+}
+
+.logo{
+    color:#D4AF37;
+    font-size:25px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.nav a{
+    color:#F4EBD0;
+    text-decoration:none;
+    margin-left:18px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.title{
+    color:#D4AF37;
+    font-size:32px;
+    margin-bottom:25px;
+}
+
+.cart-layout{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:25px;
+}
+
+.card{
+    background:#041C15;
+    border:1px solid #174C3B;
+    border-radius:16px;
+    padding:22px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:18px 0;
+    border-bottom:1px solid #174C3B;
+}
+
+.cart-item:last-child{
+    border-bottom:none;
+}
+
+.item-title{
+    font-size:19px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.item-info{
+    color:#9fb5ad;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.item-price{
+    color:#D4AF37;
+    font-size:18px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.remove{
+    margin-top:10px;
+    padding:7px 11px;
+    border:0;
+    border-radius:8px;
+    background:#512525;
+    color:#ffb0b0;
+    cursor:pointer;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin:14px 0;
+}
+
+.total{
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid #28634f;
+    padding-top:18px;
+    margin-top:20px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.total-price{
+    color:#D4AF37;
+}
+
+.btn{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:0;
+    border-radius:11px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:#D4AF37;
+    color:#06251B;
+}
+
+.btn-secondary{
+    background:#174C3B;
+    color:#F4EBD0;
+}
+
+.empty{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.empty-icon{
+    font-size:65px;
+}
+
+.empty a{
+    display:inline-block;
+    margin-top:20px;
+    padding:13px 22px;
+    background:#D4AF37;
+    color:#06251B;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+@media(max-width:700px){
+
+    .nav{
+        display:none;
+    }
+
+    .cart-layout{
+        grid-template-columns:1fr;
+    }
+
+    .title{
+        font-size:27px;
+    }
+
+    .cart-item{
+        flex-direction:column;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+        KΛG
+    </a>
+
+    <nav class="nav">
+
+        <a href="index.html">
+            Башкы бет
+        </a>
+
+        <a href="marketplace.html">
+            Кызматтар
+        </a>
+
+        <a href="cart.html">
+            🛒 Корзина
+        </a>
+
+        <a href="orders.html">
+            📦 Заказдар
+        </a>
+
+        <a href="profile.html">
+            Профиль
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+    <h1 class="title">
+        🛒 Корзина
+    </h1>
+
+    <div id="cartContent"></div>
+
+</main>
+
+
+<script>
+
+let cart = JSON.parse(
+    localStorage.getItem("kagCart") || "[]"
+);
+
+
+function formatPrice(price){
+
+    return Number(price || 0)
+        .toLocaleString("ru-RU") + " сом";
+
+}
+
+
+function saveCart(){
+
+    localStorage.setItem(
+        "kagCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+function renderCart(){
+
+    const container =
+        document.getElementById("cartContent");
+
+
+    if(cart.length === 0){
+
+        container.innerHTML = `
+
+            <div class="card empty">
+
+                <div class="empty-icon">
+                    🛒
+                </div>
+
+                <h2>
+                    Корзина бош
+                </h2>
+
+                <p>
+                    Сиз азырынча кызмат тандай элексиз.
+                </p>
+
+                <a href="marketplace.html">
+                    Кызматтарды көрүү →
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    let total = 0;
+
+
+    cart.forEach(item => {
+
+        const quantity =
+            Number(item.quantity || 1);
+
+        total +=
+            Number(item.price || 0) * quantity;
+
+    });
+
+
+    container.innerHTML = `
+
+        <div class="cart-layout">
+
+            <div class="card">
+
+                <h2>
+                    Тандалган кызматтар
+                </h2>
+
+                <div>
+
+                    ${
+                        cart.map((item,index)=>{
+
+                            const quantity =
+                                Number(item.quantity || 1);
+
+                            const itemTotal =
+                                Number(item.price || 0)
+                                * quantity;
+
+
+                            return `
+
+                                <div class="cart-item">
+
+                                    <div>
+
+                                        <div class="item-title">
+                                            ${
+                                                item.service ||
+                                                "KAG кызматы"
+                                            }
+                                        </div>
+
+                                        <div class="item-info">
+
+                                            Категория:
+                                            ${
+                                                item.category ||
+                                                "Кызмат"
+                                            }
+
+                                            <br>
+
+                                            Саны:
+                                            ${quantity}
+
+                                            ${
+                                                item.address
+                                                ? `
+                                                <br>
+                                                📍 ${item.address}
+                                                `
+                                                : ""
+                                            }
+
+                                            ${
+                                                item.date
+                                                ? `
+                                                <br>
+                                                📅 ${item.date}
+                                                `
+                                                : ""
+                                            }
+
+                                            ${
+                                                item.note
+                                                ? `
+                                                <br>
+                                                📝 ${item.note}
+                                                `
+                                                : ""
+                                            }
+
+                                        </div>
+
+                                        <button
+                                            class="remove"
+                                            onclick="removeItem(${index})"
+                                        >
+                                            🗑 Өчүрүү
+                                        </button>
+
+                                    </div>
+
+
+                                    <div class="item-price">
+
+                                        ${formatPrice(itemTotal)}
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }).join("")
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Заказдын жыйынтыгы
+                </h2>
+
+                <div class="summary-row">
+
+                    <span>
+                        Кызматтар
+                    </span>
+
+                    <strong>
+                        ${cart.length}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Аралык сумма
+                    </span>
+
+                    <strong>
+                        ${formatPrice(total)}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Жеткирүү
+                    </span>
+
+                    <strong>
+                        0 сом
+                    </strong>
+
+                </div>
+
+
+                <div class="total">
+
+                    <span>
+                        Жалпы
+                    </span>
+
+                    <span class="total-price">
+                        ${formatPrice(total)}
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="goCheckout()"
+                >
+                    💳 Checkout
+                </button>
+
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="location.href='marketplace.html'"
+                >
+                    ← Кызматтарды улантуу
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function removeItem(index){
+
+    cart.splice(index,1);
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+function goCheckout(){
+
+    if(cart.length === 0){
+
+        alert("Корзина бош.");
+
+        return;
+    }
+
+    location.href = "checkout.html";
+
+}
+
+
+renderCart();
+
+</script>
+
+</body>
+</html>
