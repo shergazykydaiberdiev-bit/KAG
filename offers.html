@@ -1,554 +1,501 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KAG — Сунуштар</title>
+<title>KAG — Мастерлердин сунуштары</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
-    <style>
-        .offers-page {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 35px 20px 100px;
-        }
+<style>
+body{
+    margin:0;
+    background:#06251B;
+    color:#F4EBD0;
+    font-family:Arial,sans-serif;
+}
 
-        .offers-header {
-            margin-bottom: 25px;
-        }
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 25px;
+    background:#041C15;
+    border-bottom:1px solid #D4AF37;
+}
 
-        .offers-label {
-            color: #D4AF37;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+.logo{
+    color:#D4AF37;
+    font-size:25px;
+    font-weight:bold;
+    text-decoration:none;
+}
 
-        .offers-header h1 {
-            color: #F4EBD0;
-            font-size: 34px;
-            margin: 8px 0;
-        }
+.nav a{
+    color:#F4EBD0;
+    text-decoration:none;
+    margin-left:18px;
+}
 
-        .offers-header p {
-            color: rgba(244,235,208,.6);
-        }
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:30px 20px;
+}
 
-        .task-preview {
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(212,175,55,.2);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 30px;
-        }
+.back{
+    color:#D4AF37;
+    text-decoration:none;
+}
 
-        .task-preview h2 {
-            color: #F4EBD0;
-            margin-top: 0;
-        }
+.title{
+    color:#D4AF37;
+    font-size:32px;
+    margin:20px 0 8px;
+}
 
-        .task-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
+.subtitle{
+    color:#9fb5ad;
+    margin-bottom:25px;
+}
 
-        .meta-item {
-            background: rgba(212,175,55,.08);
-            border: 1px solid rgba(212,175,55,.15);
-            padding: 8px 12px;
-            border-radius: 10px;
-            color: #F4EBD0;
-            font-size: 13px;
-        }
+.task-card,
+.offer{
+    background:#041C15;
+    border:1px solid #174C3B;
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:18px;
+}
 
-        .offers-count {
-            color: #D4AF37;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
+.task-card{
+    border-color:#D4AF37;
+}
 
-        .offers-grid {
-            display: grid;
-            gap: 18px;
-        }
+.task-title{
+    font-size:23px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
 
-        .offer-card {
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(244,235,208,.1);
-            border-radius: 20px;
-            padding: 22px;
-            transition: .2s;
-        }
+.task-info{
+    color:#9fb5ad;
+    line-height:1.8;
+    font-size:14px;
+}
 
-        .offer-card:hover {
-            border-color: rgba(212,175,55,.5);
-            transform: translateY(-2px);
-        }
+.offer{
+    transition:.2s;
+}
 
-        .offer-top {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
+.offer:hover{
+    border-color:#D4AF37;
+}
 
-        .executor {
-            display: flex;
-            gap: 13px;
-            align-items: center;
-        }
+.offer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
 
-        .avatar {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: #D4AF37;
-            color: #06251B;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 18px;
-        }
+.master{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
-        .executor h3 {
-            color: #F4EBD0;
-            margin: 0 0 4px;
-        }
+.avatar{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#174C3B;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
 
-        .executor p {
-            color: rgba(244,235,208,.55);
-            margin: 0;
-            font-size: 13px;
-        }
+.master-name{
+    font-size:19px;
+    font-weight:bold;
+}
 
-        .verified {
-            color: #D4AF37;
-            font-size: 12px;
-            margin-top: 4px;
-        }
+.rating{
+    color:#D4AF37;
+    font-size:14px;
+    margin-top:5px;
+}
 
-        .offer-price {
-            text-align: right;
-        }
+.offer-price{
+    color:#D4AF37;
+    font-size:24px;
+    font-weight:bold;
+    white-space:nowrap;
+}
 
-        .offer-price strong {
-            color: #D4AF37;
-            font-size: 22px;
-        }
+.message{
+    margin-top:15px;
+    padding:15px;
+    background:#06251B;
+    border-radius:10px;
+    color:#b8c9c3;
+    line-height:1.6;
+}
 
-        .offer-price span {
-            display: block;
-            color: rgba(244,235,208,.5);
-            font-size: 12px;
-        }
+.meta{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:15px;
+    color:#9fb5ad;
+    font-size:14px;
+}
 
-        .offer-message {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0,0,0,.15);
-            border-radius: 12px;
-            color: rgba(244,235,208,.75);
-            line-height: 1.6;
-        }
+.btn{
+    width:100%;
+    padding:14px;
+    margin-top:18px;
+    border:0;
+    border-radius:11px;
+    background:#D4AF37;
+    color:#06251B;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
 
-        .offer-details {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 18px;
-        }
+.btn:hover{
+    opacity:.9;
+}
 
-        .detail {
-            background: rgba(255,255,255,.03);
-            padding: 12px;
-            border-radius: 10px;
-        }
+.empty{
+    text-align:center;
+    padding:55px 20px;
+}
 
-        .detail small {
-            display: block;
-            color: rgba(244,235,208,.45);
-            margin-bottom: 4px;
-        }
+.empty-icon{
+    font-size:55px;
+}
 
-        .detail strong {
-            color: #F4EBD0;
-        }
+.no-task{
+    text-align:center;
+    padding:60px 20px;
+    background:#041C15;
+    border-radius:16px;
+    border:1px solid #174C3B;
+}
 
-        .offer-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+@media(max-width:700px){
 
-        .btn {
-            padding: 13px;
-            border-radius: 11px;
-            cursor: pointer;
-            font-weight: 700;
-            border: 1px solid rgba(212,175,55,.35);
-        }
+    .nav{
+        display:none;
+    }
 
-        .btn-outline {
-            background: transparent;
-            color: #F4EBD0;
-        }
+    .title{
+        font-size:27px;
+    }
 
-        .btn-gold {
-            background: #D4AF37;
-            color: #06251B;
-            border-color: #D4AF37;
-        }
+    .offer-top{
+        align-items:flex-start;
+        flex-direction:column;
+    }
 
-        .empty {
-            text-align: center;
-            padding: 50px 20px;
-            background: rgba(255,255,255,.03);
-            border-radius: 20px;
-            border: 1px solid rgba(244,235,208,.08);
-        }
+    .offer-price{
+        margin-top:10px;
+    }
+}
+</style>
 
-        .empty-icon {
-            font-size: 45px;
-            margin-bottom: 15px;
-        }
-
-        .empty h2 {
-            color: #F4EBD0;
-        }
-
-        .empty p {
-            color: rgba(244,235,208,.55);
-        }
-
-        @media (max-width: 650px) {
-
-            .offers-page {
-                padding: 25px 15px 90px;
-            }
-
-            .offers-header h1 {
-                font-size: 28px;
-            }
-
-            .offer-top {
-                flex-direction: column;
-            }
-
-            .offer-price {
-                text-align: left;
-            }
-
-            .offer-details {
-                grid-template-columns: 1fr;
-            }
-
-            .offer-actions {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-<header class="kag-header">
+<header class="header">
 
-    <div class="header-inner">
+    <a href="index.html" class="logo">
+        KΛG
+    </a>
 
-        <a href="index.html" class="kag-logo">
-            KAG
+    <nav class="nav">
+
+        <a href="index.html">
+            Башкы бет
         </a>
 
-        <nav class="desktop-nav">
-            <a href="index.html">Башкы бет</a>
-            <a href="marketplace.html">Кызматтар</a>
-            <a href="tickets.html">Билеттер</a>
-            <a href="orders.html">Заказдар</a>
-            <a href="profile.html">Профиль</a>
-        </nav>
-
-        <a href="login.html" class="login-btn">
-            Кирүү
+        <a href="marketplace.html">
+            Кызматтар
         </a>
 
-    </div>
+        <a href="cart.html">
+            🛒 Корзина
+        </a>
+
+        <a href="orders.html">
+            📦 Заказдар
+        </a>
+
+        <a href="profile.html">
+            Профиль
+        </a>
+
+    </nav>
 
 </header>
 
 
-<main class="offers-page">
+<main class="container">
 
-    <div class="offers-header">
+    <a href="marketplace.html" class="back">
+        ← Артка
+    </a>
 
-        <div class="offers-label">
-            KAG SMART MATCH
-        </div>
+    <h1 class="title">
+        👨‍🔧 Мастерлердин сунуштары
+    </h1>
 
-        <h1>Аткаруучулардын сунуштары</h1>
-
-        <p>
-            Сунуштарды салыштырып, өзүңүзгө ылайыктуу аткаруучуну тандаңыз.
-        </p>
-
-    </div>
+    <p class="subtitle">
+        Сиздин тапшырмаңыз боюнча келген сунуштарды салыштырыңыз.
+    </p>
 
 
-    <div id="taskPreview"></div>
-
-
-    <div id="offersContainer"></div>
+    <div id="content"></div>
 
 </main>
 
 
 <script>
 
+const params =
+    new URLSearchParams(window.location.search);
+
+const taskId =
+    params.get("task");
+
+
+let tasks = JSON.parse(
+    localStorage.getItem("kagTasks") || "[]"
+);
+
+
+let task =
+    tasks.find(t => t.id === taskId);
+
+
+/*
+    ДЕМО МАСТЕРЛЕР
+
+    Кийин Supabase аркылуу
+    реалдуу мастерлердин сунуштары келет.
+*/
+
 const demoOffers = [
 
     {
-        id: "offer1",
-        executorId: "exec1",
-        name: "Азамат С.",
-        profession: "Сантехник",
-        rating: "4.9",
-        reviews: 126,
-        price: 2500,
-        time: "Бүгүн",
-        duration: "1–2 саат",
-        verified: true,
-        message:
-            "Кранды текшерип, керектүү тетиктерди алмаштырып берем. Жумушка кепилдик берем."
+        id:"OFFER-1001",
+        master:"Азим Б.",
+        rating:4.9,
+        reviews:127,
+        price:1500,
+        time:"Бүгүн",
+        message:"Тапшырманы аткара алам. Бүгүн келип көрүп, ишти сапаттуу бүтүрөм."
     },
 
     {
-        id: "offer2",
-        executorId: "exec2",
-        name: "Бекзат К.",
-        profession: "Сантехник",
-        rating: "5.0",
-        reviews: 89,
-        price: 3000,
-        time: "Эртең",
-        duration: "1 саат",
-        verified: true,
-        message:
-            "Тажрыйбам 7 жылдан ашык. Көйгөйдү ошол жерден аныктап, оңдоп берем."
+        id:"OFFER-1002",
+        master:"Бекзат К.",
+        rating:4.8,
+        reviews:94,
+        price:1300,
+        time:"Эртең",
+        message:"Бул иш боюнча тажрыйбам бар. Керектүү инструменттерим өзүмдө бар."
     },
 
     {
-        id: "offer3",
-        executorId: "exec3",
-        name: "Нурбек Т.",
-        profession: "Уста",
-        rating: "4.8",
-        reviews: 64,
-        price: 2200,
-        time: "Бүгүн",
-        duration: "2 саат",
-        verified: true,
-        message:
-            "Баасы алдын ала белгилүү. Кошумча төлөмдөр болсо, кардар менен макулдашылат."
+        id:"OFFER-1003",
+        master:"Нурбек Т.",
+        rating:5.0,
+        reviews:63,
+        price:1700,
+        time:"Бүгүн кечинде",
+        message:"Тез арада барып, тапшырманы аткарууга даярмын."
     }
 
 ];
 
 
-function loadTask() {
+function formatPrice(price){
 
-    const task =
-        JSON.parse(
-            localStorage.getItem("kag_current_task")
-        );
-
-    const container =
-        document.getElementById("taskPreview");
-
-    if (!task) {
-
-        container.innerHTML = `
-            <div class="empty">
-                <div class="empty-icon">📋</div>
-                <h2>Тапшырма табылган жок</h2>
-                <p>
-                    Адегенде KAG аркылуу тапшырма түзүңүз.
-                </p>
-                <a
-                    href="task.html"
-                    class="btn btn-gold"
-                    style="display:inline-block;text-decoration:none;margin-top:15px;"
-                >
-                    Тапшырма түзүү
-                </a>
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML = `
-
-        <div class="task-preview">
-
-            <h2>
-                ${task.title}
-            </h2>
-
-            <p style="color:rgba(244,235,208,.6);">
-                ${task.description}
-            </p>
-
-            <div class="task-meta">
-
-                <div class="meta-item">
-                    📂 ${task.category}
-                </div>
-
-                <div class="meta-item">
-                    📍 ${task.location}
-                </div>
-
-                <div class="meta-item">
-                    💰 ${task.budget} сом
-                </div>
-
-                ${
-                    task.date
-                    ? `<div class="meta-item">
-                        📅 ${task.date}
-                    </div>`
-                    : ""
-                }
-
-            </div>
-
-        </div>
-
-    `;
+    return Number(price || 0)
+        .toLocaleString("ru-RU") + " сом";
 
 }
 
 
-function renderOffers() {
+function render(){
 
-    const container =
-        document.getElementById("offersContainer");
+    const content =
+        document.getElementById("content");
 
-    container.innerHTML = `
 
-        <div class="offers-count">
-            ${demoOffers.length} аткаруучудан сунуш келди
+    if(!task){
+
+        content.innerHTML = `
+
+            <div class="no-task">
+
+                <div class="empty-icon">
+                    🔎
+                </div>
+
+                <h2>
+                    Тапшырма табылган жок
+                </h2>
+
+                <p>
+                    Тапшырмаңыздын шилтемеси туура эмес
+                    же тапшырма өчүрүлгөн.
+                </p>
+
+                <button
+                    class="btn"
+                    onclick="location.href='task.html'"
+                >
+                    📝 Жаңы тапшырма түзүү
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    content.innerHTML = `
+
+        <div class="task-card">
+
+            <div class="task-title">
+                ${task.title}
+            </div>
+
+            <div class="task-info">
+
+                📋 ${task.description}
+
+                <br>
+
+                📍 ${task.address}
+
+                <br>
+
+                📅 ${task.date}
+
+                ${
+                    task.budget
+                    ? `
+                    <br>
+                    💰 Бюджет:
+                    ${formatPrice(task.budget)}
+                    `
+                    : ""
+                }
+
+                <br>
+
+                🆔 ${task.id}
+
+            </div>
+
         </div>
 
-        <div class="offers-grid">
 
-            ${demoOffers.map(offer => `
+        <h2>
+            Сунуштар
+            (${demoOffers.length})
+        </h2>
 
-                <div class="offer-card">
 
-                    <div class="offer-top">
+        <div>
 
-                        <div class="executor">
+            ${
+                demoOffers.map((offer,index)=>`
 
-                            <div class="avatar">
-                                ${offer.name.charAt(0)}
+                    <div class="offer">
+
+                        <div class="offer-top">
+
+                            <div class="master">
+
+                                <div class="avatar">
+                                    👨‍🔧
+                                </div>
+
+                                <div>
+
+                                    <div class="master-name">
+                                        ${offer.master}
+                                    </div>
+
+                                    <div class="rating">
+
+                                        ⭐ ${offer.rating}
+
+                                        · ${offer.reviews} заказ
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                            <div>
 
-                                <h3>
-                                    ${offer.name}
-                                </h3>
+                            <div class="offer-price">
 
-                                <p>
-                                    ${offer.profession}
-                                </p>
-
-                                ${
-                                    offer.verified
-                                    ? `<div class="verified">
-                                        ✓ Текшерилген аткаруучу
-                                    </div>`
-                                    : ""
-                                }
+                                ${formatPrice(offer.price)}
 
                             </div>
 
                         </div>
 
 
-                        <div class="offer-price">
+                        <div class="message">
 
-                            <strong>
-                                ${offer.price.toLocaleString()} сом
-                            </strong>
+                            ${offer.message}
+
+                        </div>
+
+
+                        <div class="meta">
 
                             <span>
-                                ⭐ ${offer.rating} · ${offer.reviews} отзыв
+                                🕐 ${offer.time}
+                            </span>
+
+                            <span>
+                                🛠 Тажрыйбалуу мастер
+                            </span>
+
+                            <span>
+                                ✓ Текшерилген
                             </span>
 
                         </div>
 
-                    </div>
-
-
-                    <div class="offer-message">
-                        ${offer.message}
-                    </div>
-
-
-                    <div class="offer-details">
-
-                        <div class="detail">
-                            <small>Баштоо</small>
-                            <strong>
-                                ${offer.time}
-                            </strong>
-                        </div>
-
-                        <div class="detail">
-                            <small>Мөөнөт</small>
-                            <strong>
-                                ${offer.duration}
-                            </strong>
-                        </div>
-
-                        <div class="detail">
-                            <small>Рейтинг</small>
-                            <strong>
-                                ⭐ ${offer.rating}
-                            </strong>
-                        </div>
-
-                    </div>
-
-
-                    <div class="offer-actions">
 
                         <button
-                            class="btn btn-outline"
-                            onclick="viewExecutor('${offer.executorId}')"
+                            class="btn"
+                            onclick="selectOffer(${index})"
                         >
-                            Профилди көрүү
-                        </button>
-
-                        <button
-                            class="btn btn-gold"
-                            onclick="selectOffer('${offer.id}')"
-                        >
-                            Тандоо
+                            ✓ Бул мастерди тандоо
                         </button>
 
                     </div>
 
-                </div>
-
-            `).join("")}
+                `).join("")
+            }
 
         </div>
 
@@ -557,95 +504,99 @@ function renderOffers() {
 }
 
 
-function viewExecutor(id) {
-
-    localStorage.setItem(
-        "kag_selected_executor",
-        id
-    );
-
-    alert(
-        "Аткаруучунун профили жакында ачылат."
-    );
-
-}
-
-
-function selectOffer(offerId) {
+function selectOffer(index){
 
     const offer =
-        demoOffers.find(
-            item => item.id === offerId
-        );
-
-    if (!offer) return;
+        demoOffers[index];
 
 
-    const task =
-        JSON.parse(
-            localStorage.getItem("kag_current_task")
-        );
+    if(!task){
 
-    if (!task) {
         alert("Тапшырма табылган жок.");
+
         return;
     }
 
 
-    const order = {
+    /*
+        Тандалган мастерди
+        Checkout үчүн корзинага өткөрөбүз.
+    */
 
-        id: "ORDER-" + Date.now(),
+    const cartItem = {
 
-        taskId: task.id,
+        id:
+            "CART-" +
+            Date.now(),
 
-        taskTitle: task.title,
+        service:
+            task.title,
 
-        category: task.category,
+        category:
+            task.category,
 
-        location: task.location,
+        price:
+            offer.price,
 
-        executorId: offer.executorId,
+        quantity:1,
 
-        executorName: offer.name,
+        address:
+            task.address,
 
-        executorProfession: offer.profession,
+        date:
+            task.date,
 
-        price: offer.price,
+        note:
+            task.description,
 
-        duration: offer.duration,
+        master:
+            offer.master,
 
-        status: "selected",
+        masterRating:
+            offer.rating,
 
-        createdAt: new Date().toISOString()
+        taskId:
+            task.id,
+
+        offerId:
+            offer.id
 
     };
 
 
     localStorage.setItem(
-        "kag_current_order",
-        JSON.stringify(order)
+        "kagCart",
+        JSON.stringify([cartItem])
     );
+
+
+    /*
+        Тапшырманын статусун өзгөртөбүз.
+    */
+
+    task.status =
+        "Мастер тандалды";
+
+    task.selectedMaster =
+        offer.master;
+
+    task.selectedOffer =
+        offer.id;
 
 
     localStorage.setItem(
-        "kag_selected_executor",
-        offer.executorId
+        "kagTasks",
+        JSON.stringify(tasks)
     );
 
 
-    alert(
-        `✅ ${offer.name} тандалды!`
-    );
-
-
-    window.location.href =
+    location.href =
         "checkout.html";
 
 }
 
 
-loadTask();
-renderOffers();
+render();
 
 </script>
 
