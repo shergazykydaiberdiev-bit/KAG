@@ -1,323 +1,222 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KAG — Тапшырма түзүү</title>
+<title>KAG — Тапшырма түзүү</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
-    <style>
-        .task-page {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px 100px;
-        }
+<style>
+body{
+    margin:0;
+    background:#06251B;
+    color:#F4EBD0;
+    font-family:Arial,sans-serif;
+}
 
-        .task-header {
-            margin-bottom: 30px;
-        }
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 25px;
+    background:#041C15;
+    border-bottom:1px solid #D4AF37;
+}
 
-        .task-label {
-            color: #D4AF37;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+.logo{
+    color:#D4AF37;
+    font-size:25px;
+    font-weight:bold;
+    text-decoration:none;
+}
 
-        .task-header h1 {
-            color: #F4EBD0;
-            font-size: 36px;
-            margin: 10px 0;
-        }
+.nav a{
+    color:#F4EBD0;
+    text-decoration:none;
+    margin-left:18px;
+}
 
-        .task-header p {
-            color: rgba(244,235,208,.65);
-            line-height: 1.6;
-        }
+.container{
+    max-width:850px;
+    margin:auto;
+    padding:35px 20px;
+}
 
-        .task-card {
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(212,175,55,.18);
-            border-radius: 22px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
+.title{
+    color:#D4AF37;
+    font-size:32px;
+    margin-bottom:10px;
+}
 
-        .task-card h2 {
-            color: #F4EBD0;
-            margin-top: 0;
-            font-size: 20px;
-        }
+.subtitle{
+    color:#9fb5ad;
+    margin-bottom:25px;
+}
 
-        .form-group {
-            margin-bottom: 22px;
-        }
+.card{
+    background:#041C15;
+    border:1px solid #174C3B;
+    border-radius:18px;
+    padding:25px;
+}
 
-        .form-group label {
-            display: block;
-            color: #F4EBD0;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+label{
+    display:block;
+    margin-top:18px;
+    margin-bottom:7px;
+    font-weight:bold;
+}
 
-        .form-group span {
-            color: rgba(244,235,208,.5);
-            font-size: 13px;
-            font-weight: normal;
-        }
+input,
+textarea,
+select{
+    width:100%;
+    box-sizing:border-box;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #28634f;
+    background:#06251B;
+    color:#F4EBD0;
+    outline:none;
+    font-size:15px;
+}
 
-        .task-input,
-        .task-select,
-        .task-textarea {
-            width: 100%;
-            box-sizing: border-box;
-            background: #031b13;
-            border: 1px solid rgba(244,235,208,.15);
-            border-radius: 12px;
-            padding: 14px 16px;
-            color: #F4EBD0;
-            font-size: 15px;
-            outline: none;
-        }
+textarea{
+    min-height:130px;
+    resize:vertical;
+}
 
-        .task-input:focus,
-        .task-select:focus,
-        .task-textarea:focus {
-            border-color: #D4AF37;
-        }
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#D4AF37;
+}
 
-        .task-textarea {
-            min-height: 130px;
-            resize: vertical;
-        }
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
 
-        .two-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
+.hint{
+    color:#829b92;
+    font-size:13px;
+    margin-top:6px;
+}
 
-        .budget-row {
-            display: grid;
-            grid-template-columns: 1fr 140px;
-            gap: 12px;
-        }
+.btn{
+    width:100%;
+    padding:16px;
+    margin-top:25px;
+    border:0;
+    border-radius:12px;
+    background:#D4AF37;
+    color:#06251B;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
 
-        .upload-box {
-            border: 1px dashed rgba(212,175,55,.45);
-            border-radius: 14px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: .2s;
-        }
+.btn:hover{
+    opacity:.9;
+}
 
-        .upload-box:hover {
-            background: rgba(212,175,55,.05);
-        }
+.back{
+    display:inline-block;
+    margin-bottom:20px;
+    color:#D4AF37;
+    text-decoration:none;
+}
 
-        .upload-icon {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
+.success{
+    text-align:center;
+    padding:40px 20px;
+}
 
-        .upload-box strong {
-            display: block;
-            color: #F4EBD0;
-            margin-bottom: 5px;
-        }
+.success-icon{
+    font-size:60px;
+}
 
-        .upload-box small {
-            color: rgba(244,235,208,.5);
-        }
+.success-id{
+    color:#D4AF37;
+    font-weight:bold;
+    font-size:20px;
+}
 
-        .task-summary {
-            background: rgba(212,175,55,.06);
-            border: 1px solid rgba(212,175,55,.2);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 25px;
-        }
+@media(max-width:700px){
 
-        .task-summary h3 {
-            color: #D4AF37;
-            margin-top: 0;
-        }
+    .nav{
+        display:none;
+    }
 
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 9px 0;
-            border-bottom: 1px solid rgba(244,235,208,.08);
-            color: rgba(244,235,208,.7);
-        }
+    .row{
+        grid-template-columns:1fr;
+    }
 
-        .summary-item:last-child {
-            border-bottom: none;
-        }
+    .title{
+        font-size:27px;
+    }
+}
+</style>
 
-        .summary-item strong {
-            color: #F4EBD0;
-        }
-
-        .publish-btn {
-            width: 100%;
-            border: none;
-            border-radius: 14px;
-            padding: 17px;
-            background: #D4AF37;
-            color: #06251B;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-            margin-top: 25px;
-        }
-
-        .publish-btn:hover {
-            opacity: .9;
-        }
-
-        .secure-note {
-            text-align: center;
-            color: rgba(244,235,208,.45);
-            font-size: 13px;
-            margin-top: 15px;
-        }
-
-        @media (max-width: 650px) {
-
-            .task-page {
-                padding: 25px 15px 90px;
-            }
-
-            .task-header h1 {
-                font-size: 28px;
-            }
-
-            .task-card {
-                padding: 20px;
-                border-radius: 17px;
-            }
-
-            .two-columns,
-            .budget-row {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-<header class="kag-header">
-    <div class="header-inner">
+<header class="header">
 
-        <a href="index.html" class="kag-logo">
-            KAG
+    <a href="index.html" class="logo">
+        KΛG
+    </a>
+
+    <nav class="nav">
+
+        <a href="index.html">
+            Башкы бет
         </a>
 
-        <nav class="desktop-nav">
-            <a href="index.html">Башкы бет</a>
-            <a href="marketplace.html">Кызматтар</a>
-            <a href="tickets.html">Билеттер</a>
-            <a href="orders.html">Заказдар</a>
-            <a href="profile.html">Профиль</a>
-        </nav>
-
-        <a href="login.html" class="login-btn">
-            Кирүү
+        <a href="marketplace.html">
+            Кызматтар
         </a>
 
-    </div>
+        <a href="cart.html">
+            🛒 Корзина
+        </a>
+
+        <a href="orders.html">
+            📦 Заказдар
+        </a>
+
+        <a href="profile.html">
+            Профиль
+        </a>
+
+    </nav>
+
 </header>
 
 
-<main class="task-page">
+<main class="container">
 
-    <div class="task-header">
+    <a href="marketplace.html" class="back">
+        ← Кызматтарга кайтуу
+    </a>
 
-        <div class="task-label">
-            KAG SMART FLOW
-        </div>
+    <h1 class="title">
+        📝 Тапшырма түзүү
+    </h1>
 
-        <h1>Кандай жардам керек?</h1>
-
-        <p>
-            Тапшырмаңызды жазыңыз. KAG сиздин сурооңузга
-            ылайыктуу аткаруучуларды табууга жардам берет.
-        </p>
-
-    </div>
+    <p class="subtitle">
+        Кандай жумуш керек экенин жазыңыз.
+        Мастерлер сизге өз сунуштарын жөнөтүшөт.
+    </p>
 
 
-    <!-- 1. CATEGORY -->
+    <div id="taskFormContainer">
 
-    <div class="task-card">
-
-        <h2>1. Кызматтын түрү</h2>
-
-        <div class="form-group">
-
-            <label>
-                Категория
-            </label>
-
-            <select id="taskCategory" class="task-select">
-
-                <option value="">
-                    Категорияны тандаңыз
-                </option>
-
-                <option value="Ремонт">
-                    🔧 Ремонт
-                </option>
-
-                <option value="Тазалоо">
-                    🧹 Тазалоо
-                </option>
-
-                <option value="Курулуш">
-                    🏗️ Курулуш
-                </option>
-
-                <option value="Жеткирүү">
-                    🚚 Жеткирүү
-                </option>
-
-                <option value="Үй кызматтары">
-                    🏠 Үй кызматтары
-                </option>
-
-                <option value="Авто">
-                    🚗 Авто
-                </option>
-
-                <option value="IT & Digital">
-                    💻 IT & Digital
-                </option>
-
-                <option value="Дизайн">
-                    🎨 Дизайн
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <!-- 2. TASK -->
-
-    <div class="task-card">
-
-        <h2>2. Тапшырмаңыз</h2>
-
-        <div class="form-group">
+        <div class="card">
 
             <label>
                 Тапшырманын аталышы
@@ -325,216 +224,141 @@
 
             <input
                 id="taskTitle"
-                class="task-input"
                 type="text"
-                placeholder="Мисалы: Үйдөгү кранды оңдоо"
+                placeholder="Мисалы: Үйгө сантехник керек"
             >
 
-        </div>
-
-
-        <div class="form-group">
 
             <label>
-                Толук маалымат
-                <span>Канчалык так жазсаңыз, ошончолук жакшы</span>
+                Категория
+            </label>
+
+            <select id="taskCategory">
+
+                <option value="">
+                    Категорияны тандаңыз
+                </option>
+
+                <option value="plumbing">
+                    🔧 Сантехника
+                </option>
+
+                <option value="electrician">
+                    ⚡ Электрик
+                </option>
+
+                <option value="cleaning">
+                    🧹 Тазалоо
+                </option>
+
+                <option value="construction">
+                    🏗️ Курулуш
+                </option>
+
+                <option value="delivery">
+                    🚚 Жеткирүү
+                </option>
+
+                <option value="it">
+                    💻 IT & Digital
+                </option>
+
+                <option value="other">
+                    📦 Башка
+                </option>
+
+            </select>
+
+
+            <label>
+                Тапшырманы толук сүрөттөңүз
             </label>
 
             <textarea
                 id="taskDescription"
-                class="task-textarea"
-                placeholder="Эмне кылыш керек экенин толук жазыңыз..."
+                placeholder="Эмне кылыш керек? Кандай көйгөй бар? Толук жазыңыз..."
             ></textarea>
 
-        </div>
 
+            <div class="row">
 
-        <div class="form-group">
+                <div>
 
-            <label>
-                Сүрөт же видео
-            </label>
+                    <label>
+                        Дарек
+                    </label>
 
-            <label class="upload-box">
+                    <input
+                        id="taskAddress"
+                        type="text"
+                        placeholder="Бишкек, район, көчө..."
+                    >
 
-                <div class="upload-icon">
-                    📷
                 </div>
 
-                <strong>
-                    Файл кошуу
-                </strong>
 
-                <small>
-                    Сүрөт же видео жүктөсөңүз болот
-                </small>
+                <div>
 
-                <input
-                    id="taskFiles"
-                    type="file"
-                    accept="image/*,video/*"
-                    multiple
-                    hidden
-                >
+                    <label>
+                        Керектүү дата
+                    </label>
 
-            </label>
+                    <input
+                        id="taskDate"
+                        type="date"
+                    >
 
-        </div>
+                </div>
 
-    </div>
+            </div>
 
 
-    <!-- 3. LOCATION -->
+            <div class="row">
 
-    <div class="task-card">
+                <div>
 
-        <h2>3. Жайгашкан жер</h2>
+                    <label>
+                        Болжолдуу бюджет
+                    </label>
 
-        <div class="form-group">
+                    <input
+                        id="taskBudget"
+                        type="number"
+                        min="0"
+                        placeholder="Мисалы: 3000"
+                    >
 
-            <label>
-                Дарек / район
-            </label>
+                    <div class="hint">
+                        Сом менен
+                    </div>
 
-            <input
-                id="taskLocation"
-                class="task-input"
-                type="text"
-                placeholder="Мисалы: Бишкек, Аламүдүн-1"
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Байланыш телефону
+                    </label>
+
+                    <input
+                        id="taskPhone"
+                        type="tel"
+                        placeholder="+996 555 00 00 00"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="btn"
+                onclick="createTask()"
             >
+                🚀 Тапшырманы жарыялоо
+            </button>
 
-        </div>
-
-    </div>
-
-
-    <!-- 4. DATE -->
-
-    <div class="task-card">
-
-        <h2>4. Качан керек?</h2>
-
-        <div class="two-columns">
-
-            <div class="form-group">
-
-                <label>
-                    Күн
-                </label>
-
-                <input
-                    id="taskDate"
-                    class="task-input"
-                    type="date"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Убакыт
-                </label>
-
-                <input
-                    id="taskTime"
-                    class="task-input"
-                    type="time"
-                >
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- 5. BUDGET -->
-
-    <div class="task-card">
-
-        <h2>5. Бюджет</h2>
-
-        <div class="form-group">
-
-            <label>
-                Канча төлөөгө даярсыз?
-            </label>
-
-            <div class="budget-row">
-
-                <input
-                    id="taskBudget"
-                    class="task-input"
-                    type="number"
-                    placeholder="Мисалы: 3000"
-                >
-
-                <select
-                    id="taskCurrency"
-                    class="task-select"
-                >
-                    <option value="KGS">
-                        сом
-                    </option>
-                </select>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- SUMMARY -->
-
-    <div class="task-card">
-
-        <h2>6. Тапшырманы жарыялоо</h2>
-
-        <p style="color:rgba(244,235,208,.6);line-height:1.6;">
-            Тапшырмаңызды жарыялагандан кийин,
-            ылайыктуу аткаруучулар сизге сунуш жөнөтө алышат.
-        </p>
-
-
-        <div class="task-summary">
-
-            <h3>📋 Тапшырмаңыз</h3>
-
-            <div class="summary-item">
-                <span>Категория</span>
-                <strong id="summaryCategory">—</strong>
-            </div>
-
-            <div class="summary-item">
-                <span>Тапшырма</span>
-                <strong id="summaryTitle">—</strong>
-            </div>
-
-            <div class="summary-item">
-                <span>Жайгашкан жер</span>
-                <strong id="summaryLocation">—</strong>
-            </div>
-
-            <div class="summary-item">
-                <span>Бюджет</span>
-                <strong id="summaryBudget">—</strong>
-            </div>
-
-        </div>
-
-
-        <button
-            class="publish-btn"
-            onclick="publishTask()"
-        >
-            🚀 Тапшырманы жарыялоо
-        </button>
-
-        <div class="secure-note">
-            KAG — кардар менен аткаруучуну бириктирген платформа
         </div>
 
     </div>
@@ -542,152 +366,191 @@
 </main>
 
 
-<script src="script.js"></script>
-
-
 <script>
 
-function publishTask() {
-
-    const category =
-        document.getElementById("taskCategory").value;
+function createTask(){
 
     const title =
-        document.getElementById("taskTitle").value.trim();
+        document.getElementById("taskTitle")
+        .value.trim();
+
+    const category =
+        document.getElementById("taskCategory")
+        .value;
 
     const description =
-        document.getElementById("taskDescription").value.trim();
+        document.getElementById("taskDescription")
+        .value.trim();
 
-    const location =
-        document.getElementById("taskLocation").value.trim();
+    const address =
+        document.getElementById("taskAddress")
+        .value.trim();
 
     const date =
-        document.getElementById("taskDate").value;
-
-    const time =
-        document.getElementById("taskTime").value;
+        document.getElementById("taskDate")
+        .value;
 
     const budget =
-        document.getElementById("taskBudget").value;
+        document.getElementById("taskBudget")
+        .value;
 
-    if (!category) {
-        alert("Категорияны тандаңыз.");
-        return;
-    }
+    const phone =
+        document.getElementById("taskPhone")
+        .value.trim();
 
-    if (!title) {
+
+    if(!title){
+
         alert("Тапшырманын аталышын жазыңыз.");
+
         return;
     }
 
-    if (!description) {
-        alert("Тапшырманын маалыматын жазыңыз.");
+
+    if(!category){
+
+        alert("Категорияны тандаңыз.");
+
         return;
     }
 
-    if (!location) {
-        alert("Жайгашкан жерди жазыңыз.");
+
+    if(!description){
+
+        alert("Тапшырманы сүрөттөп жазыңыз.");
+
         return;
     }
 
-    if (!budget) {
-        alert("Бюджетти көрсөтүңүз.");
+
+    if(!address){
+
+        alert("Даректи жазыңыз.");
+
+        return;
+    }
+
+
+    if(!date){
+
+        alert("Керектүү датаны тандаңыз.");
+
+        return;
+    }
+
+
+    if(!phone){
+
+        alert("Телефон номериңизди жазыңыз.");
+
         return;
     }
 
 
     const task = {
 
-        id: "KAG-" + Date.now(),
+        id:
+            "TASK-" +
+            Date.now(),
 
-        category: category,
+        title:title,
 
-        title: title,
+        category:category,
 
-        description: description,
+        description:description,
 
-        location: location,
+        address:address,
 
-        date: date,
+        date:date,
 
-        time: time,
+        budget:
+            Number(budget || 0),
 
-        budget: Number(budget),
+        phone:phone,
 
-        currency: "KGS",
+        status:"Жаңы",
 
-        status: "published",
+        createdAt:
+            new Date().toISOString(),
 
-        createdAt: new Date().toISOString(),
-
-        offers: []
+        offers:[]
 
     };
 
 
-    let tasks =
-        JSON.parse(localStorage.getItem("kag_tasks")) || [];
+    let tasks = JSON.parse(
+        localStorage.getItem("kagTasks") || "[]"
+    );
+
 
     tasks.unshift(task);
 
+
     localStorage.setItem(
-        "kag_tasks",
+        "kagTasks",
         JSON.stringify(tasks)
     );
 
 
-    localStorage.setItem(
-        "kag_current_task",
-        JSON.stringify(task)
-    );
-
-
-    alert(
-        "✅ Тапшырмаңыз KAG платформасына жарыяланды!"
-    );
-
-
- window.location.href = "offers.html";
+    showSuccess(task);
 
 }
 
 
-/* LIVE SUMMARY */
+function showSuccess(task){
 
-function updateSummary() {
+    document.getElementById(
+        "taskFormContainer"
+    ).innerHTML = `
 
-    document.getElementById("summaryCategory").textContent =
-        document.getElementById("taskCategory").value || "—";
+        <div class="card success">
 
-    document.getElementById("summaryTitle").textContent =
-        document.getElementById("taskTitle").value || "—";
+            <div class="success-icon">
+                ✅
+            </div>
 
-    document.getElementById("summaryLocation").textContent =
-        document.getElementById("taskLocation").value || "—";
+            <h2>
+                Тапшырма ийгиликтүү жарыяланды!
+            </h2>
 
-    const budget =
-        document.getElementById("taskBudget").value;
+            <p>
+                Тапшырма номери:
+            </p>
 
-    document.getElementById("summaryBudget").textContent =
-        budget ? budget + " сом" : "—";
+            <div class="success-id">
+                ${task.id}
+            </div>
+
+            <p>
+                Эми мастерлер сиздин тапшырмаңызды
+                көрүп, бааларын сунуштай алышат.
+            </p>
+
+
+            <button
+                class="btn"
+                onclick="location.href='offers.html?task=${task.id}'"
+            >
+                👨‍🔧 Сунуштарды көрүү
+            </button>
+
+
+            <button
+                class="btn"
+                style="
+                    background:#174C3B;
+                    color:#F4EBD0;
+                "
+                onclick="location.href='marketplace.html'"
+            >
+                Кызматтарга кайтуу
+            </button>
+
+        </div>
+
+    `;
+
 }
-
-
-document
-    .querySelectorAll(".task-input, .task-select, .task-textarea")
-    .forEach(input => {
-
-        input.addEventListener(
-            "input",
-            updateSummary
-        );
-
-        input.addEventListener(
-            "change",
-            updateSummary
-        );
-
-    });
 
 </script>
 
