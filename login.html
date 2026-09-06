@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>KAG — Кирүү</title>
-
 <link rel="stylesheet" href="style.css">
-
 <style>
 body{
     margin:0;
@@ -18,20 +15,17 @@ body{
     display:flex;
     flex-direction:column;
 }
-
 .header{
     padding:18px 25px;
     background:#041C15;
     border-bottom:1px solid #D4AF37;
 }
-
 .logo{
     color:#D4AF37;
     font-size:27px;
     font-weight:bold;
     text-decoration:none;
 }
-
 .container{
     width:100%;
     max-width:480px;
@@ -39,14 +33,12 @@ body{
     padding:30px 20px;
     box-sizing:border-box;
 }
-
 .card{
     background:#041C15;
     border:1px solid #174C3B;
     border-radius:18px;
     padding:28px;
 }
-
 .logo-big{
     text-align:center;
     color:#D4AF37;
@@ -54,24 +46,20 @@ body{
     font-weight:bold;
     margin-bottom:8px;
 }
-
 .subtitle{
     text-align:center;
     color:#9fb5ad;
     margin-bottom:25px;
 }
-
 .role-title{
     margin-bottom:12px;
     font-weight:bold;
 }
-
 .roles{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
 }
-
 .role{
     padding:16px 10px;
     background:#06251B;
@@ -81,25 +69,21 @@ body{
     text-align:center;
     cursor:pointer;
 }
-
 .role.active{
     border-color:#D4AF37;
     background:#174C3B;
 }
-
 .role-icon{
     font-size:25px;
     display:block;
     margin-bottom:5px;
 }
-
 label{
     display:block;
     margin-top:18px;
     margin-bottom:7px;
     font-weight:bold;
 }
-
 input{
     width:100%;
     box-sizing:border-box;
@@ -110,19 +94,15 @@ input{
     color:#F4EBD0;
     outline:none;
 }
-
 input:focus{
     border-color:#D4AF37;
 }
-
 .password-box{
     position:relative;
 }
-
 .password-box input{
     padding-right:55px;
 }
-
 .show-password{
     position:absolute;
     right:12px;
@@ -133,7 +113,6 @@ input:focus{
     color:#D4AF37;
     cursor:pointer;
 }
-
 .btn{
     width:100%;
     padding:15px;
@@ -146,18 +125,19 @@ input:focus{
     font-weight:bold;
     cursor:pointer;
 }
-
+.btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
 .register{
     text-align:center;
     margin-top:20px;
     color:#9fb5ad;
 }
-
 .register a{
     color:#D4AF37;
     text-decoration:none;
 }
-
 .message{
     display:none;
     margin-top:15px;
@@ -167,291 +147,211 @@ input:focus{
     color:#F4EBD0;
     text-align:center;
 }
-
+.error{
+    background:#5a2424;
+}
 @media(max-width:500px){
-
     .card{
         padding:22px;
     }
 }
 </style>
-
 </head>
-
 <body>
-
 <header class="header">
-
-    <a href="index.html" class="logo">
-        KΛG
-    </a>
-
+    <a href="index.html" class="logo">KΛG</a>
 </header>
-
-
 <main class="container">
-
-    <div class="card">
-
-        <div class="logo-big">
-            KΛG
-        </div>
-
-        <p class="subtitle">
-            Күнүмдүк тапшырмаларды оңой чечиңиз
-        </p>
-
-
-        <div class="role-title">
-            Ким катары киресиз?
-        </div>
-
-
-        <div class="roles">
-
-            <div
-                class="role active"
-                id="customerRole"
-                onclick="selectRole('customer')"
-            >
-
-                <span class="role-icon">
-                    👤
-                </span>
-
-                Кардар
-
-            </div>
-
-
-            <div
-                class="role"
-                id="executorRole"
-                onclick="selectRole('executor')"
-            >
-
-                <span class="role-icon">
-                    👨‍🔧
-                </span>
-
-                Мастер
-
-            </div>
-
-        </div>
-
-
-        <label>
-            Телефон же Email
-        </label>
-
-        <input
-            id="login"
-            type="text"
-            placeholder="+996 555 00 00 00"
-        >
-
-
-        <label>
-            Сыр сөз
-        </label>
-
-        <div class="password-box">
-
-            <input
-                id="password"
-                type="password"
-                placeholder="Сыр сөзүңүз"
-            >
-
-            <button
-                class="show-password"
-                onclick="togglePassword()"
-                type="button"
-            >
-                👁
-            </button>
-
-        </div>
-
-
-        <button
-            class="btn"
-            onclick="loginUser()"
-        >
-            Кирүү
-        </button>
-
-
-        <div
-            class="message"
-            id="message"
-        ></div>
-
-
-        <div class="register">
-
-            Аккаунтуңуз жокпу?
-
-            <a href="profile.html">
-                Катталуу
-            </a>
-
-        </div>
-
+<div class="card">
+    <div class="logo-big">KΛG</div>
+    <p class="subtitle">
+        Күнүмдүк тапшырмаларды оңой чечиңиз
+    </p>
+    <div class="role-title">
+        Ким катары киресиз?
     </div>
-
+    <div class="roles">
+        <div
+            class="role active"
+            id="customerRole"
+            onclick="selectRole('customer')"
+        >
+            <span class="role-icon">👤</span>
+            Кардар
+        </div>
+        <div
+            class="role"
+            id="executorRole"
+            onclick="selectRole('executor')"
+        >
+            <span class="role-icon">👨‍🔧</span>
+            Мастер
+        </div>
+    </div>
+    <label>Email</label>
+    <input
+        id="login"
+        type="email"
+        placeholder="example@gmail.com"
+        autocomplete="email"
+    >
+    <label>Сыр сөз</label>
+    <div class="password-box">
+        <input
+            id="password"
+            type="password"
+            placeholder="Сыр сөзүңүз"
+            autocomplete="current-password"
+        >
+        <button
+            class="show-password"
+            onclick="togglePassword()"
+            type="button"
+        >
+            👁
+        </button>
+    </div>
+    <button
+        class="btn"
+        id="loginButton"
+        onclick="loginUser()"
+    >
+        Кирүү
+    </button>
+    <div
+        class="message"
+        id="message"
+    ></div>
+    <div class="register">
+        Аккаунтуңуз жокпу?
+        <a href="profile.html">
+            Катталуу
+        </a>
+    </div>
+</div>
 </main>
-
-
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-
+const SUPABASE_URL =
+    "https://kyudeeqjbksjczqidagc.supabase.co";
+/*
+    Бул жерге Supabase Project Settings → API
+    бөлүмүндөгү Publishable/anon key коюлат.
+*/
+const SUPABASE_KEY =
+    "YOUR_SUPABASE_ANON_KEY";
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 let selectedRole = "customer";
-
-
 function selectRole(role){
-
     selectedRole = role;
-
-
     document
         .getElementById("customerRole")
         .classList.remove("active");
-
-
     document
         .getElementById("executorRole")
         .classList.remove("active");
-
-
     if(role === "customer"){
-
         document
             .getElementById("customerRole")
             .classList.add("active");
-
     }else{
-
         document
             .getElementById("executorRole")
             .classList.add("active");
-
     }
-
 }
-
-
 function togglePassword(){
-
     const password =
         document.getElementById("password");
-
-
-    if(password.type === "password"){
-
-        password.type = "text";
-
-    }else{
-
-        password.type = "password";
-
-    }
-
+    password.type =
+        password.type === "password"
+        ? "text"
+        : "password";
 }
-
-
-function loginUser(){
-
-    const login =
-        document.getElementById("login")
-        .value.trim();
-
+async function loginUser(){
+    const email =
+        document
+        .getElementById("login")
+        .value
+        .trim();
     const password =
-        document.getElementById("password")
-        .value.trim();
-
+        document
+        .getElementById("password")
+        .value
+        .trim();
     const message =
         document.getElementById("message");
-
-
-    if(!login){
-
-        message.style.display = "block";
-
-        message.textContent =
-            "Телефон же Email жазыңыз.";
-
+    const button =
+        document.getElementById("loginButton");
+    message.style.display = "none";
+    message.classList.remove("error");
+    if(!email){
+        showMessage(
+            "Email жазыңыз.",
+            true
+        );
         return;
     }
-
-
     if(!password){
-
-        message.style.display = "block";
-
-        message.textContent =
-            "Сыр сөздү жазыңыз.";
-
+        showMessage(
+            "Сыр сөздү жазыңыз.",
+            true
+        );
         return;
     }
-
-
-    /*
-        Азырынча DEMO LOGIN.
-        Supabase кошулганда бул жер
-        реалдуу authentication болот.
-    */
-
-
-    const user = {
-
-        id:
-            "USER-" +
-            Date.now(),
-
-        login:login,
-
-        role:selectedRole,
-
-        loggedIn:true,
-
-        createdAt:
-            new Date().toISOString()
-
-    };
-
-
-    localStorage.setItem(
-        "kagUser",
-        JSON.stringify(user)
-    );
-
-
-    message.style.display = "block";
-
-    message.textContent =
-        "✅ Ийгиликтүү кирдиңиз";
-
-
-    setTimeout(()=>{
-
-        if(selectedRole === "executor"){
-
-            location.href =
-                "executor-dashboard.html";
-
-        }else{
-
-            location.href =
-                "profile.html";
-
-        }
-
-    },500);
-
+    button.disabled = true;
+    button.textContent = "Кирүүдө...";
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+    if(error){
+        showMessage(
+            "❌ " + error.message,
+            true
+        );
+        button.disabled = false;
+        button.textContent = "Кирүү";
+        return;
+    }
+    if(data.user){
+        localStorage.setItem(
+            "kagRole",
+            selectedRole
+        );
+        showMessage(
+            "✅ Ийгиликтүү кирдиңиз"
+        );
+        setTimeout(() => {
+            if(selectedRole === "executor"){
+                location.href =
+                    "executor-dashboard.html";
+            }else{
+                location.href =
+                    "profile.html";
+            }
+        }, 700);
+    }
 }
-
+function showMessage(text, error = false){
+    const message =
+        document.getElementById("message");
+    message.style.display = "block";
+    message.textContent = text;
+    if(error){
+        message.classList.add("error");
+    }else{
+        message.classList.remove("error");
+    }
+}
 </script>
-
 </body>
 </html>
