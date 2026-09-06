@@ -1,144 +1,399 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ky">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAG Platform — Детали услуги</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-kagGreen: { 800: '#064e3b', 900: '#022c22' },
-kagGold: { 500: '#d97706', 600: '#b45309' }
-}
-}
-}
-}
-</script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-body { font-family: 'Inter', sans-serif; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAG — Кызмат</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .service-detail-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px 120px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #D4AF37;
+            text-decoration: none;
+        }
+        .service-detail-card {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr;
+            gap: 35px;
+        }
+        .service-main,
+        .service-order-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(212,175,55,0.18);
+            border-radius: 24px;
+            padding: 30px;
+        }
+        .service-big-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+        .service-detail-category {
+            color: #D4AF37;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .service-main h1 {
+            font-size: 42px;
+            margin: 10px 0;
+        }
+        .service-description {
+            opacity: 0.8;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+        .service-features {
+            margin-top: 30px;
+        }
+        .service-features div {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .order-price {
+            font-size: 30px;
+            color: #D4AF37;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+        .order-label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            opacity: 0.8;
+        }
+        .order-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(212,175,55,0.25);
+            background: rgba(0,0,0,0.2);
+            color: inherit;
+            font-size: 15px;
+        }
+        .order-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 16px;
+            border: 0;
+            border-radius: 12px;
+            background: #D4AF37;
+            color: #06251B;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .order-button:hover {
+            opacity: 0.9;
+        }
+        .secure-note {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.65;
+        }
+        @media (max-width: 800px) {
+            .service-detail-card {
+                grid-template-columns: 1fr;
+            }
+            .service-main h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
-<!-- Header Navigation -->
-<header class="bg-slate-950 border-b border-emerald-900/50 sticky top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-<div class="flex items-center space-x-8">
-<a href="index.html" class="text-2xl font-extrabold text-amber-500 flex items-center gap-2">
-<i class="fa-solid fa-gem text-emerald-500"></i> KAG Platform
-</a>
-<nav class="hidden md:flex space-x-6 text-sm font-medium">
-<a href="index.html" class="text-slate-300 hover:text-amber-400 transition">Главная</a>
-<a href="marketplace.html" class="text-amber-400 transition">Маркетплейс</a>
-<a href="tickets.html" class="text-slate-300 hover:text-amber-400 transition">Билеты</a>
-<a href="contacts.html" class="text-slate-300 hover:text-amber-400 transition">Контакты</a>
-</nav>
-</div>
-<div class="flex items-center space-x-4">
-<a href="checkout.html" class="relative p-2 text-slate-300 hover:text-amber-400 transition" title="Корзина">
-<i class="fa-solid fa-cart-shopping text-xl"></i>
-</a>
-<a href="profile.html" class="p-2 text-slate-300 hover:text-amber-400 transition" title="Профиль">
-<i class="fa-solid fa-user text-xl"></i>
-</a>
-</div>
-</div>
+<body>
+<header class="kag-header">
+    <div class="header-inner">
+        <a href="index.html" class="kag-logo">
+            KAG
+        </a>
+        <nav class="desktop-nav">
+            <a href="index.html">
+                Башкы бет
+            </a>
+            <a href="marketplace.html" class="active">
+                Кызматтар
+            </a>
+            <a href="tickets.html">
+                Tickets
+            </a>
+            <a href="cart.html">
+                🛒 Корзина
+                <span id="cartCount">0</span>
+            </a>
+            <a href="orders.html">
+                📦 Заказдар
+            </a>
+            <a href="profile.html">
+                Профиль
+            </a>
+        </nav>
+        <a href="login.html" class="login-btn">
+            Кирүү
+        </a>
+    </div>
 </header>
-<!-- Main Content -->
-<main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-<div class="flex items-center gap-2 text-sm text-slate-400">
-<a href="marketplace.html" class="hover:text-amber-400 transition">Маркетплейс</a>
-<i class="fa-solid fa-chevron-right text-xs"></i>
-<span class="text-white">Fullstack Web App</span>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-<!-- Service Detailed Info -->
-<div class="lg:col-span-2 space-y-6">
-<div class="bg-slate-950 p-8 rounded-3xl border border-emerald-900/40 shadow-2xl space-y-6">
-<div class="flex flex-wrap items-center justify-between gap-4">
-<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-3.5 py-1.5 rounded-full">Разработка & IT</span>
-<div class="flex items-center gap-1.5 text-amber-400 text-sm font-bold">
-<i class="fa-solid fa-star"></i>
-<span class="text-white">4.9</span>
-<span class="text-slate-400 font-normal">(24 выполненных заказа)</span>
-</div>
-</div>
-<h1 class="text-3xl font-extrabold text-white">Fullstack Web App под ключ</h1>
-<div class="prose prose-invert text-sm text-slate-300 space-y-4">
-<p>Профессиональная разработка современных веб-приложений с использованием передового стека технологий. Мы создаем быстрые, защищенные и масштабируемые решения для вашего бизнеса.</p>
-<h3 class="text-white font-bold text-base pt-2">Что входит в услугу:</h3>
-<ul class="list-disc pl-5 space-y-2 text-slate-300">
-<li>Анализ требований и проектирование архитектуры</li>
-<li>Адаптивный UI/UX дизайн (Tailwind CSS, Figma)</li>
-<li>Разработка фронтенда (React / Vue.js)</li>
-<li>Настройка бэкенда и баз данных (Node.js, PostgreSQL)</li>
-<li>Деплой на сервер и базовая SEO-оптимизация</li>
-</ul>
-</div>
-<div class="border-t border-emerald-900/30 pt-6 flex items-center gap-4">
-<div class="h-14 w-14 bg-emerald-950 border border-emerald-900 rounded-2xl flex items-center justify-center text-amber-500 text-2xl font-bold">
-ШД
-</div>
-<div>
-<h4 class="font-bold text-white text-base">Шергазы Дайбердиев</h4>
-<p class="text-xs text-slate-400">Senior Fullstack Developer • Верифицированный эксперт</p>
-</div>
-</div>
-</div>
-<!-- Reviews Section -->
-<div class="bg-slate-950 p-8 rounded-3xl border border-emerald-900/40 shadow-xl space-y-6">
-<h3 class="text-xl font-bold text-white">Отзывы клиентов (3)</h3>
-<div class="space-y-4">
-<div class="bg-slate-900 p-4 rounded-2xl border border-emerald-900/30 space-y-2">
-<div class="flex justify-between items-center">
-<span class="font-bold text-white text-sm">Азамат К.</span>
-<span class="text-xs text-slate-400">10 дней назад</span>
-</div>
-<p class="text-xs text-slate-300">Отличная работа! Сайт был готов даже раньше срока, код чистый и понятный.</p>
-</div>
-<div class="bg-slate-900 p-4 rounded-2xl border border-emerald-900/30 space-y-2">
-<div class="flex justify-between items-center">
-<span class="font-bold text-white text-sm">Бакыт Т.</span>
-<span class="text-xs text-slate-400">Месяц назад</span>
-</div>
-<p class="text-xs text-slate-300">Профессиональный подход к делу. Все мои пожелания были учтены.</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Booking / Price Sidebar -->
-<div class="bg-slate-950 p-6 rounded-3xl border border-emerald-900/40 h-fit space-y-6 shadow-2xl">
-<div>
-<span class="text-xs text-slate-400 block">Стоимость услуги</span>
-<span class="text-3xl font-extrabold text-amber-500 mt-1 block">15 000 сом</span>
-</div>
-<div class="space-y-3 text-xs text-slate-300 border-t border-b border-emerald-900/30 py-4">
-<div class="flex justify-between">
-<span>Срок выполнения:</span>
-<span class="font-bold text-white">5 рабочих дней</span>
-</div>
-<div class="flex justify-between">
-<span>Гарантия возврата:</span>
-<span class="font-bold text-white">100% безопасная сделка</span>
-</div>
-</div>
-<a href="checkout.html" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 py-3.5 rounded-xl font-bold transition shadow-lg text-center block text-sm">
-Заказать услугу
-</a>
-</div>
-</div>
+<main class="service-detail-page">
+    <a href="marketplace.html" class="back-link">
+        ← Кызматтарга кайтуу
+    </a>
+    <div class="service-detail-card">
+        <!-- SERVICE INFORMATION -->
+        <section class="service-main">
+            <div
+                id="serviceIcon"
+                class="service-big-icon">
+                🛠️
+            </div>
+            <span
+                id="serviceCategory"
+                class="service-detail-category">
+                KAG SERVICE
+            </span>
+            <h1 id="serviceTitle">
+                Кызмат
+            </h1>
+            <p
+                id="serviceDescription"
+                class="service-description">
+                Кызмат тууралуу маалымат.
+            </p>
+            <div class="service-features">
+                <div>
+                    ✓ Текшерилген аткаруучулар
+                </div>
+                <div>
+                    ✓ Бааны алдын ала билесиз
+                </div>
+                <div>
+                    ✓ KAG аркылуу коопсуз заказ
+                </div>
+                <div>
+                    ✓ Заказдан кийин рейтинг калтыра аласыз
+                </div>
+            </div>
+        </section>
+        <!-- ORDER -->
+        <aside class="service-order-box">
+            <span>
+                Баштапкы баа
+            </span>
+            <div
+                id="servicePrice"
+                class="order-price">
+                1 000 сом
+            </div>
+            <label
+                class="order-label"
+                for="customerAddress">
+                Дарек
+            </label>
+            <input
+                id="customerAddress"
+                class="order-input"
+                type="text"
+                placeholder="Мисалы: Бишкек, Манас 10">
+            <label
+                class="order-label"
+                for="customerDate">
+                Дата
+            </label>
+            <input
+                id="customerDate"
+                class="order-input"
+                type="date">
+            <label
+                class="order-label"
+                for="customerNote">
+                Кошумча маалымат
+            </label>
+            <textarea
+                id="customerNote"
+                class="order-input"
+                rows="4"
+                placeholder="Тапшырма тууралуу кошумча маалымат..."></textarea>
+            <button
+                class="order-button"
+                onclick="addServiceToCart()">
+                Заказ берүү →
+            </button>
+            <div class="secure-note">
+                🔒 KAG Secure Order
+            </div>
+        </aside>
+    </div>
 </main>
-<!-- Footer -->
-<footer class="bg-slate-950 border-t border-emerald-900/50 py-8 mt-auto">
-<div class="max-w-7xl mx-auto px-4 text-center text-sm text-slate-400">
-© 2026 KAG Platform. Все права защищены.
-</div>
-</footer>
-<script src="script.js"></script>
+<nav class="mobile-bottom-nav">
+    <a href="index.html">
+        <span>⌂</span>
+        <small>Башкы бет</small>
+    </a>
+    <a href="marketplace.html" class="active">
+        <span>⌕</span>
+        <small>Кызматтар</small>
+    </a>
+    <a href="cart.html">
+        <span>🛒</span>
+        <small>Корзина</small>
+    </a>
+    <a href="orders.html">
+        <span>▣</span>
+        <small>Заказдар</small>
+    </a>
+    <a href="profile.html">
+        <span>◯</span>
+        <small>Профиль</small>
+    </a>
+</nav>
+<script>
+    const services = {
+        plumbing: {
+            title: "Сантехник",
+            category: "Ремонт",
+            icon: "🔧",
+            price: 1000,
+            description:
+                "Суу түтүктөрүн, крандарды, раковиналарды жана башка сантехникалык иштерди аткаруу."
+        },
+        cleaning: {
+            title: "Үй тазалоо",
+            category: "Тазалоо",
+            icon: "🧹",
+            price: 800,
+            description:
+                "Батирлерди, үйлөрдү жана кеңселерди профессионалдуу тазалоо кызматы."
+        },
+        electrician: {
+            title: "Электрик",
+            category: "Ремонт",
+            icon: "⚡",
+            price: 1000,
+            description:
+                "Розетка, жарык, электр зымдары жана башка электр иштерин аткаруу."
+        },
+        delivery: {
+            title: "Курьер",
+            category: "Жеткирүү",
+            icon: "🚚",
+            price: 300,
+            description:
+                "Документтерди, товарларды жана башка буюмдарды тез жеткирүү."
+        },
+        construction: {
+            title: "Курулуш мастери",
+            category: "Курулуш",
+            icon: "🏗️",
+            price: 2000,
+            description:
+                "Курулуш, ремонт жана монтаж иштерин профессионалдуу аткаруу."
+        },
+        it: {
+            title: "IT кызматтары",
+            category: "IT & Digital",
+            icon: "💻",
+            price: 1000,
+            description:
+                "Сайт түзүү, компьютер, программа жана башка digital кызматтар."
+        }
+    };
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+    const serviceKey =
+        params.get("service") || "plumbing";
+    const service =
+        services[serviceKey] || services.plumbing;
+    document.getElementById(
+        "serviceIcon"
+    ).textContent = service.icon;
+    document.getElementById(
+        "serviceCategory"
+    ).textContent = service.category;
+    document.getElementById(
+        "serviceTitle"
+    ).textContent = service.title;
+    document.getElementById(
+        "serviceDescription"
+    ).textContent = service.description;
+    document.getElementById(
+        "servicePrice"
+    ).textContent =
+        service.price.toLocaleString("ru-RU") +
+        " сом";
+    function addServiceToCart() {
+        const address =
+            document.getElementById(
+                "customerAddress"
+            ).value.trim();
+        const date =
+            document.getElementById(
+                "customerDate"
+            ).value;
+        const note =
+            document.getElementById(
+                "customerNote"
+            ).value.trim();
+        if (!address) {
+            alert(
+                "Сураныч, даректи жазыңыз."
+            );
+            return;
+        }
+        if (!date) {
+            alert(
+                "Сураныч, датаны тандаңыз."
+            );
+            return;
+        }
+        const item = {
+            id: Date.now(),
+            service: service.title,
+            category: service.category,
+            price: service.price,
+            address: address,
+            date: date,
+            note: note,
+            quantity: 1
+        };
+        let cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "kagCart"
+                )
+            ) || [];
+        cart.push(item);
+        localStorage.setItem(
+            "kagCart",
+            JSON.stringify(cart)
+        );
+        window.location.href =
+            "checkout.html";
+    }
+    function updateCartCount() {
+        const cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "kagCart"
+                )
+            ) || [];
+        const counter =
+            document.getElementById(
+                "cartCount"
+            );
+        if (counter) {
+            counter.textContent =
+                cart.length;
+        }
+    }
+    updateCartCount();
+</script>
 </body>
 </html>
