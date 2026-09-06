@@ -6,754 +6,885 @@
 
 <title>KAG — Мастер кабинети</title>
 
-<link rel="stylesheet" href="style.css">
-
 <style>
-body{
-    margin:0;
-    background:#06251B;
-    color:#F4EBD0;
-    font-family:Arial,sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 25px;
-    background:#041C15;
-    border-bottom:1px solid #D4AF37;
+body{
+  font-family:Arial,sans-serif;
+  background:#06251B;
+  color:#F4EBD0;
+  min-height:100vh;
+}
+
+header{
+  background:#041b13;
+  border-bottom:1px solid #D4AF37;
+  padding:16px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .logo{
-    color:#D4AF37;
-    font-size:25px;
-    font-weight:bold;
-    text-decoration:none;
+  color:#D4AF37;
+  font-size:27px;
+  font-weight:800;
+  text-decoration:none;
 }
 
-.nav a{
-    color:#F4EBD0;
-    text-decoration:none;
-    margin-left:18px;
+nav{
+  display:flex;
+  gap:18px;
+}
+
+nav a{
+  color:#F4EBD0;
+  text-decoration:none;
+  font-size:14px;
+}
+
+nav a:hover{
+  color:#D4AF37;
 }
 
 .container{
-    max-width:1150px;
-    margin:auto;
-    padding:30px 20px;
+  max-width:1100px;
+  margin:35px auto;
+  padding:0 20px;
 }
 
-.title{
-    color:#D4AF37;
-    font-size:32px;
-    margin-bottom:7px;
+h1,h2{
+  color:#D4AF37;
 }
 
-.subtitle{
-    color:#9fb5ad;
-    margin-bottom:25px;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-bottom:25px;
-}
-
-.stat{
-    background:#041C15;
-    border:1px solid #174C3B;
-    border-radius:15px;
-    padding:20px;
-}
-
-.stat-icon{
-    font-size:25px;
-}
-
-.stat-number{
-    color:#D4AF37;
-    font-size:25px;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-.stat-label{
-    color:#9fb5ad;
-    font-size:13px;
-    margin-top:5px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:20px;
+h1{
+  margin-bottom:25px;
 }
 
 .card{
-    background:#041C15;
-    border:1px solid #174C3B;
-    border-radius:16px;
-    padding:22px;
-    margin-bottom:20px;
-}
-
-.card h2{
-    margin-top:0;
-}
-
-.task{
-    padding:18px 0;
-    border-bottom:1px solid #174C3B;
-}
-
-.task:last-child{
-    border-bottom:none;
-}
-
-.task-title{
-    font-size:19px;
-    font-weight:bold;
-}
-
-.info{
-    color:#9fb5ad;
-    font-size:14px;
-    line-height:1.7;
-    margin-top:7px;
-}
-
-.budget{
-    color:#D4AF37;
-    font-weight:bold;
-}
-
-.btn{
-    border:0;
-    border-radius:10px;
-    padding:12px 16px;
-    margin-top:13px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.btn-primary{
-    background:#D4AF37;
-    color:#06251B;
-}
-
-.btn-secondary{
-    background:#174C3B;
-    color:#F4EBD0;
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:20px;
 }
 
 .profile{
-    text-align:center;
+  display:flex;
+  align-items:center;
+  gap:20px;
 }
 
 .avatar{
-    width:85px;
-    height:85px;
-    margin:auto;
-    border-radius:50%;
-    background:#174C3B;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:42px;
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:#D4AF37;
+  color:#06251B;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:bold;
+}
+
+.name{
+  font-size:24px;
+  font-weight:bold;
 }
 
 .rating{
-    color:#D4AF37;
-    margin:10px 0;
+  color:#D4AF37;
+  margin-top:7px;
 }
 
-input,
-textarea,
-select{
-    width:100%;
-    box-sizing:border-box;
-    padding:13px;
-    margin-top:7px;
-    border-radius:10px;
-    border:1px solid #28634f;
-    background:#06251B;
-    color:#F4EBD0;
-    outline:none;
+.role{
+  color:#aaa;
+  margin-top:5px;
 }
 
-textarea{
-    min-height:90px;
-    resize:vertical;
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.stat{
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.3);
+  border-radius:15px;
+  padding:22px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  color:#D4AF37;
+  font-size:28px;
+  margin-bottom:7px;
+}
+
+.task{
+  background:#06251B;
+  border:1px solid rgba(212,175,55,.25);
+  border-radius:15px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.task-title{
+  color:#D4AF37;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.info div{
+  background:#0a3023;
+  padding:11px;
+  border-radius:9px;
+}
+
+.description{
+  margin-top:15px;
+  color:#ccc;
+  line-height:1.5;
+}
+
+button,
+.btn{
+  display:inline-block;
+  padding:12px 18px;
+  border:none;
+  border-radius:10px;
+  background:#D4AF37;
+  color:#06251B;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+  margin-top:15px;
+}
+
+button:hover,
+.btn:hover{
+  opacity:.9;
+}
+
+.secondary{
+  background:#123f30;
+  color:#F4EBD0;
+  border:1px solid #476b5b;
+}
+
+.danger{
+  background:#8b2f2f;
+  color:white;
+}
+
+.offer{
+  padding:15px;
+  background:#0a3023;
+  border-radius:10px;
+  margin-top:10px;
+  border:1px solid #234d3c;
 }
 
 .empty{
-    text-align:center;
-    padding:35px;
-    color:#9fb5ad;
+  text-align:center;
+  padding:35px;
+  color:#aaa;
 }
 
-@media(max-width:850px){
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .nav{
-        display:none;
-    }
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#123f30;
+  color:#D4AF37;
+  font-size:12px;
 }
 
-@media(max-width:500px){
+@media(max-width:700px){
 
-    .stats{
-        grid-template-columns:1fr;
-    }
+  nav a:nth-child(1),
+  nav a:nth-child(2),
+  nav a:nth-child(3){
+    display:none;
+  }
 
-    .title{
-        font-size:27px;
-    }
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .info{
+    grid-template-columns:1fr;
+  }
+
+  .profile{
+    align-items:flex-start;
+  }
 }
 </style>
-
 </head>
 
 <body>
 
-<header class="header">
+<header>
 
-    <a href="index.html" class="logo">
-        KΛG
-    </a>
+  <a href="index.html" class="logo">KAG</a>
 
-    <nav class="nav">
-
-        <a href="index.html">Башкы бет</a>
-
-        <a href="marketplace.html">Кызматтар</a>
-
-        <a href="cart.html">🛒 Корзина</a>
-
-        <a href="orders.html">📦 Заказдар</a>
-
-        <a href="profile.html">Профиль</a>
-
-    </nav>
+  <nav>
+    <a href="marketplace.html">Кызматтар</a>
+    <a href="task.html">Тапшырма</a>
+    <a href="orders.html">📦 Заказдар</a>
+    <a href="profile.html">👤 Профиль</a>
+  </nav>
 
 </header>
 
 
-<main class="container">
+<div class="container">
 
-    <h1 class="title">
-        👨‍🔧 Мастер кабинети
-    </h1>
-
-    <p class="subtitle">
-        Тапшырмаларды таап, кардарларга өз сунушуңузду бериңиз.
-    </p>
+  <h1>Мастер кабинети</h1>
 
 
-    <!-- STATISTICS -->
+  <!-- PROFILE -->
 
-    <section class="stats">
+  <div class="card">
 
-        <div class="stat">
+    <div class="profile">
 
-            <div class="stat-icon">
-                📋
-            </div>
+      <div class="avatar" id="avatar">
+        А
+      </div>
 
-            <div
-                class="stat-number"
-                id="taskCount"
-            >
-                0
-            </div>
+      <div>
 
-            <div class="stat-label">
-                Жеткиликтүү тапшырмалар
-            </div>
-
+        <div class="name" id="masterName">
+          Мастер
         </div>
 
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                📤
-            </div>
-
-            <div
-                class="stat-number"
-                id="offerCount"
-            >
-                0
-            </div>
-
-            <div class="stat-label">
-                Менин сунуштарым
-            </div>
-
+        <div class="rating">
+          ⭐ 4.9 · 127 пикир
         </div>
 
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                📦
-            </div>
-
-            <div
-                class="stat-number"
-                id="orderCount"
-            >
-                0
-            </div>
-
-            <div class="stat-label">
-                Заказдар
-            </div>
-
+        <div class="role">
+          Мастер / Аткаруучу
         </div>
 
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                💰
-            </div>
-
-            <div
-                class="stat-number"
-                id="income"
-            >
-                0 сом
-            </div>
-
-            <div class="stat-label">
-                Киреше
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <div class="grid">
-
-        <!-- TASKS -->
-
-        <section class="card">
-
-            <h2>
-                🔎 Жеткиликтүү тапшырмалар
-            </h2>
-
-            <div id="tasks"></div>
-
-        </section>
-
-
-        <!-- PROFILE -->
-
-        <aside>
-
-            <div class="card profile">
-
-                <div class="avatar">
-                    👨‍🔧
-                </div>
-
-                <h2>
-                    Азим Б.
-                </h2>
-
-                <div class="rating">
-                    ⭐ 4.9 · 127 заказ
-                </div>
-
-                <div class="info">
-                    Сантехник · Бишкек
-                </div>
-
-                <button
-                    class="btn btn-secondary"
-                    onclick="location.href='profile.html'"
-                >
-                    Профилди оңдоо
-                </button>
-
-            </div>
-
-
-            <div class="card">
-
-                <h2>
-                    📊 Менин активдүүлүгүм
-                </h2>
-
-                <div class="info">
-                    Активдүү сунуштар:
-                    <strong id="activeOffers">
-                        0
-                    </strong>
-                </div>
-
-                <div class="info">
-                    Аткарылган заказдар:
-                    <strong id="completedOrders">
-                        0
-                    </strong>
-                </div>
-
-            </div>
-
-        </aside>
+      </div>
 
     </div>
 
-</main>
+    <a
+      href="profile.html"
+      class="btn secondary"
+    >
+      Профилди өзгөртүү
+    </a>
+
+  </div>
+
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <strong id="availableCount">0</strong>
+      Жеткиликтүү тапшырма
+    </div>
+
+    <div class="stat">
+      <strong id="offerCount">0</strong>
+      Менин сунуштарым
+    </div>
+
+    <div class="stat">
+      <strong id="orderCount">0</strong>
+      Заказдар
+    </div>
+
+    <div class="stat">
+      <strong id="income">0</strong>
+      Киреше
+    </div>
+
+  </div>
+
+
+  <!-- TASKS -->
+
+  <div class="card">
+
+    <h2>🔥 Жаңы тапшырмалар</h2>
+
+    <p style="margin-top:8px;color:#aaa;">
+      Кардарлар жарыялаган тапшырмалар.
+      Өзүңүз аткара алган ишке сунуш жөнөтүңүз.
+    </p>
+
+    <div id="tasks"></div>
+
+  </div>
+
+
+  <!-- MY OFFERS -->
+
+  <div class="card">
+
+    <h2>📨 Менин сунуштарым</h2>
+
+    <div id="myOffers"></div>
+
+  </div>
+
+
+  <!-- ACTIONS -->
+
+  <div class="card">
+
+    <h2>⚡ Ыкчам аракеттер</h2>
+
+    <a
+      href="marketplace.html"
+      class="btn"
+    >
+      Кызматтарды көрүү
+    </a>
+
+    <a
+      href="orders.html"
+      class="btn secondary"
+    >
+      Заказдар
+    </a>
+
+  </div>
+
+</div>
 
 
 <script>
 
-let tasks = JSON.parse(
+/* =========================
+   USER
+========================= */
+
+let user =
+  JSON.parse(
+    localStorage.getItem("kagUser") || "null"
+  );
+
+
+/*
+ * Demo режимде мастер аты.
+ */
+
+const MASTER_NAME =
+  user && user.role === "executor"
+    ? (user.name || user.login || "Мастер")
+    : "Азим Б.";
+
+
+document.getElementById("masterName")
+  .textContent = MASTER_NAME;
+
+document.getElementById("avatar")
+  .textContent =
+    MASTER_NAME.charAt(0).toUpperCase();
+
+
+/* =========================
+   DATA
+========================= */
+
+let tasks =
+  JSON.parse(
     localStorage.getItem("kagTasks") || "[]"
-);
+  );
 
-
-let orders = JSON.parse(
+let orders =
+  JSON.parse(
     localStorage.getItem("kagOrders") || "[]"
-);
+  );
 
-
-let myOffers = JSON.parse(
+let myOffers =
+  JSON.parse(
     localStorage.getItem("kagMyOffers") || "[]"
-);
+  );
 
 
-// Демо мастер
-const MASTER_NAME = "Азим Б.";
+/* =========================
+   RENDER
+========================= */
+
+renderTasks();
+renderOffers();
+renderStats();
 
 
-// --------------------------------
-// FORMAT PRICE
-// --------------------------------
-
-function formatPrice(price){
-
-    return Number(price || 0)
-        .toLocaleString("ru-RU") + " сом";
-
-}
-
-
-// --------------------------------
-// RENDER TASKS
-// --------------------------------
+/* =========================
+   TASKS
+========================= */
 
 function renderTasks(){
 
-    const container =
-        document.getElementById("tasks");
+  const container =
+    document.getElementById("tasks");
 
 
-    const availableTasks =
-        tasks.filter(task =>
-            task.status !== "Аткарылды"
+  const available =
+    tasks.filter(task =>
+      task.status !== "Аткарылды" &&
+      task.status !== "Мастер тандалды"
+    );
+
+
+  if(!available.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Азырынча жаңы тапшырма жок.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    available.map(task => {
+
+      const alreadyOffered =
+        myOffers.some(
+          offer => offer.taskId === task.id
         );
 
 
-    document.getElementById("taskCount")
-        .textContent =
-        availableTasks.length;
+      return `
 
+        <div class="task">
 
-    if(availableTasks.length === 0){
+          <div class="badge">
+            ${escapeHtml(
+              task.status || "Жаңы"
+            )}
+          </div>
 
-        container.innerHTML = `
+          <div
+            class="task-title"
+            style="margin-top:12px;"
+          >
+            ${escapeHtml(task.title)}
+          </div>
 
-            <div class="empty">
+          <div class="info">
 
-                <div style="font-size:45px;">
-                    📭
-                </div>
-
-                <p>
-                    Азырынча жаңы тапшырмалар жок.
-                </p>
-
+            <div>
+              📂
+              <strong>Категория:</strong><br>
+              ${escapeHtml(task.category)}
             </div>
 
-        `;
+            <div>
+              📍
+              <strong>Дарек:</strong><br>
+              ${escapeHtml(task.address)}
+            </div>
 
-        return;
-    }
+            <div>
+              📅
+              <strong>Дата:</strong><br>
+              ${escapeHtml(task.date)}
+            </div>
 
+            <div>
+              💰
+              <strong>Бюджет:</strong><br>
+              ${Number(
+                task.budget || 0
+              ).toLocaleString()} сом
+            </div>
 
-    container.innerHTML =
-        availableTasks.map((task,index)=>{
+          </div>
 
-            return `
+          <div class="description">
 
-                <div class="task">
+            ${escapeHtml(
+              task.description
+            )}
 
-                    <div class="task-title">
-                        ${task.title}
-                    </div>
-
-                    <div class="info">
-
-                        📋
-                        ${task.description}
-
-                        <br>
-
-                        📍
-                        ${task.address}
-
-                        <br>
-
-                        📅
-                        ${task.date}
-
-                        ${
-                            task.budget
-                            ? `
-                            <br>
-                            💰 Бюджет:
-                            <span class="budget">
-                                ${formatPrice(task.budget)}
-                            </span>
-                            `
-                            : ""
-                        }
-
-                    </div>
+          </div>
 
 
-                    <button
-                        class="btn btn-primary"
-                        onclick="makeOffer('${task.id}')"
-                    >
-                        💰 Сунуш берүү
-                    </button>
+          ${
+            alreadyOffered
 
-                </div>
+            ? `
+              <button
+                class="secondary"
+                disabled
+              >
+                ✓ Сунуш жөнөтүлгөн
+              </button>
+            `
 
-            `;
+            : `
+              <button
+                onclick="makeOffer('${task.id}')"
+              >
+                💼 Сунуш жөнөтүү
+              </button>
+            `
+          }
 
-        }).join("");
+        </div>
+
+      `;
+
+    }).join("");
 
 }
 
 
-// --------------------------------
-// MAKE OFFER
-// --------------------------------
+/* =========================
+   MAKE OFFER
+========================= */
 
 function makeOffer(taskId){
 
-    const task =
-        tasks.find(t => t.id === taskId);
-
-
-    if(!task){
-
-        alert("Тапшырма табылган жок.");
-
-        return;
-    }
-
-
-    const price =
-        prompt(
-            "Кардарга канча сом сунуштайсыз?",
-            task.budget || 1500
-        );
-
-
-    if(price === null){
-
-        return;
-    }
-
-
-    const offerPrice =
-        Number(price);
-
-
-    if(!offerPrice || offerPrice <= 0){
-
-        alert("Туура баа жазыңыз.");
-
-        return;
-    }
-
-
-    const message =
-        prompt(
-            "Кардарга билдирүү:",
-            "Тапшырмаңызды аткара алам. Белгиленген убакта келип, сапаттуу бүтүрөм."
-        );
-
-
-    const offer = {
-
-        id:
-            "OFFER-" +
-            Date.now(),
-
-        taskId:
-            task.id,
-
-        master:
-            MASTER_NAME,
-
-        rating:
-            4.9,
-
-        reviews:
-            127,
-
-        price:
-            offerPrice,
-
-        message:
-            message || "Тапшырманы аткарууга даярмын.",
-
-        status:
-            "Жөнөтүлдү",
-
-        createdAt:
-            new Date().toISOString()
-
-    };
-
-
-    myOffers.unshift(offer);
-
-
-    localStorage.setItem(
-        "kagMyOffers",
-        JSON.stringify(myOffers)
+  const task =
+    tasks.find(
+      t => t.id === taskId
     );
 
 
-    /*
-        Тапшырмага сунушту кошобуз.
-    */
+  if(!task){
 
-    if(!task.offers){
+    alert("Тапшырма табылган жок.");
 
-        task.offers = [];
-
-    }
+    return;
+  }
 
 
-    task.offers.push(offer);
-
-
-    localStorage.setItem(
-        "kagTasks",
-        JSON.stringify(tasks)
+  const price =
+    prompt(
+      "Кардарга канча сомго сунуш жөнөтөсүз?",
+      task.budget || 1000
     );
 
 
-    alert(
-        "✅ Сунуш кардарга жөнөтүлдү!"
+  if(price === null){
+    return;
+  }
+
+
+  const offerPrice =
+    Number(price);
+
+
+  if(
+    !offerPrice ||
+    offerPrice <= 0
+  ){
+
+    alert("Туура баа жазыңыз.");
+
+    return;
+  }
+
+
+  const message =
+    prompt(
+      "Кардарга билдирүү жазыңыз:",
+      "Тапшырманы сапаттуу аткарууга даярмын."
     );
 
 
-    renderAll();
+  if(message === null){
+    return;
+  }
+
+
+  const offer = {
+
+    id:
+      "OFFER-" +
+      Date.now(),
+
+    taskId:
+      task.id,
+
+    master:
+      MASTER_NAME,
+
+    rating:
+      4.9,
+
+    reviews:
+      127,
+
+    price:
+      offerPrice,
+
+    time:
+      "Макулдашуу боюнча",
+
+    message:
+      message,
+
+    status:
+      "Жөнөтүлдү",
+
+    createdAt:
+      new Date().toISOString()
+
+  };
+
+
+  /*
+   * Master offers
+   */
+
+  myOffers.push(offer);
+
+
+  localStorage.setItem(
+    "kagMyOffers",
+    JSON.stringify(myOffers)
+  );
+
+
+  /*
+   * Offer → Task
+   */
+
+  if(!Array.isArray(task.offers)){
+
+    task.offers = [];
+
+  }
+
+
+  task.offers.push(offer);
+
+
+  localStorage.setItem(
+    "kagTasks",
+    JSON.stringify(tasks)
+  );
+
+
+  alert(
+    "Сунуш кардарга жөнөтүлдү!"
+  );
+
+
+  renderTasks();
+  renderOffers();
+  renderStats();
 
 }
 
 
-// --------------------------------
-// STATISTICS
-// --------------------------------
+/* =========================
+   MY OFFERS
+========================= */
+
+function renderOffers(){
+
+  const container =
+    document.getElementById("myOffers");
+
+
+  if(!myOffers.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Азырынча сунуш жөнөткөн жоксуз.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    myOffers
+      .slice()
+      .reverse()
+      .map(offer => {
+
+        const task =
+          tasks.find(
+            t => t.id === offer.taskId
+          );
+
+
+        return `
+
+          <div class="offer">
+
+            <strong
+              style="color:#D4AF37;"
+            >
+              ${escapeHtml(
+                task
+                ? task.title
+                : "Тапшырма"
+              )}
+            </strong>
+
+            <p style="margin-top:8px;">
+              💰
+              ${Number(
+                offer.price || 0
+              ).toLocaleString()}
+              сом
+            </p>
+
+            <p style="margin-top:5px;color:#aaa;">
+              ${escapeHtml(
+                offer.message
+              )}
+            </p>
+
+            <p style="margin-top:7px;">
+              Статус:
+              <strong style="color:#D4AF37;">
+                ${escapeHtml(
+                  offer.status || "Жөнөтүлдү"
+                )}
+              </strong>
+            </p>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+}
+
+
+/* =========================
+   STATS
+========================= */
 
 function renderStats(){
 
-    document.getElementById(
-        "offerCount"
-    ).textContent =
-        myOffers.length;
+  const available =
+    tasks.filter(task =>
+      task.status !== "Аткарылды" &&
+      task.status !== "Мастер тандалды"
+    ).length;
 
 
-    document.getElementById(
-        "activeOffers"
-    ).textContent =
-        myOffers.filter(
-            o => o.status === "Жөнөтүлдү"
-        ).length;
+  /*
+   * Бул мастердин сунуштары.
+   */
+
+  const offerTotal =
+    myOffers.length;
 
 
-    const myOrders =
-        orders.filter(order =>
-            order.selectedMaster === MASTER_NAME
-        );
+  /*
+   * Demo режимде мастердин аты
+   * менен байланышкан заказдарды эсептейбиз.
+   */
+
+  let masterOrders = [];
 
 
-    document.getElementById(
-        "orderCount"
-    ).textContent =
-        myOrders.length;
+  orders.forEach(order => {
+
+    if(!Array.isArray(order.items)){
+      return;
+    }
 
 
-    document.getElementById(
-        "completedOrders"
-    ).textContent =
-        myOrders.filter(
-            o => o.status === "Аткарылды"
-        ).length;
+    order.items.forEach(item => {
 
+      if(
+        item.master === MASTER_NAME
+      ){
 
-    let income = 0;
+        masterOrders.push({
+          order,
+          item
+        });
 
-
-    myOrders.forEach(order => {
-
-        if(order.status === "Аткарылды"){
-
-            income +=
-                Number(order.total || 0);
-
-        }
+      }
 
     });
 
+  });
 
-    document.getElementById(
-        "income"
-    ).textContent =
-        formatPrice(income);
+
+  const totalIncome =
+    masterOrders.reduce(
+      (sum, item) =>
+        sum +
+        Number(
+          item.item.price || 0
+        ),
+      0
+    );
+
+
+  document.getElementById(
+    "availableCount"
+  ).textContent = available;
+
+
+  document.getElementById(
+    "offerCount"
+  ).textContent = offerTotal;
+
+
+  document.getElementById(
+    "orderCount"
+  ).textContent =
+    masterOrders.length;
+
+
+  document.getElementById(
+    "income"
+  ).textContent =
+    totalIncome.toLocaleString();
 
 }
 
 
-// --------------------------------
-// ALL
-// --------------------------------
+/* =========================
+   HTML SECURITY
+========================= */
 
-function renderAll(){
+function escapeHtml(value){
 
-    renderTasks();
-
-    renderStats();
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
-
-
-renderAll();
 
 </script>
 
