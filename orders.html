@@ -4,583 +4,816 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KAG — Менин заказдарым</title>
-
-<link rel="stylesheet" href="style.css">
+<title>KAG — Заказдар</title>
 
 <style>
-body{
-    background:#06251B;
-    color:#F4EBD0;
-    margin:0;
-    font-family:Arial,sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 25px;
-    background:#041C15;
-    border-bottom:1px solid #D4AF37;
+body{
+  font-family:Arial,sans-serif;
+  background:#06251B;
+  color:#F4EBD0;
+  min-height:100vh;
+}
+
+header{
+  background:#041b13;
+  border-bottom:1px solid #D4AF37;
+  padding:16px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .logo{
-    color:#D4AF37;
-    font-size:25px;
-    font-weight:bold;
-    text-decoration:none;
+  color:#D4AF37;
+  font-size:27px;
+  font-weight:800;
+  text-decoration:none;
 }
 
-.nav a{
-    color:#F4EBD0;
-    text-decoration:none;
-    margin-left:18px;
+nav{
+  display:flex;
+  gap:18px;
+}
+
+nav a{
+  color:#F4EBD0;
+  text-decoration:none;
+  font-size:14px;
+}
+
+nav a:hover{
+  color:#D4AF37;
 }
 
 .container{
-    max-width:1100px;
-    margin:auto;
-    padding:30px 20px;
+  max-width:1050px;
+  margin:40px auto;
+  padding:0 20px;
 }
 
-.title{
-    color:#D4AF37;
-    font-size:32px;
-    margin-bottom:25px;
+h1{
+  color:#D4AF37;
+  margin-bottom:25px;
 }
 
 .order{
-    background:#041C15;
-    border:1px solid #174C3B;
-    border-radius:16px;
-    padding:22px;
-    margin-bottom:18px;
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:20px;
 }
 
-.order-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    border-bottom:1px solid #174C3B;
-    padding-bottom:15px;
+.order-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  border-bottom:1px solid #234d3c;
+  padding-bottom:15px;
 }
 
 .order-id{
-    color:#D4AF37;
-    font-weight:bold;
-    font-size:18px;
-}
-
-.date{
-    color:#8fa69e;
-    font-size:13px;
+  color:#D4AF37;
+  font-size:19px;
+  font-weight:bold;
 }
 
 .status{
-    display:inline-block;
-    padding:7px 12px;
-    border-radius:20px;
-    background:#174C3B;
-    color:#D4AF37;
-    font-size:13px;
-    margin-top:12px;
+  background:#123f30;
+  color:#D4AF37;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:13px;
 }
 
 .item{
-    padding:15px 0;
-    border-bottom:1px solid #12382d;
+  background:#06251B;
+  border-radius:12px;
+  padding:18px;
+  margin-top:15px;
+  border:1px solid rgba(212,175,55,.2);
 }
 
-.item:last-child{
-    border-bottom:none;
-}
-
-.item-name{
-    font-size:18px;
-    font-weight:bold;
+.service{
+  font-size:19px;
+  font-weight:bold;
+  color:#D4AF37;
 }
 
 .info{
-    color:#9fb5ad;
-    font-size:14px;
-    margin-top:7px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.info div{
+  background:#0a3023;
+  padding:11px;
+  border-radius:8px;
+  line-height:1.4;
+}
+
+.master{
+  margin-top:15px;
+  padding:12px;
+  background:#123f30;
+  border-radius:10px;
 }
 
 .total{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:18px;
-    padding-top:18px;
-    border-top:1px solid #28634f;
-    font-size:20px;
-    font-weight:bold;
-}
-
-.total-price{
-    color:#D4AF37;
-}
-
-.empty{
-    text-align:center;
-    padding:70px 20px;
-    background:#041C15;
-    border:1px solid #174C3B;
-    border-radius:16px;
-}
-
-.empty-icon{
-    font-size:60px;
-}
-
-.empty a{
-    display:inline-block;
-    margin-top:20px;
-    padding:13px 22px;
-    background:#D4AF37;
-    color:#06251B;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
+  text-align:right;
+  font-size:22px;
+  font-weight:bold;
+  color:#D4AF37;
+  margin-top:20px;
 }
 
 .actions{
-    display:flex;
-    gap:10px;
-    margin-top:18px;
-    flex-wrap:wrap;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
+button,
 .btn{
-    border:none;
-    padding:11px 16px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
+  display:inline-block;
+  padding:12px 18px;
+  border:none;
+  border-radius:10px;
+  background:#D4AF37;
+  color:#06251B;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+  margin-top:15px;
 }
 
-.btn-primary{
-    background:#D4AF37;
-    color:#06251B;
+.secondary{
+  background:#123f30;
+  color:#F4EBD0;
+  border:1px solid #476b5b;
 }
 
-.btn-secondary{
-    background:#174C3B;
-    color:#F4EBD0;
+.danger{
+  background:#8b2f2f;
+  color:white;
 }
 
-.btn-danger{
-    background:#512525;
-    color:#ffb0b0;
+.empty{
+  background:#0a3023;
+  border:1px solid rgba(212,175,55,.3);
+  border-radius:18px;
+  padding:50px 20px;
+  text-align:center;
+  color:#aaa;
+}
+
+.filter{
+  display:flex;
+  gap:10px;
+  margin-bottom:25px;
+  flex-wrap:wrap;
+}
+
+.filter button{
+  margin:0;
+}
+
+.active{
+  background:#D4AF37!important;
+  color:#06251B!important;
 }
 
 @media(max-width:700px){
 
-    .nav{
-        display:none;
-    }
+  nav a:nth-child(1),
+  nav a:nth-child(2){
+    display:none;
+  }
 
-    .title{
-        font-size:27px;
-    }
+  .info{
+    grid-template-columns:1fr;
+  }
 
-    .order-top{
-        flex-direction:column;
-        align-items:flex-start;
-    }
+  .order-header{
+    align-items:flex-start;
+    flex-direction:column;
+  }
 }
 </style>
-
 </head>
 
 <body>
 
-<header class="header">
+<header>
 
-    <a href="index.html" class="logo">
-        KΛG
-    </a>
+  <a href="index.html" class="logo">KAG</a>
 
-    <nav class="nav">
-        <a href="index.html">Башкы бет</a>
-        <a href="marketplace.html">Кызматтар</a>
-        <a href="cart.html">🛒 Корзина</a>
-        <a href="orders.html">📦 Заказдар</a>
-        <a href="profile.html">Профиль</a>
-    </nav>
+  <nav>
+    <a href="marketplace.html">Кызматтар</a>
+    <a href="cart.html">🛒 Корзина</a>
+    <a href="orders.html">📦 Заказдар</a>
+    <a href="profile.html">👤 Профиль</a>
+  </nav>
 
 </header>
 
 
-<main class="container">
+<div class="container">
 
-    <h1 class="title">
-        📦 Менин заказдарым
-    </h1>
+  <h1>📦 Заказдар</h1>
 
-    <div id="ordersContainer"></div>
 
-</main>
+  <div class="filter">
+
+    <button
+      id="allBtn"
+      class="active"
+      onclick="setFilter('all')"
+    >
+      Баары
+    </button>
+
+    <button
+      id="newBtn"
+      class="secondary"
+      onclick="setFilter('Жаңы заказ')"
+    >
+      Жаңы
+    </button>
+
+    <button
+      id="workBtn"
+      class="secondary"
+      onclick="setFilter('Аткарылууда')"
+    >
+      Аткарылууда
+    </button>
+
+    <button
+      id="doneBtn"
+      class="secondary"
+      onclick="setFilter('Аткарылды')"
+    >
+      Бүттү
+    </button>
+
+  </div>
+
+
+  <div id="orders"></div>
+
+</div>
 
 
 <script>
 
-let orders = JSON.parse(
+let orders =
+  JSON.parse(
     localStorage.getItem("kagOrders") || "[]"
-);
+  );
+
+let user =
+  JSON.parse(
+    localStorage.getItem("kagUser") || "null"
+  );
+
+let currentFilter = "all";
 
 
-function formatPrice(price){
+/* =========================
+   RENDER
+========================= */
 
-    return Number(price || 0)
-        .toLocaleString("ru-RU") + " сом";
-
-}
-
-
-function formatDate(date){
-
-    if(!date) return "";
-
-    const d = new Date(date);
-
-    return d.toLocaleString("ru-RU",{
-        day:"2-digit",
-        month:"2-digit",
-        year:"numeric",
-        hour:"2-digit",
-        minute:"2-digit"
-    });
-
-}
+renderOrders();
 
 
 function renderOrders(){
 
-    const container =
-        document.getElementById("ordersContainer");
+  const container =
+    document.getElementById("orders");
 
 
-    if(orders.length === 0){
+  let filtered = orders;
 
-        container.innerHTML = `
 
-            <div class="empty">
+  if(currentFilter !== "all"){
 
-                <div class="empty-icon">
-                    📦
+    filtered =
+      orders.filter(
+        order =>
+          (order.status || "Жаңы заказ")
+          === currentFilter
+      );
+
+  }
+
+
+  if(!filtered.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <h2 style="color:#D4AF37;">
+          Заказ жок
+        </h2>
+
+        <p style="margin-top:10px;">
+          Бул бөлүмдө азырынча заказ жок.
+        </p>
+
+        <a
+          href="marketplace.html"
+          class="btn"
+        >
+          🔎 Кызмат издөө
+        </a>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    filtered
+      .slice()
+      .reverse()
+      .map(
+        (order,index) =>
+          orderHtml(order,index)
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   ORDER HTML
+========================= */
+
+function orderHtml(order,index){
+
+  const created =
+    order.createdAt
+      ? new Date(
+          order.createdAt
+        ).toLocaleString("ky-KG")
+      : "—";
+
+
+  const items =
+    Array.isArray(order.items)
+      ? order.items
+      : [];
+
+
+  return `
+
+    <div class="order">
+
+      <div class="order-header">
+
+        <div>
+
+          <div class="order-id">
+            ${escapeHtml(
+              order.id || "KAG-ORDER"
+            )}
+          </div>
+
+          <div style="
+            margin-top:6px;
+            color:#aaa;
+            font-size:13px;
+          ">
+            ${created}
+          </div>
+
+        </div>
+
+        <div class="status">
+          ${escapeHtml(
+            order.status ||
+            "Жаңы заказ"
+          )}
+        </div>
+
+      </div>
+
+
+      ${
+        items.length
+        ? items.map(item => `
+
+          <div class="item">
+
+            <div class="service">
+              ${escapeHtml(
+                item.service ||
+                "Кызмат"
+              )}
+            </div>
+
+            <div class="info">
+
+              <div>
+                📂 <strong>Категория:</strong><br>
+                ${escapeHtml(
+                  item.category || "—"
+                )}
+              </div>
+
+              <div>
+                💰 <strong>Баасы:</strong><br>
+                ${Number(
+                  item.price || 0
+                ).toLocaleString()} сом
+              </div>
+
+              <div>
+                📍 <strong>Дарек:</strong><br>
+                ${escapeHtml(
+                  item.address || "—"
+                )}
+              </div>
+
+              <div>
+                📅 <strong>Дата:</strong><br>
+                ${escapeHtml(
+                  item.date || "—"
+                )}
+              </div>
+
+            </div>
+
+
+            ${
+              item.master
+              ? `
+                <div class="master">
+
+                  👨‍🔧
+                  <strong>Мастер:</strong>
+                  ${escapeHtml(
+                    item.master
+                  )}
+
+                  ${
+                    item.masterRating
+                    ? `
+                      <span style="
+                        color:#D4AF37;
+                        margin-left:8px;
+                      ">
+                        ⭐ ${item.masterRating}
+                      </span>
+                    `
+                    : ""
+                  }
+
                 </div>
+              `
+              : ""
+            }
 
-                <h2>
-                    Азырынча заказ жок
-                </h2>
 
-                <p>
-                    Кызмат тандап, биринчи заказыңызды бериңиз.
+            ${
+              item.note
+              ? `
+                <p style="
+                  margin-top:14px;
+                  color:#ccc;
+                  line-height:1.5;
+                ">
+                  📝
+                  ${escapeHtml(
+                    item.note
+                  )}
                 </p>
-
-                <a href="marketplace.html">
-                    Кызматтарды көрүү
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML = orders.map(
-        (order,index) => {
-
-        const items =
-            order.items || [];
-
-
-        return `
-
-            <div class="order">
-
-                <div class="order-top">
-
-                    <div>
-
-                        <div class="order-id">
-                            ${order.id}
-                        </div>
-
-                        <div class="date">
-                            ${formatDate(order.createdAt)}
-                        </div>
-
-                    </div>
-
-                    <div class="status">
-                        ${order.status || "Жаңы заказ"}
-                    </div>
-
-                </div>
-
-
-                ${
-                    items.map(item => `
-
-                        <div class="item">
-
-                            <div class="item-name">
-                                ${item.service || "KAG кызматы"}
-                            </div>
-
-                            <div class="info">
-                                Категория:
-                                ${item.category || "Кызмат"}
-                            </div>
-
-                            ${
-                                item.address
-                                ? `
-                                <div class="info">
-                                    📍 ${item.address}
-                                </div>
-                                `
-                                : ""
-                            }
-
-                            ${
-                                item.date
-                                ? `
-                                <div class="info">
-                                    📅 ${item.date}
-                                </div>
-                                `
-                                : ""
-                            }
-
-                            ${
-                                item.note
-                                ? `
-                                <div class="info">
-                                    📝 ${item.note}
-                                </div>
-                                `
-                                : ""
-                            }
-
-                            <div class="info">
-                                💰 ${formatPrice(item.price)}
-                            </div>
-
-                        </div>
-
-                    `).join("")
-                }
-
-
-                <div class="info">
-
-                    👤 ${order.customerName || "Кардар"}
-
-                    <br>
-
-                    📞 ${order.customerPhone || ""}
-
-                    <br>
-
-                    💳 ${
-                        paymentName(
-                            order.paymentMethod
-                        )
-                    }
-
-                </div>
-
-
-                <div class="total">
-
-                    <span>
-                        Жалпы:
-                    </span>
-
-                    <span class="total-price">
-                        ${formatPrice(order.total)}
-                    </span>
-
-                </div>
-
-
-                <div class="actions">
-
-                    <button
-                        class="btn btn-primary"
-                        onclick="viewOrder(${index})"
-                    >
-                        👁 Толук маалымат
-                    </button>
-
-                    <button
-                        class="btn btn-secondary"
-                        onclick="repeatOrder(${index})"
-                    >
-                        🔄 Кайра заказ
-                    </button>
-
-                    <button
-                        class="btn btn-danger"
-                        onclick="deleteOrder(${index})"
-                    >
-                        🗑 Өчүрүү
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
-
-    }).join("");
-
-}
-
-
-function paymentName(method){
-
-    const names = {
-
-        cash:"Накталай",
-
-        card:"Банк картасы",
-
-        mbank:"MBank",
-
-        odengi:"O!Dengi"
-
-    };
-
-    return names[method] || "Төлөм";
-
-}
-
-
-function viewOrder(index){
-
-    const order = orders[index];
-
-    let text =
-        "Заказ: " + order.id + "\n\n";
-
-    text +=
-        "Статус: " +
-        (order.status || "Жаңы заказ") +
-        "\n\n";
-
-    text +=
-        "Кардар: " +
-        (order.customerName || "") +
-        "\n";
-
-    text +=
-        "Телефон: " +
-        (order.customerPhone || "") +
-        "\n\n";
-
-
-    (order.items || []).forEach(item => {
-
-        text +=
-            "Кызмат: " +
-            (item.service || "") +
-            "\n";
-
-        text +=
-            "Баасы: " +
-            formatPrice(item.price) +
-            "\n";
-
-        if(item.address){
-
-            text +=
-                "Дарек: " +
-                item.address +
-                "\n";
-
+              `
+              : ""
+            }
+
+          </div>
+
+        `).join("")
+        : `
+          <div class="item">
+            Заказда кызматтар жок.
+          </div>
+        `
+      }
+
+
+      <div class="total">
+
+        Жалпы:
+        ${Number(
+          order.total || 0
+        ).toLocaleString()}
+        сом
+
+      </div>
+
+
+      <div style="
+        margin-top:8px;
+        color:#aaa;
+      ">
+
+        👤 Кардар:
+        ${escapeHtml(
+          order.customerName || "—"
+        )}
+
+        ${
+          order.customerPhone
+          ? `
+            <br>
+            📞 ${escapeHtml(
+              order.customerPhone
+            )}
+          `
+          : ""
         }
 
-        if(item.date){
-
-            text +=
-                "Дата: " +
-                item.date +
-                "\n";
-
+        ${
+          order.paymentMethod
+          ? `
+            <br>
+            💳 Төлөм:
+            ${escapeHtml(
+              order.paymentMethod
+            )}
+          `
+          : ""
         }
 
-        text += "\n";
-
-    });
+      </div>
 
 
-    text +=
-        "Жалпы: " +
-        formatPrice(order.total);
+      <div class="actions">
 
+        <button
+          onclick="changeStatus(${getOriginalIndex(order)})"
+        >
+          🔄 Статус өзгөртүү
+        </button>
 
-    alert(text);
+        <button
+          class="secondary"
+          onclick="repeatOrder(${getOriginalIndex(order)})"
+        >
+          🔁 Кайра заказ
+        </button>
+
+        <button
+          class="danger"
+          onclick="deleteOrder(${getOriginalIndex(order)})"
+        >
+          🗑 Өчүрүү
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
+
+/* =========================
+   ORIGINAL INDEX
+========================= */
+
+function getOriginalIndex(order){
+
+  return orders.findIndex(
+    o => o.id === order.id
+  );
+
+}
+
+
+/* =========================
+   CHANGE STATUS
+========================= */
+
+function changeStatus(index){
+
+  if(index < 0){
+    return;
+  }
+
+
+  const statuses = [
+
+    "Жаңы заказ",
+    "Аткарылууда",
+    "Аткарылды"
+
+  ];
+
+
+  const current =
+    orders[index].status ||
+    "Жаңы заказ";
+
+
+  const currentIndex =
+    statuses.indexOf(current);
+
+
+  const nextIndex =
+    currentIndex >= 0
+      ? (currentIndex + 1) % statuses.length
+      : 0;
+
+
+  orders[index].status =
+    statuses[nextIndex];
+
+
+  localStorage.setItem(
+    "kagOrders",
+    JSON.stringify(orders)
+  );
+
+
+  renderOrders();
+
+}
+
+
+/* =========================
+   REPEAT ORDER
+========================= */
 
 function repeatOrder(index){
 
-    const order = orders[index];
-
-    if(!order.items || order.items.length === 0){
-
-        alert("Кайра заказ кылууга кызмат табылган жок.");
-
-        return;
-    }
+  if(index < 0){
+    return;
+  }
 
 
-    localStorage.setItem(
-        "kagCart",
-        JSON.stringify(order.items)
+  const order =
+    orders[index];
+
+
+  if(!Array.isArray(order.items)){
+
+    alert(
+      "Бул заказда кызмат жок."
     );
 
+    return;
+  }
 
-    location.href = "checkout.html";
+
+  localStorage.setItem(
+    "kagCart",
+    JSON.stringify(
+      order.items
+    )
+  );
+
+
+  window.location.href =
+    "checkout.html";
 
 }
 
+
+/* =========================
+   DELETE ORDER
+========================= */
 
 function deleteOrder(index){
 
-    if(!confirm(
-        "Бул заказды өчүрүүнү каалайсызбы?"
-    )){
-
-        return;
-
-    }
+  if(index < 0){
+    return;
+  }
 
 
-    orders.splice(index,1);
+  if(
+    !confirm(
+      "Бул заказды өчүрөсүзбү?"
+    )
+  ){
+
+    return;
+
+  }
 
 
-    localStorage.setItem(
-        "kagOrders",
-        JSON.stringify(orders)
-    );
+  orders.splice(
+    index,
+    1
+  );
 
 
-    renderOrders();
+  localStorage.setItem(
+    "kagOrders",
+    JSON.stringify(orders)
+  );
+
+
+  renderOrders();
 
 }
 
 
-renderOrders();
+/* =========================
+   FILTER
+========================= */
+
+function setFilter(filter){
+
+  currentFilter = filter;
+
+
+  document.querySelectorAll(
+    ".filter button"
+  ).forEach(btn => {
+
+    btn.classList.remove(
+      "active"
+    );
+
+    btn.classList.add(
+      "secondary"
+    );
+
+  });
+
+
+  const map = {
+
+    all:"allBtn",
+
+    "Жаңы заказ":"newBtn",
+
+    "Аткарылууда":"workBtn",
+
+    "Аткарылды":"doneBtn"
+
+  };
+
+
+  const active =
+    document.getElementById(
+      map[filter]
+    );
+
+
+  if(active){
+
+    active.classList.add(
+      "active"
+    );
+
+    active.classList.remove(
+      "secondary"
+    );
+
+  }
+
+
+  renderOrders();
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
 
 </script>
 
