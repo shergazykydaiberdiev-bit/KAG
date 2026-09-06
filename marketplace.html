@@ -3,372 +3,1216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>KAG — Кызматтар</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================
+           KAG MARKETPLACE
+        ========================= */
+
+        .services-section {
+            padding: 70px 5%;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .service-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(212,175,55,0.18);
+            border-radius: 20px;
+            padding: 24px;
+            transition: 0.25s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #D4AF37;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        }
+
+        .service-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .service-category {
+            color: #D4AF37;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .service-card h3 {
+            margin: 8px 0;
+            font-size: 21px;
+        }
+
+        .service-card p {
+            opacity: 0.75;
+            line-height: 1.5;
+        }
+
+        .service-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .service-price strong {
+            color: #D4AF37;
+            font-size: 17px;
+        }
+
+        .service-price span {
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-section {
+                padding: 50px 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<!-- HEADER -->
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="kag-header">
     <div class="header-inner">
+
         <a href="index.html" class="kag-logo">
             KAG
         </a>
+
         <nav class="desktop-nav">
-            <a href="index.html">Башкы бет</a>
-            <a href="marketplace.html" class="active">Кызматтар</a>
-            <a href="tickets.html">Tickets</a>
-            <a href="cart.html">Корзина</a>
-            <a href="profile.html">Профиль</a>
+
+            <a href="index.html">
+                Башкы бет
+            </a>
+
+            <a href="marketplace.html" class="active">
+                Кызматтар
+            </a>
+
+            <a href="tickets.html">
+                Tickets
+            </a>
+
+            <!-- КОРЗИНА -->
+            <a href="cart.html">
+                🛒 Корзина
+                <span id="cartCount">0</span>
+            </a>
+
+            <!-- ЗАКАЗДАР -->
+            <a href="orders.html">
+                📦 Заказдар
+            </a>
+
+            <a href="profile.html">
+                Профиль
+            </a>
+
         </nav>
+
         <a href="login.html" class="login-btn">
             Кирүү
         </a>
+
     </div>
 </header>
-<!-- MAIN -->
+
+
+<!-- =========================
+     HERO
+========================= -->
+
 <main>
-    <!-- HERO -->
-    <section class="marketplace-hero">
-        <div class="hero-content">
-            <span class="hero-label">
-                KAG PLATFORM
-            </span>
-            <h1>
-                Кандай кызмат<br>
-                <span>керек?</span>
-            </h1>
-            <p>
-                Керектүү адисти табыңыз же өзүңүздүн
-                кызматыңызды сунуштап, жаңы кардарларды табыңыз.
-            </p>
-            <!-- SEARCH -->
-            <div class="search-box">
-                <div class="search-input">
-                    <span>🔎</span>
-                    <input
-                        type="text"
-                        id="serviceSearch"
-                        placeholder="Мисалы: сантехник, тазалоо, ремонт..."
-                    >
-                </div>
-                <button onclick="searchServices()">
-                    Издөө
-                </button>
+
+<section class="marketplace-hero">
+
+    <div class="hero-content">
+
+        <span class="hero-label">
+            KAG PLATFORM
+        </span>
+
+        <h1>
+            Кандай кызмат<br>
+            <span>керек?</span>
+        </h1>
+
+        <p>
+            Керектүү адисти табыңыз же өзүңүздүн
+            кызматыңызды сунуштап, жаңы кардарларды табыңыз.
+        </p>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <div class="search-input">
+
+                <span>🔎</span>
+
+                <input
+                    type="text"
+                    id="serviceSearch"
+                    placeholder="Мисалы: сантехник, тазалоо, ремонт..."
+                >
+
             </div>
-            <!-- LOCATION -->
-            <div class="location-box">
-                📍 Бишкек
-                <span>⌄</span>
-            </div>
+
+            <button onclick="searchServices()">
+                Издөө
+            </button>
+
         </div>
-    </section>
-    <!-- CATEGORIES -->
-    <section class="categories-section">
-        <div class="section-heading">
-            <div>
-                <span class="section-label">
-                    КАТЕГОРИЯЛАР
-                </span>
-                <h2>
-                    Кызматты тандаңыз
-                </h2>
-            </div>
-            <button class="view-all" onclick="showAllCategories()">
-                Баарын көрүү →
-            </button>
+
+
+        <!-- LOCATION -->
+
+        <div class="location-box">
+
+            📍 Бишкек
+
+            <span>⌄</span>
+
         </div>
-        <div class="categories-grid">
-            <button class="category-card"
-                    onclick="selectCategory('Ремонт')">
-                <div class="category-icon">🔧</div>
-                <strong>Ремонт</strong>
-                <span>Үй жана кеңсе</span>
-            </button>
-            <button class="category-card"
-                    onclick="selectCategory('Тазалоо')">
-                <div class="category-icon">🧹</div>
-                <strong>Тазалоо</strong>
-                <span>Үй тазалоо</span>
-            </button>
-            <button class="category-card"
-                    onclick="selectCategory('Курулуш')">
-                <div class="category-icon">🏗️</div>
-                <strong>Курулуш</strong>
-                <span>Мастерлер</span>
-            </button>
-            <button class="category-card"
-                    onclick="selectCategory('Жеткирүү')">
-                <div class="category-icon">🚚</div>
-                <strong>Жеткирүү</strong>
-                <span>Курьерлер</span>
-            </button>
-            <button class="category-card"
-                    onclick="selectCategory('Үй кызматтары')">
-                <div class="category-icon">🏠</div>
-                <strong>Үй кызматтары</strong>
-                <span>Ар түрдүү</span>
-            </button>
-            <button class="category-card"
-                    onclick="selectCategory('Авто')">
-                <div class="category-icon">🚗</div>
-                <strong>Авто</strong>
-                <span>Авто кызматтары</span>
-            </button>
-            <button class="category-card"
-                    onclick="selectCategory('IT')">
-                <div class="category-icon">💻</div>
-                <strong>IT & Digital</strong>
-                <span>Технология</span>
-            </button>
-            <button class="category-card"
-                    onclick="selectCategory('Дизайн')">
-                <div class="category-icon">🎨</div>
-                <strong>Дизайн</strong>
-                <span>Creative</span>
-            </button>
-        </div>
-    </section>
-    <!-- CREATE TASK -->
-    <section class="create-task-section">
-        <div class="create-task-content">
-            <span class="section-label">
-                KAG SMART FLOW
-            </span>
-            <h2>
-                Өзүңүзгө керектүү<br>
-                адисти табыңыз
-            </h2>
-            <p>
-                Тапшырмаңызды жазыңыз. KAG'дагы аткаруучулар
-                сизге өз сунуштарын жөнөтүшөт.
-            </p>
-            <button
-                class="gold-button"
-                onclick="createTask()">
-                + Тапшырма түзүү
-            </button>
-        </div>
-        <div class="flow-steps">
-            <div class="flow-step">
-                <span>01</span>
-                <div>
-                    <strong>Тапшырма түзүңүз</strong>
-                    <p>Эмне керек экенин жазыңыз</p>
-                </div>
-            </div>
-            <div class="flow-step">
-                <span>02</span>
-                <div>
-                    <strong>Сунуштарды алыңыз</strong>
-                    <p>Мастерлер өз баасын сунуштайт</p>
-                </div>
-            </div>
-            <div class="flow-step">
-                <span>03</span>
-                <div>
-                    <strong>Салыштырыңыз</strong>
-                    <p>Бааны жана рейтингди салыштырыңыз</p>
-                </div>
-            </div>
-            <div class="flow-step">
-                <span>04</span>
-                <div>
-                    <strong>Мастерди тандаңыз</strong>
-                    <p>Заказды баштаңыз</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- POPULAR EXECUTORS -->
-    <section class="executors-section">
-        <div class="section-heading">
-            <div>
-                <span class="section-label">
-                    ИШЕНИМДҮҮ АТКАРУУЧУЛАР
-                </span>
-                <h2>
-                    Популярдуу мастерлер
-                </h2>
-            </div>
-            <button class="view-all">
-                Баарын көрүү →
-            </button>
-        </div>
-        <div class="executors-grid">
-            <!-- EXECUTOR 1 -->
-            <article class="executor-card">
-                <div class="executor-top">
-                    <div class="executor-avatar">
-                        А
-                    </div>
-                    <span class="verified">
-                        ✓ Verified
-                    </span>
-                </div>
-                <h3>
-                    Азамат С.
-                </h3>
-                <p class="executor-service">
-                    Сантехник
-                </p>
-                <div class="rating">
-                    ⭐ <strong>4.9</strong>
-                    <span>127 заказ</span>
-                </div>
-                <div class="executor-info">
-                    📍 Бишкек
-                    <br>
-                    ⚡ 5 мүнөттө жооп берет
-                </div>
-                <div class="executor-price">
-                    <span>Баасы</span>
-                    <strong>1 500 сомдон</strong>
-                </div>
-                <div class="executor-actions">
-                    <button
-                        class="outline-btn"
-                        onclick="viewExecutor('Азамат С.')">
-                        Профиль
-                    </button>
-                    <button
-                        class="gold-small-btn"
-                        onclick="orderExecutor('Азамат С.')">
-                        Заказ берүү
-                    </button>
-                </div>
-            </article>
-            <!-- EXECUTOR 2 -->
-            <article class="executor-card">
-                <div class="executor-top">
-                    <div class="executor-avatar">
-                        Б
-                    </div>
-                    <span class="verified">
-                        ✓ Verified
-                    </span>
-                </div>
-                <h3>
-                    Бекзат К.
-                </h3>
-                <p class="executor-service">
-                    Электрик
-                </p>
-                <div class="rating">
-                    ⭐ <strong>4.8</strong>
-                    <span>94 заказ</span>
-                </div>
-                <div class="executor-info">
-                    📍 Бишкек
-                    <br>
-                    ⚡ 10 мүнөттө жооп берет
-                </div>
-                <div class="executor-price">
-                    <span>Баасы</span>
-                    <strong>1 000 сомдон</strong>
-                </div>
-                <div class="executor-actions">
-                    <button
-                        class="outline-btn"
-                        onclick="viewExecutor('Бекзат К.')">
-                        Профиль
-                    </button>
-                    <button
-                        class="gold-small-btn"
-                        onclick="orderExecutor('Бекзат К.')">
-                        Заказ берүү
-                    </button>
-                </div>
-            </article>
-            <!-- EXECUTOR 3 -->
-            <article class="executor-card">
-                <div class="executor-top">
-                    <div class="executor-avatar">
-                        Н
-                    </div>
-                    <span class="verified">
-                        ✓ Verified
-                    </span>
-                </div>
-                <h3>
-                    Нурбек Т.
-                </h3>
-                <p class="executor-service">
-                    Үй тазалоо
-                </p>
-                <div class="rating">
-                    ⭐ <strong>5.0</strong>
-                    <span>63 заказ</span>
-                </div>
-                <div class="executor-info">
-                    📍 Бишкек
-                    <br>
-                    ⚡ 3 мүнөттө жооп берет
-                </div>
-                <div class="executor-price">
-                    <span>Баасы</span>
-                    <strong>800 сомдон</strong>
-                </div>
-                <div class="executor-actions">
-                    <button
-                        class="outline-btn"
-                        onclick="viewExecutor('Нурбек Т.')">
-                        Профиль
-                    </button>
-                    <button
-                        class="gold-small-btn"
-                        onclick="orderExecutor('Нурбек Т.')">
-                        Заказ берүү
-                    </button>
-                </div>
-            </article>
-        </div>
-    </section>
-    <!-- BECOME EXECUTOR -->
-    <section class="executor-cta">
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<section class="categories-section">
+
+    <div class="section-heading">
+
         <div>
+
             <span class="section-label">
-                KAG FOR BUSINESS
+                КАТЕГОРИЯЛАР
             </span>
+
             <h2>
-                Кызматыңызды<br>
-                KAG'га сунуштаңыз
+                Кызматты тандаңыз
             </h2>
-            <p>
-                Жаңы кардарларды табыңыз, заказ алыңыз
-                жана кирешеңизди өстүрүңүз.
-            </p>
+
         </div>
+
+        <button
+            class="view-all"
+            onclick="showAllCategories()">
+
+            Баарын көрүү →
+
+        </button>
+
+    </div>
+
+
+    <div class="categories-grid">
+
+        <button
+            class="category-card"
+            onclick="selectCategory('Ремонт')">
+
+            <div class="category-icon">
+                🔧
+            </div>
+
+            <strong>
+                Ремонт
+            </strong>
+
+            <span>
+                Үй жана кеңсе
+            </span>
+
+        </button>
+
+
+        <button
+            class="category-card"
+            onclick="selectCategory('Тазалоо')">
+
+            <div class="category-icon">
+                🧹
+            </div>
+
+            <strong>
+                Тазалоо
+            </strong>
+
+            <span>
+                Үй тазалоо
+            </span>
+
+        </button>
+
+
+        <button
+            class="category-card"
+            onclick="selectCategory('Курулуш')">
+
+            <div class="category-icon">
+                🏗️
+            </div>
+
+            <strong>
+                Курулуш
+            </strong>
+
+            <span>
+                Мастерлер
+            </span>
+
+        </button>
+
+
+        <button
+            class="category-card"
+            onclick="selectCategory('Жеткирүү')">
+
+            <div class="category-icon">
+                🚚
+            </div>
+
+            <strong>
+                Жеткирүү
+            </strong>
+
+            <span>
+                Курьерлер
+            </span>
+
+        </button>
+
+
+        <button
+            class="category-card"
+            onclick="selectCategory('Үй кызматтары')">
+
+            <div class="category-icon">
+                🏠
+            </div>
+
+            <strong>
+                Үй кызматтары
+            </strong>
+
+            <span>
+                Ар түрдүү
+            </span>
+
+        </button>
+
+
+        <button
+            class="category-card"
+            onclick="selectCategory('Авто')">
+
+            <div class="category-icon">
+                🚗
+            </div>
+
+            <strong>
+                Авто
+            </strong>
+
+            <span>
+                Авто кызматтары
+            </span>
+
+        </button>
+
+
+        <button
+            class="category-card"
+            onclick="selectCategory('IT')">
+
+            <div class="category-icon">
+                💻
+            </div>
+
+            <strong>
+                IT & Digital
+            </strong>
+
+            <span>
+                Технология
+            </span>
+
+        </button>
+
+
+        <button
+            class="category-card"
+            onclick="selectCategory('Дизайн')">
+
+            <div class="category-icon">
+                🎨
+            </div>
+
+            <strong>
+                Дизайн
+            </strong>
+
+            <span>
+                Creative
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SERVICES
+========================= -->
+
+<section class="services-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                KAG SERVICES
+            </span>
+
+            <h2>
+                Популярдуу кызматтар
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="services-grid">
+
+
+        <!-- SERVICE 1 -->
+
+        <a
+            href="service-detail.html?service=plumbing"
+            class="service-card">
+
+            <div class="service-icon">
+                🔧
+            </div>
+
+            <span class="service-category">
+                Ремонт
+            </span>
+
+            <h3>
+                Сантехник
+            </h3>
+
+            <p>
+                Суу түтүктөрү, кран, раковина жана
+                сантехникалык иштер.
+            </p>
+
+            <div class="service-price">
+
+                <strong>
+                    1 000 сомдон
+                </strong>
+
+                <span>
+                    Толук көрүү →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- SERVICE 2 -->
+
+        <a
+            href="service-detail.html?service=cleaning"
+            class="service-card">
+
+            <div class="service-icon">
+                🧹
+            </div>
+
+            <span class="service-category">
+                Тазалоо
+            </span>
+
+            <h3>
+                Үй тазалоо
+            </h3>
+
+            <p>
+                Батир, үй жана кеңселерди
+                профессионалдуу тазалоо.
+            </p>
+
+            <div class="service-price">
+
+                <strong>
+                    800 сомдон
+                </strong>
+
+                <span>
+                    Толук көрүү →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- SERVICE 3 -->
+
+        <a
+            href="service-detail.html?service=electrician"
+            class="service-card">
+
+            <div class="service-icon">
+                ⚡
+            </div>
+
+            <span class="service-category">
+                Ремонт
+            </span>
+
+            <h3>
+                Электрик
+            </h3>
+
+            <p>
+                Электр розетка, жарык, зым жана
+                башка электр иштер.
+            </p>
+
+            <div class="service-price">
+
+                <strong>
+                    1 000 сомдон
+                </strong>
+
+                <span>
+                    Толук көрүү →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- SERVICE 4 -->
+
+        <a
+            href="service-detail.html?service=delivery"
+            class="service-card">
+
+            <div class="service-icon">
+                🚚
+            </div>
+
+            <span class="service-category">
+                Жеткирүү
+            </span>
+
+            <h3>
+                Курьер
+            </h3>
+
+            <p>
+                Документ, товар жана башка буюмдарды
+                жеткирүү.
+            </p>
+
+            <div class="service-price">
+
+                <strong>
+                    300 сомдон
+                </strong>
+
+                <span>
+                    Толук көрүү →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- SERVICE 5 -->
+
+        <a
+            href="service-detail.html?service=construction"
+            class="service-card">
+
+            <div class="service-icon">
+                🏗️
+            </div>
+
+            <span class="service-category">
+                Курулуш
+            </span>
+
+            <h3>
+                Курулуш мастери
+            </h3>
+
+            <p>
+                Курулуш, оңдоо жана монтаж иштерин
+                аткаруу.
+            </p>
+
+            <div class="service-price">
+
+                <strong>
+                    2 000 сомдон
+                </strong>
+
+                <span>
+                    Толук көрүү →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- SERVICE 6 -->
+
+        <a
+            href="service-detail.html?service=it"
+            class="service-card">
+
+            <div class="service-icon">
+                💻
+            </div>
+
+            <span class="service-category">
+                IT & Digital
+            </span>
+
+            <h3>
+                IT кызматтары
+            </h3>
+
+            <p>
+                Сайт, компьютер, программа жана
+                digital кызматтар.
+            </p>
+
+            <div class="service-price">
+
+                <strong>
+                    1 000 сомдон
+                </strong>
+
+                <span>
+                    Толук көрүү →
+                </span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CREATE TASK
+========================= -->
+
+<section class="create-task-section">
+
+    <div class="create-task-content">
+
+        <span class="section-label">
+            KAG SMART FLOW
+        </span>
+
+        <h2>
+            Өзүңүзгө керектүү<br>
+            адисти табыңыз
+        </h2>
+
+        <p>
+            Тапшырмаңызды жазыңыз.
+            KAG'дагы аткаруучулар сизге
+            өз сунуштарын жөнөтүшөт.
+        </p>
+
         <button
             class="gold-button"
-            onclick="becomeExecutor()">
-            Аткаруучу болуу →
+            onclick="createTask()">
+
+            + Тапшырма түзүү
+
         </button>
-    </section>
+
+    </div>
+
+
+    <div class="flow-steps">
+
+        <div class="flow-step">
+
+            <span>01</span>
+
+            <div>
+
+                <strong>
+                    Тапшырма түзүңүз
+                </strong>
+
+                <p>
+                    Эмне керек экенин жазыңыз
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="flow-step">
+
+            <span>02</span>
+
+            <div>
+
+                <strong>
+                    Сунуштарды алыңыз
+                </strong>
+
+                <p>
+                    Мастерлер өз баасын сунуштайт
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="flow-step">
+
+            <span>03</span>
+
+            <div>
+
+                <strong>
+                    Салыштырыңыз
+                </strong>
+
+                <p>
+                    Бааны жана рейтингди салыштырыңыз
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="flow-step">
+
+            <span>04</span>
+
+            <div>
+
+                <strong>
+                    Мастерди тандаңыз
+                </strong>
+
+                <p>
+                    Заказды баштаңыз
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     POPULAR EXECUTORS
+========================= -->
+
+<section class="executors-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                ИШЕНИМДҮҮ АТКАРУУЧУЛАР
+            </span>
+
+            <h2>
+                Популярдуу мастерлер
+            </h2>
+
+        </div>
+
+        <a
+            href="executor-dashboard.html"
+            class="view-all">
+
+            Баарын көрүү →
+
+        </a>
+
+    </div>
+
+
+    <div class="executors-grid">
+
+
+        <!-- EXECUTOR 1 -->
+
+        <article class="executor-card">
+
+            <div class="executor-top">
+
+                <div class="executor-avatar">
+                    А
+                </div>
+
+                <span class="verified">
+                    ✓ Verified
+                </span>
+
+            </div>
+
+            <h3>
+                Азамат С.
+            </h3>
+
+            <p class="executor-service">
+                Сантехник
+            </p>
+
+            <div class="rating">
+                ⭐ <strong>4.9</strong>
+                <span>127 заказ</span>
+            </div>
+
+            <div class="executor-info">
+                📍 Бишкек
+                <br>
+                ⚡ 5 мүнөттө жооп берет
+            </div>
+
+            <div class="executor-price">
+
+                <span>
+                    Баасы
+                </span>
+
+                <strong>
+                    1 500 сомдон
+                </strong>
+
+            </div>
+
+            <div class="executor-actions">
+
+                <button
+                    class="outline-btn"
+                    onclick="viewExecutor('Азамат С.')">
+
+                    Профиль
+
+                </button>
+
+                <button
+                    class="gold-small-btn"
+                    onclick="orderExecutor('Азамат С.', 'Сантехник', 1500)">
+
+                    Заказ берүү
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- EXECUTOR 2 -->
+
+        <article class="executor-card">
+
+            <div class="executor-top">
+
+                <div class="executor-avatar">
+                    Б
+                </div>
+
+                <span class="verified">
+                    ✓ Verified
+                </span>
+
+            </div>
+
+            <h3>
+                Бекзат К.
+            </h3>
+
+            <p class="executor-service">
+                Электрик
+            </p>
+
+            <div class="rating">
+                ⭐ <strong>4.8</strong>
+                <span>94 заказ</span>
+            </div>
+
+            <div class="executor-info">
+                📍 Бишкек
+                <br>
+                ⚡ 10 мүнөттө жооп берет
+            </div>
+
+            <div class="executor-price">
+
+                <span>
+                    Баасы
+                </span>
+
+                <strong>
+                    1 000 сомдон
+                </strong>
+
+            </div>
+
+            <div class="executor-actions">
+
+                <button
+                    class="outline-btn"
+                    onclick="viewExecutor('Бекзат К.')">
+
+                    Профиль
+
+                </button>
+
+                <button
+                    class="gold-small-btn"
+                    onclick="orderExecutor('Бекзат К.', 'Электрик', 1000)">
+
+                    Заказ берүү
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- EXECUTOR 3 -->
+
+        <article class="executor-card">
+
+            <div class="executor-top">
+
+                <div class="executor-avatar">
+                    Н
+                </div>
+
+                <span class="verified">
+                    ✓ Verified
+                </span>
+
+            </div>
+
+            <h3>
+                Нурбек Т.
+            </h3>
+
+            <p class="executor-service">
+                Үй тазалоо
+            </p>
+
+            <div class="rating">
+                ⭐ <strong>5.0</strong>
+                <span>63 заказ</span>
+            </div>
+
+            <div class="executor-info">
+                📍 Бишкек
+                <br>
+                ⚡ 3 мүнөттө жооп берет
+            </div>
+
+            <div class="executor-price">
+
+                <span>
+                    Баасы
+                </span>
+
+                <strong>
+                    800 сомдон
+                </strong>
+
+            </div>
+
+            <div class="executor-actions">
+
+                <button
+                    class="outline-btn"
+                    onclick="viewExecutor('Нурбек Т.')">
+
+                    Профиль
+
+                </button>
+
+                <button
+                    class="gold-small-btn"
+                    onclick="orderExecutor('Нурбек Т.', 'Үй тазалоо', 800)">
+
+                    Заказ берүү
+
+                </button>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BECOME EXECUTOR
+========================= -->
+
+<section class="executor-cta">
+
+    <div>
+
+        <span class="section-label">
+            KAG FOR BUSINESS
+        </span>
+
+        <h2>
+            Кызматыңызды<br>
+            KAG'га сунуштаңыз
+        </h2>
+
+        <p>
+            Жаңы кардарларды табыңыз,
+            заказ алыңыз жана кирешеңизди өстүрүңүз.
+        </p>
+
+    </div>
+
+    <button
+        class="gold-button"
+        onclick="becomeExecutor()">
+
+        Аткаруучу болуу →
+
+    </button>
+
+</section>
+
 </main>
-<!-- MOBILE NAVIGATION -->
+
+
+<!-- =========================
+     MOBILE NAVIGATION
+========================= -->
+
 <nav class="mobile-bottom-nav">
+
     <a href="index.html">
         <span>⌂</span>
         <small>Башкы бет</small>
     </a>
-    <a href="marketplace.html" class="active">
+
+    <a
+        href="marketplace.html"
+        class="active">
+
         <span>⌕</span>
         <small>Кызматтар</small>
+
     </a>
+
     <button onclick="createTask()">
+
         <span>＋</span>
         <small>Тапшырма</small>
+
     </button>
+
+    <!-- КОРЗИНА -->
+
+    <a href="cart.html">
+
+        <span>🛒</span>
+
+        <small>
+            Корзина
+        </small>
+
+    </a>
+
+    <!-- ЗАКАЗДАР -->
+
     <a href="orders.html">
+
         <span>▣</span>
-        <small>Заказдар</small>
+
+        <small>
+            Заказдар
+        </small>
+
     </a>
-    <a href="profile.html">
-        <span>◯</span>
-        <small>Профиль</small>
-    </a>
+
 </nav>
-<!-- JAVASCRIPT -->
+
+
+<!-- =========================
+     SCRIPT
+========================= -->
+
 <script src="script.js"></script>
+
+
+<script>
+
+    /*
+       KAG CART COUNTER
+       Азырынча localStorage.
+       Кийин Supabase менен туташтырабыз.
+    */
+
+    function updateCartCount() {
+
+        try {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("kagCart")
+                ) || [];
+
+            const count =
+                document.getElementById("cartCount");
+
+            if (count) {
+                count.textContent = cart.length;
+            }
+
+        } catch (error) {
+
+            console.log(
+                "KAG Cart error:",
+                error
+            );
+
+        }
+
+    }
+
+    updateCartCount();
+
+
+    /*
+       KAG EXECUTOR ORDER
+    */
+
+    function orderExecutor(
+        name,
+        service,
+        price
+    ) {
+
+        const item = {
+
+            id:
+                Date.now(),
+
+            executor:
+                name,
+
+            service:
+                service,
+
+            price:
+                price,
+
+            quantity:
+                1
+
+        };
+
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("kagCart")
+            ) || [];
+
+
+        cart.push(item);
+
+
+        localStorage.setItem(
+            "kagCart",
+            JSON.stringify(cart)
+        );
+
+
+        updateCartCount();
+
+
+        window.location.href =
+            "checkout.html";
+
+    }
+
+</script>
+
 </body>
 </html>
