@@ -3,544 +3,637 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>KAG — Кызматтар</title>
-    <link rel="stylesheet" href="style.css">
+
     <style>
-        .services-section {
-            padding: 70px 5%;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 30px;
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #06251B;
+            color: #F4EBD0;
         }
-        .service-card {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(212,175,55,0.18);
-            border-radius: 20px;
-            padding: 24px;
-            transition: 0.25s ease;
-        }
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: #D4AF37;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-        }
-        .service-icon {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
-        .service-category {
-            color: #D4AF37;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .service-card h3 {
-            margin: 8px 0;
-            font-size: 21px;
-        }
-        .service-card p {
-            opacity: 0.75;
-            line-height: 1.5;
-        }
-        .service-price {
+
+        header {
+            padding: 18px 6%;
+            border-bottom: 1px solid rgba(212,175,55,.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
         }
-        .service-price strong {
+
+        .logo {
             color: #D4AF37;
-            font-size: 17px;
+            font-size: 28px;
+            font-weight: bold;
         }
-        .service-price span {
+
+        nav a {
+            color: #F4EBD0;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: #D4AF37;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: .85;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 30px;
+            border: 1px solid #D4AF37;
+            background: #0b3025;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px auto 40px;
+            padding: 0 20px;
+        }
+
+        .category-btn {
+            padding: 10px 18px;
+            border: 1px solid #D4AF37;
+            background: transparent;
+            color: #F4EBD0;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #D4AF37;
+            color: #06251B;
+        }
+
+        .services-section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 30px;
+            color: #D4AF37;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: #0b3025;
+            border: 1px solid rgba(212,175,55,.35);
+            border-radius: 18px;
+            padding: 25px;
+            transition: .2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #D4AF37;
+        }
+
+        .service-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .service-category {
+            color: #D4AF37;
             font-size: 14px;
+            margin-bottom: 12px;
         }
-        .loading {
-            opacity: 0.7;
-            padding: 30px 0;
+
+        .service-description {
+            color: #ddd;
+            line-height: 1.5;
+            min-height: 45px;
         }
-        .error-message {
+
+        .price {
+            margin-top: 18px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #D4AF37;
+        }
+
+        .service-btn {
+            display: block;
+            margin-top: 18px;
+            padding: 12px;
+            text-align: center;
+            background: #D4AF37;
+            color: #06251B;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .loading,
+        .error,
+        .empty {
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+
+        .error {
             color: #ff7777;
-            padding: 30px 0;
         }
-        @media (max-width: 900px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+
+        .task-section {
+            margin: 70px auto;
+            max-width: 900px;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(212,175,55,.3);
         }
+
+        .task-section h2 {
+            color: #D4AF37;
+            margin-bottom: 15px;
+        }
+
+        .task-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 25px;
+            background: #D4AF37;
+            color: #06251B;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid rgba(212,175,55,.3);
+            opacity: .8;
+        }
+
         @media (max-width: 600px) {
-            .services-grid {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 32px;
             }
-            .services-section {
-                padding: 50px 20px;
+
+            nav a {
+                margin-left: 8px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
+
 <body>
-<header class="kag-header">
-    <div class="header-inner">
-        <a href="index.html" class="kag-logo">
-            KAG
-        </a>
-        <nav class="desktop-nav">
-            <a href="index.html">
-                Башкы бет
-            </a>
-            <a href="marketplace.html" class="active">
-                Кызматтар
-            </a>
-            <a href="tickets.html">
-                Tickets
-            </a>
-            <a href="cart.html">
-                🛒 Корзина
-                <span id="cartCount">0</span>
-            </a>
-            <a href="orders.html">
-                📦 Заказдар
-            </a>
-            <a href="profile.html">
-                Профиль
-            </a>
-        </nav>
-        <a href="login.html" class="login-btn">
-            Кирүү
-        </a>
-    </div>
+
+<header>
+    <div class="logo">KAG</div>
+
+    <nav>
+        <a href="index.html">Башкы бет</a>
+        <a href="login.html">Кирүү</a>
+    </nav>
 </header>
-<main>
-<section class="marketplace-hero">
-    <div class="hero-content">
-        <span class="hero-label">
-            KAG PLATFORM
-        </span>
-        <h1>
-            Кандай кызмат<br>
-            <span>керек?</span>
-        </h1>
-        <p>
-            Керектүү адисти табыңыз же өзүңүздүн
-            кызматыңызды сунуштап, жаңы кардарларды табыңыз.
-        </p>
-        <div class="search-box">
-            <div class="search-input">
-                <span>🔎</span>
-                <input
-                    type="text"
-                    id="serviceSearch"
-                    placeholder="Мисалы: сантехник, тазалоо, ремонт..."
-                >
-            </div>
-            <button onclick="searchServices()">
-                Издөө
-            </button>
-        </div>
-        <div class="location-box">
-            📍 Бишкек
-            <span>⌄</span>
-        </div>
+
+<section class="hero">
+
+    <h1>KAG Кызматтары</h1>
+
+    <p>
+        Керектүү кызматты таап, ишти профессионалдарга тапшырыңыз
+    </p>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Кызмат издөө..."
+        >
     </div>
+
 </section>
-<section class="categories-section">
-    <div class="section-heading">
-        <div>
-            <span class="section-label">
-                КАТЕГОРИЯЛАР
-            </span>
-            <h2>
-                Кызматты тандаңыз
-            </h2>
-        </div>
-        <button
-            class="view-all"
-            onclick="showAllCategories()">
-            Баарын көрүү →
-        </button>
-    </div>
-    <div class="categories-grid">
-        <button class="category-card"
-                onclick="selectCategory('Ремонт')">
-            <div class="category-icon">🔧</div>
-            <strong>Ремонт</strong>
-            <span>Үй жана кеңсе</span>
-        </button>
-        <button class="category-card"
-                onclick="selectCategory('Тазалоо')">
-            <div class="category-icon">🧹</div>
-            <strong>Тазалоо</strong>
-            <span>Үй тазалоо</span>
-        </button>
-        <button class="category-card"
-                onclick="selectCategory('Курулуш')">
-            <div class="category-icon">🏗️</div>
-            <strong>Курулуш</strong>
-            <span>Мастерлер</span>
-        </button>
-        <button class="category-card"
-                onclick="selectCategory('Жеткирүү')">
-            <div class="category-icon">🚚</div>
-            <strong>Жеткирүү</strong>
-            <span>Курьерлер</span>
-        </button>
-        <button class="category-card"
-                onclick="selectCategory('Үй кызматы')">
-            <div class="category-icon">🏠</div>
-            <strong>Үй кызматтары</strong>
-            <span>Ар түрдүү</span>
-        </button>
-        <button class="category-card"
-                onclick="selectCategory('Авто')">
-            <div class="category-icon">🚗</div>
-            <strong>Авто</strong>
-            <span>Авто кызматтары</span>
-        </button>
-        <button class="category-card"
-                onclick="selectCategory('IT')">
-            <div class="category-icon">💻</div>
-            <strong>IT & Digital</strong>
-            <span>Технология</span>
-        </button>
-        <button class="category-card"
-                onclick="selectCategory('Дизайн')">
-            <div class="category-icon">🎨</div>
-            <strong>Дизайн</strong>
-            <span>Creative</span>
-        </button>
-    </div>
-</section>
+
+<div class="categories" id="categories">
+
+    <button
+        class="category-btn active"
+        data-category="all"
+    >
+        Баары
+    </button>
+
+</div>
+
 <section class="services-section">
-    <div class="section-heading">
-        <div>
-            <span class="section-label">
-                KAG SERVICES
-            </span>
-            <h2>
-                Популярдуу кызматтар
-            </h2>
-        </div>
-    </div>
-    <!-- SUPABASE SERVICES -->
+
+    <h2 class="section-title">
+        Бардык кызматтар
+    </h2>
+
     <div
         class="services-grid"
-        id="servicesGrid">
+        id="servicesGrid"
+    >
+
         <p class="loading">
             Кызматтар жүктөлүүдө...
         </p>
+
     </div>
+
 </section>
-<section class="create-task-section">
-    <div class="create-task-content">
-        <span class="section-label">
-            KAG SMART FLOW
-        </span>
-        <h2>
-            Өзүңүзгө керектүү<br>
-            адисти табыңыз
-        </h2>
-        <p>
-            Тапшырмаңызды жазыңыз.
-            KAG'дагы аткаруучулар сизге
-            өз сунуштарын жөнөтүшөт.
-        </p>
-        <button
-            class="gold-button"
-            onclick="createTask()">
-            + Тапшырма түзүү
-        </button>
-    </div>
-    <div class="flow-steps">
-        <div class="flow-step">
-            <span>01</span>
-            <div>
-                <strong>
-                    Тапшырма түзүңүз
-                </strong>
-                <p>
-                    Эмне керек экенин жазыңыз
-                </p>
-            </div>
-        </div>
-        <div class="flow-step">
-            <span>02</span>
-            <div>
-                <strong>
-                    Сунуштарды алыңыз
-                </strong>
-                <p>
-                    Мастерлер өз баасын сунуштайт
-                </p>
-            </div>
-        </div>
-        <div class="flow-step">
-            <span>03</span>
-            <div>
-                <strong>
-                    Салыштырыңыз
-                </strong>
-                <p>
-                    Бааны жана рейтингди салыштырыңыз
-                </p>
-            </div>
-        </div>
-        <div class="flow-step">
-            <span>04</span>
-            <div>
-                <strong>
-                    Мастерди тандаңыз
-                </strong>
-                <p>
-                    Заказды баштаңыз
-                </p>
-            </div>
-        </div>
-    </div>
+
+<section class="task-section">
+
+    <h2>Керектүү кызматты таппай жатасызбы?</h2>
+
+    <p>
+        Өзүңүздүн тапшырмаңызды түзүп,
+        KAG мастерлеринен сунуш алыңыз.
+    </p>
+
+    <a
+        href="add-task.html"
+        class="task-btn"
+    >
+        Тапшырма түзүү
+    </a>
+
 </section>
-<section class="executor-cta">
-    <div>
-        <span class="section-label">
-            KAG FOR BUSINESS
-        </span>
-        <h2>
-            Кызматыңызды<br>
-            KAG'га сунуштаңыз
-        </h2>
-        <p>
-            Жаңы кардарларды табыңыз,
-            заказ алыңыз жана кирешеңизди өстүрүңүз.
-        </p>
-    </div>
-    <button
-        class="gold-button"
-        onclick="becomeExecutor()">
-        Аткаруучу болуу →
-    </button>
-</section>
-</main>
-<nav class="mobile-bottom-nav">
-    <a href="index.html">
-        <span>⌂</span>
-        <small>Башкы бет</small>
-    </a>
-    <a href="marketplace.html" class="active">
-        <span>⌕</span>
-        <small>Кызматтар</small>
-    </a>
-    <button onclick="createTask()">
-        <span>＋</span>
-        <small>Тапшырма</small>
-    </button>
-    <a href="cart.html">
-        <span>🛒</span>
-        <small>Корзина</small>
-    </a>
-    <a href="orders.html">
-        <span>▣</span>
-        <small>Заказдар</small>
-    </a>
-</nav>
-<script src="script.js"></script>
+
+<footer>
+    © 2026 KAG — Кыргызстандагы кызматтар платформасы
+</footer>
+
+
 <!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-    /*
-    =========================================
-    KAG SUPABASE
-    =========================================
-    МЫНА БУЛ ЭКИ ЖЕРДИ
-    СЕН МУРДА LOGIN.HTML'ГЕ КОЙГОН
-    МААЛЫМАТТАР МЕНЕН АЛМАШТЫРАСЫҢ.
-    */
+
+    /* =========================
+       SUPABASE
+    ========================= */
+
     const SUPABASE_URL =
-        "БУЛ ЖЕРГЕ СЕНИН SUPABASE URL";
+        "https://kyudeeqjbksjczqidagc.supabase.co";
+
     const SUPABASE_PUBLISHABLE_KEY =
-        "БУЛ ЖЕРГЕ СЕНИН PUBLISHABLE KEY";
+        "БУЛ ЖЕРГЕ LOGIN.HTML ДЕГИ ТОЛУК PUBLISHABLE KEY'ДИ КОЙ";
+
     const supabase =
         window.supabase.createClient(
             SUPABASE_URL,
             SUPABASE_PUBLISHABLE_KEY
         );
+
+
+    /* =========================
+       VARIABLES
+    ========================= */
+
     let allServices = [];
-    /*
-    =========================================
-    SERVICES LOAD
-    =========================================
-    */
+    let selectedCategory = "all";
+
+
+    /* =========================
+       LOAD SERVICES
+    ========================= */
+
     async function loadServices() {
+
         const grid =
             document.getElementById("servicesGrid");
-        const { data, error } =
-            await supabase
-                .from("services")
-                .select("*")
-                .eq("is_active", true)
-                .order("id", { ascending: true });
+
+        grid.innerHTML =
+            '<p class="loading">Кызматтар жүктөлүүдө...</p>';
+
+        const {
+            data,
+            error
+        } = await supabase
+            .from("services")
+            .select("*")
+            .eq("is_active", true)
+            .order("id", {
+                ascending: true
+            });
+
         if (error) {
+
             console.error(
-                "KAG Supabase Error:",
+                "Supabase error:",
                 error
             );
+
             grid.innerHTML = `
-                <p class="error-message">
-                    Кызматтарды жүктөө мүмкүн болгон жок.
-                </p>
+                <div class="error">
+                    <h3>Кызматтарды жүктөөдө ката кетти</h3>
+                    <p>${error.message}</p>
+                </div>
             `;
+
             return;
         }
+
         allServices = data || [];
+
+        createCategories();
+
         renderServices(allServices);
     }
-    /*
-    =========================================
-    RENDER SERVICES
-    =========================================
-    */
+
+
+    /* =========================
+       CREATE CATEGORIES
+    ========================= */
+
+    function createCategories() {
+
+        const categories =
+            document.getElementById("categories");
+
+        const uniqueCategories = [
+            ...new Set(
+                allServices
+                    .map(service => service.category)
+                    .filter(Boolean)
+            )
+        ];
+
+        categories.innerHTML = `
+            <button
+                class="category-btn active"
+                data-category="all"
+                onclick="filterCategory('all')"
+            >
+                Баары
+            </button>
+        `;
+
+        uniqueCategories.forEach(category => {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "category-btn";
+
+            button.textContent =
+                category;
+
+            button.onclick = () =>
+                filterCategory(category);
+
+            categories.appendChild(button);
+
+        });
+
+    }
+
+
+    /* =========================
+       RENDER SERVICES
+    ========================= */
+
     function renderServices(services) {
+
         const grid =
             document.getElementById("servicesGrid");
+
         if (!services.length) {
+
             grid.innerHTML = `
-                <p>
-                    Азырынча кызматтар жок.
-                </p>
+                <div class="empty">
+                    Кызмат табылган жок.
+                </div>
             `;
+
             return;
         }
+
         grid.innerHTML = "";
+
         services.forEach(service => {
+
             const card =
-                document.createElement("a");
+                document.createElement("div");
+
             card.className =
                 "service-card";
-            card.href =
-                "service-detail.html?service=" +
-                encodeURIComponent(service.id);
+
+            const icon =
+                service.icon || "🛠️";
+
+            const name =
+                service.name || "Кызмат";
+
+            const category =
+                service.category || "";
+
+            const description =
+                service.description ||
+                "Профессионалдык кызмат";
+
+            const price =
+                service.base_price
+                ? Number(service.base_price).toLocaleString("ru-RU")
+                : "Баасы сүйлөшүлөт";
+
             card.innerHTML = `
+
                 <div class="service-icon">
-                    ${service.icon || "🛠️"}
+                    ${icon}
                 </div>
-                <span class="service-category">
-                    ${service.category || ""}
-                </span>
+
                 <h3>
-                    ${service.name || "Кызмат"}
+                    ${name}
                 </h3>
-                <p>
-                    ${service.description || ""}
-                </p>
-                <div class="service-price">
-                    <strong>
-                        ${Number(service.base_price || 0).toLocaleString("ru-RU")}
-                        сомдон
-                    </strong>
-                    <span>
-                        Толук көрүү →
-                    </span>
+
+                <div class="service-category">
+                    ${category}
                 </div>
+
+                <div class="service-description">
+                    ${description}
+                </div>
+
+                <div class="price">
+                    ${price} сомдон
+                </div>
+
+                <a
+                    href="service-detail.html?service=${service.id}"
+                    class="service-btn"
+                >
+                    Кызматты көрүү
+                </a>
+
             `;
+
             grid.appendChild(card);
+
         });
+
     }
-    /*
-    =========================================
-    SEARCH
-    =========================================
-    */
-    function searchServices() {
-        const input =
-            document.getElementById("serviceSearch");
-        const query =
-            input.value
-                .trim()
-                .toLowerCase();
-        if (!query) {
-            renderServices(allServices);
-            return;
-        }
-        const filtered =
-            allServices.filter(service => {
-                const name =
-                    (service.name || "")
-                    .toLowerCase();
-                const category =
-                    (service.category || "")
-                    .toLowerCase();
-                const description =
-                    (service.description || "")
-                    .toLowerCase();
-                return (
-                    name.includes(query) ||
-                    category.includes(query) ||
-                    description.includes(query)
+
+
+    /* =========================
+       CATEGORY FILTER
+    ========================= */
+
+    function filterCategory(category) {
+
+        selectedCategory =
+            category;
+
+        document
+            .querySelectorAll(".category-btn")
+            .forEach(button => {
+
+                button.classList.remove("active");
+
+                if (
+                    button.dataset.category === category ||
+                    button.textContent.trim() === category
+                ) {
+                    button.classList.add("active");
+                }
+
+            });
+
+        let filtered =
+            allServices;
+
+        if (category !== "all") {
+
+            filtered =
+                allServices.filter(
+                    service =>
+                        service.category === category
                 );
-            });
-        renderServices(filtered);
-    }
-    /*
-    =========================================
-    CATEGORY
-    =========================================
-    */
-    function selectCategory(category) {
-        const filtered =
-            allServices.filter(service =>
-                (service.category || "")
-                .toLowerCase()
-                === category.toLowerCase()
-            );
-        renderServices(filtered);
-        document
-            .querySelector(".services-section")
-            ?.scrollIntoView({
-                behavior: "smooth"
-            });
-    }
-    function showAllCategories() {
-        renderServices(allServices);
-        document
-            .querySelector(".services-section")
-            ?.scrollIntoView({
-                behavior: "smooth"
-            });
-    }
-    /*
-    =========================================
-    CART
-    =========================================
-    */
-    function updateCartCount() {
-        try {
-            const cart =
-                JSON.parse(
-                    localStorage.getItem("kagCart")
-                ) || [];
-            const count =
-                document.getElementById("cartCount");
-            if (count) {
-                count.textContent =
-                    cart.length;
-            }
-        } catch (error) {
-            console.log(
-                "KAG Cart error:",
-                error
-            );
+
         }
+
+        renderServices(filtered);
+
     }
-    updateCartCount();
-    /*
-    =========================================
-    PAGE LOAD
-    =========================================
-    */
+
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    document
+        .getElementById("searchInput")
+        .addEventListener(
+            "input",
+            function () {
+
+                const search =
+                    this.value
+                        .toLowerCase()
+                        .trim();
+
+                let filtered =
+                    allServices;
+
+                if (selectedCategory !== "all") {
+
+                    filtered =
+                        filtered.filter(
+                            service =>
+                                service.category ===
+                                selectedCategory
+                        );
+
+                }
+
+                if (search) {
+
+                    filtered =
+                        filtered.filter(service => {
+
+                            const name =
+                                (
+                                    service.name || ""
+                                ).toLowerCase();
+
+                            const category =
+                                (
+                                    service.category || ""
+                                ).toLowerCase();
+
+                            const description =
+                                (
+                                    service.description || ""
+                                ).toLowerCase();
+
+                            return (
+                                name.includes(search) ||
+                                category.includes(search) ||
+                                description.includes(search)
+                            );
+
+                        });
+
+                }
+
+                renderServices(filtered);
+
+            }
+        );
+
+
+    /* =========================
+       START
+    ========================= */
+
     loadServices();
+
 </script>
+
 </body>
 </html>
