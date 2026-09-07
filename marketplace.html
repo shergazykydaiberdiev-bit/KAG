@@ -294,6 +294,76 @@ async function loadServices() {
     const container =
         document.getElementById("services");
 
+    container.innerHTML = `
+        <div class="message">
+            <h3>Supabase текшерилүүдө...</h3>
+        </div>
+    `;
+
+    try {
+
+        if (!window.supabase) {
+            throw new Error(
+                "Supabase китепканасы жүктөлгөн жок"
+            );
+        }
+
+        const testClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+        container.innerHTML = `
+            <div class="message">
+                <h3>Supabase туташты...</h3>
+                <p>База текшерилүүдө...</p>
+            </div>
+        `;
+
+        const result =
+            await testClient
+                .from("services")
+                .select("*")
+                .eq("is_active", true);
+
+        if (result.error) {
+            throw result.error;
+        }
+
+        services =
+            result.data || [];
+
+        container.innerHTML = `
+            <div class="message">
+                <h3>✅ Баары жакшы!</h3>
+                <p>
+                    ${services.length} кызмат табылды.
+                </p>
+            </div>
+        `;
+
+    } catch (error) {
+
+        console.error(
+            "SUPABASE ERROR:",
+            error
+        );
+
+        container.innerHTML = `
+            <div class="message error">
+                <h3>❌ Ката чыкты</h3>
+                <p>${error.message}</p>
+            </div>
+        `;
+
+    }
+
+}
+
+    const container =
+        document.getElementById("services");
+
     try {
 
         const result =
