@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAG Cargo — Айдоочу кабинети</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6f2;color:#17251e;font-family:Arial,sans-serif}
+header{background:#06251b;color:white;padding:22px}
+header h2{margin:0 0 6px}
+header p{margin:0;color:#d4af37}
+main{max-width:600px;margin:auto;padding:16px}
+nav{display:flex;gap:8px;margin-bottom:18px}
+nav a{flex:1;background:white;padding:12px 5px;text-align:center;text-decoration:none;color:#06251b;border-radius:10px;font-size:13px}
+.card{background:white;padding:17px;border-radius:14px;margin-bottom:14px;box-shadow:0 2px 8px #0000000a}
+h3{margin:20px 0 12px}
+.small{font-size:13px;color:#68746d}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.number{font-size:25px;font-weight:bold;color:#06251b;margin-top:8px}
+input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin:7px 0 12px;font-size:15px}
+label{font-size:14px;font-weight:bold}
+button{width:100%;padding:13px;border:0;border-radius:10px;background:#d4af37;color:#06251b;font-weight:bold;font-size:15px}
+.offer{border-top:1px solid #eee;padding:12px 0;line-height:1.6}
+</style>
+</head>
+<body>
+
+<header>
+<h2>KAG Cargo</h2>
+<p>Айдоочунун жеке кабинети</p>
+</header>
+
+<main>
+<nav>
+<a href="cargo-drivers.html">← Заказдар</a>
+<a href="cargo.html">Кардар</a>
+</nav>
+
+<div class="card">
+<h3>Менин профилим</h3>
+<div id="profile">Маалымат жүктөлүүдө...</div>
+</div>
+
+<h3>Менин көрсөткүчтөрүм</h3>
+<div class="stats">
+<div class="card">
+<div class="small">Сунуштарым</div>
+<div class="number" id="offerCount">0</div>
+</div>
+<div class="card">
+<div class="small">Сунушталган сумма</div>
+<div class="number" id="totalPrice">0</div>
+<div class="small">сом</div>
+</div>
+</div>
+
+<h3>Менин сунуштарым</h3>
+<div class="card" id="offers">
+Азырынча сунуш жок.
+</div>
+
+<h3>Профилди өзгөртүү</h3>
+<div class="card">
+<label>Атыңыз</label>
+<input id="name" placeholder="Атыңыз">
+
+<label>Телефон</label>
+<input id="phone" type="tel" placeholder="+996">
+
+<label>Унаа</label>
+<select id="vehicle">
+<option>Porter</option>
+<option>Газель</option>
+<option>Орточо жүк ташуучу</option>
+<option>Чоң жүк ташуучу</option>
+</select>
+
+<label>Иштеген аймак</label>
+<select id="district">
+<option>Бишкек — бардык райондор</option>
+<option>Ленин району</option>
+<option>Октябрь району</option>
+<option>Биринчи май району</option>
+<option>Свердлов району</option>
+</select>
+
+<button onclick="saveProfile()">Профилди сактоо</button>
+</div>
+
+<p class="small">
+Эскертүү: бул демонстрациялык кабинет. Маалымат ушул браузерде гана сакталат.
+</p>
+</main>
+
+<script>
+const DRIVER_KEY="kagDriverProfile";
+const OFFERS_KEY="kagDriverOffers";
+
+function read(key){
+ try{return JSON.parse(localStorage.getItem(key)) || []}
+ catch(e){return []}
+}
+
+function escapeHTML(value){
+ return String(value ?? "").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
+}
+
+function loadProfile(){
+ const d=JSON.parse(localStorage.getItem(DRIVER_KEY)||"null");
+ if(!d){
+  document.getElementById("profile").innerHTML=
+   "Айдоочунун маалыматы табылган жок. Алгач <a href='cargo-drivers.html'>айдоочулар барагына</a> өтүп катталыңыз.";
+  return;
+ }
+
+ document.getElementById("profile").innerHTML=
+  "<b>"+escapeHTML(d.name)+"</b><br>"+
+  escapeHTML(d.phone)+"<br>"+
+  escapeHTML(d.vehicle)+"<br>"+
+  escapeHTML(d.district);
+
+ document.getElementById("name").value=d.name||"";
+ document.getElementById("phone").value=d.phone||"";
+ document.getElementById("vehicle").value=d.vehicle||"Porter";
+ document.getElementById("district").value=d.district||"";
+}
+
+function saveProfile(){
+ const d={
+  name:document.getElementById("name").value.trim(),
+  phone:document.getElementById("phone").value.trim(),
+  vehicle:document.getElementById("vehicle").value,
+  district:document.getElementById("district").value
+ };
+
+ if(!d.name||!d.phone){
+  alert("Атыңызды жана телефонуңузду жазыңыз.");
+  return;
+ }
+
+ localStorage.setItem(DRIVER_KEY,JSON.stringify(d));
+ alert("Профиль сакталды.");
+ showDashboard();
+}
+
+function showDashboard(){
+ const d=JSON.parse(localStorage.getItem(DRIVER_KEY)||"null");
+ const all=read(OFFERS_KEY);
+ const offers=d?all.filter(o=>o.driverPhone===d.phone):[];
+
+ document.getElementById("offerCount").textContent=offers.length;
+
+ const total=offers.reduce((sum,o)=>sum+Number(o.price||0),0);
+ document.getElementById("totalPrice").textContent=
+  total.toLocaleString("ky-KG");
+
+ const box=document.getElementById("offers");
+
+ if(!offers.length){
+  box.textContent="Азырынча сунуш жок.";
+  return;
+ }
+
+ box.innerHTML=offers.map(o=>
+  "<div class='offer'>"+
+  "<b>"+escapeHTML(o.price)+" сом</b><br>"+
+  "Унаа: "+escapeHTML(o.vehicle)+"<br>"+
+  "<span class='small'>Сунуш жөнөтүлгөн</span>"+
+  "</div>"
+ ).join("");
+}
+
+loadProfile();
+showDashboard();
+</script>
+
+</body>
+</html>
