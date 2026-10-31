@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAG Cargo — Айдоочулар</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f2;
+  color:#17251e;
+}
+header{
+  background:#06251b;
+  color:white;
+  padding:20px;
+}
+header h2{margin:0 0 6px}
+header p{margin:0;color:#d4af37;font-size:14px}
+main{max-width:600px;margin:auto;padding:16px}
+.top{
+  display:flex;
+  gap:10px;
+  margin-bottom:16px;
+}
+.top a{
+  flex:1;
+  text-align:center;
+  padding:12px 6px;
+  background:white;
+  color:#06251b;
+  text-decoration:none;
+  border-radius:10px;
+  font-size:14px;
+}
+h3{margin:20px 0 12px}
+.card{
+  background:white;
+  padding:16px;
+  border-radius:14px;
+  margin-bottom:14px;
+  box-shadow:0 2px 8px #0000000a;
+}
+.tag{
+  display:inline-block;
+  background:#e7f2eb;
+  color:#17633f;
+  padding:6px 9px;
+  border-radius:20px;
+  font-size:12px;
+}
+.route{font-size:17px;font-weight:bold;margin:12px 0}
+.details{color:#66736b;font-size:14px;line-height:1.7}
+.price{font-size:21px;font-weight:bold;color:#06251b;margin:12px 0}
+button{
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:13px;
+  background:#d4af37;
+  color:#06251b;
+  font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+}
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #d9dfda;
+  border-radius:9px;
+  margin:7px 0 12px;
+  font-size:15px;
+  background:white;
+}
+label{font-size:14px;font-weight:bold}
+.note{font-size:12px;color:#68746d;line-height:1.5}
+.empty{color:#68746d;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+
+<header>
+  <h2>KAG Cargo</h2>
+  <p>Айдоочулар үчүн жумуш платформасы</p>
+</header>
+
+<main>
+
+<div class="top">
+  <a href="superapp.html">← Башкы бет</a>
+  <a href="cargo.html">Заказ берүү</a>
+</div>
+
+<h3>Айдоочунун маалыматы</h3>
+
+<div class="card">
+  <label>Атыңыз</label>
+  <input id="driverName" placeholder="Атыңызды жазыңыз">
+
+  <label>Телефон номериңиз</label>
+  <input id="driverPhone" type="tel" placeholder="+996">
+
+  <label>Унааңыз</label>
+  <select id="vehicle">
+    <option>Porter</option>
+    <option>Газель</option>
+    <option>Орточо жүк ташуучу</option>
+    <option>Чоң жүк ташуучу</option>
+  </select>
+
+  <label>Иштеген аймагыңыз</label>
+  <select id="district">
+    <option>Бишкек — бардык райондор</option>
+    <option>Ленин району</option>
+    <option>Октябрь району</option>
+    <option>Биринчи май району</option>
+    <option>Свердлов району</option>
+  </select>
+
+  <button onclick="saveDriver()">Маалыматты сактоо</button>
+  <p class="note">Азырынча маалымат ушул телефондун браузеринде гана сакталат.</p>
+</div>
+
+<h3>Жеткиликтүү заказдар</h3>
+
+<div id="orders">
+  <p class="empty">Заказдар бул жерде көрсөтүлөт.</p>
+</div>
+
+<h3>Менин сунуштарым</h3>
+
+<div class="card" id="myOffers">
+  <p class="empty">Сиз берген баалар азырынча жок.</p>
+</div>
+
+</main>
+
+<script>
+const ORDERS_KEY = "kagDemoOrders";
+const OFFERS_KEY = "kagDriverOffers";
+const DRIVER_KEY = "kagDriverProfile";
+
+function getData(key){
+  try{return JSON.parse(localStorage.getItem(key)) || []}
+  catch(e){return []}
+}
+
+function saveDriver(){
+  const driver = {
+    name:document.getElementById("driverName").value.trim(),
+    phone:document.getElementById("driverPhone").value.trim(),
+    vehicle:document.getElementById("vehicle").value,
+    district:document.getElementById("district").value
+  };
+
+  if(!driver.name || !driver.phone){
+    alert("Атыңызды жана телефонуңузду жазыңыз.");
+    return;
+  }
+
+  localStorage.setItem(DRIVER_KEY,JSON.stringify(driver));
+  alert("Айдоочунун маалыматы сакталды.");
+}
+
+function loadDriver(){
+  const driver = JSON.parse(localStorage.getItem(DRIVER_KEY) || "null");
+  if(!driver)return;
+
+  document.getElementById("driverName").value=driver.name || "";
+  document.getElementById("driverPhone").value=driver.phone || "";
+  document.getElementById("vehicle").value=driver.vehicle || "Porter";
+  document.getElementById("district").value=driver.district || "";
+}
+
+function renderOrders(){
+  const orders=getData(ORDERS_KEY);
+  const container=document.getElementById("orders");
+
+  if(!orders.length){
+    container.innerHTML='<div class="card empty">Азырынча заказ жок.</div>';
+    return;
+  }
+
+  container.innerHTML=orders.map((order,index)=>`
+    <div class="card">
+      <span class="tag">Жаңы заказ</span>
+      <div class="route">${escapeHTML(order.from || "Дарек көрсөтүлгөн эмес")} → ${escapeHTML(order.to || "Дарек көрсөтүлгөн эмес")}</div>
+      <div class="details">
+        Унаа: ${escapeHTML(order.vehicle || "Көрсөтүлгөн эмес")}<br>
+        Жүк: ${escapeHTML(order.cargo || "Көрсөтүлгөн эмес")}<br>
+        Күнү: ${escapeHTML(order.date || "Такталган эмес")}<br>
+        Жүктөгүч керек: ${order.loader ? "Ооба" : "Жок"}
+      </div>
+      <div class="price">${escapeHTML(order.budget || "Баасы сүйлөшүлөт")} сом</div>
+      <button onclick="makeOffer(${index})">Өз баамды сунуштайм</button>
+    </div>
+  `).join("");
+}
+
+function makeOffer(index){
+  const driver=JSON.parse(localStorage.getItem(DRIVER_KEY) || "null");
+
+  if(!driver){
+    alert("Алгач айдоочунун маалыматын сактаңыз.");
+    return;
+  }
+
+  const orders=getData(ORDERS_KEY);
+  const order=orders[index];
+  if(!order)return;
+
+  const price=prompt("Кардарга канча сом сунуштайсыз?");
+  if(price===null)return;
+
+  const amount=Number(price);
+  if(!Number.isFinite(amount) || amount<=0){
+    alert("Туура баа жазыңыз.");
+    return;
+  }
+
+  const offers=getData(OFFERS_KEY);
+  offers.push({
+    orderIndex:index,
+    orderId:order.id || index,
+    driverName:driver.name,
+    driverPhone:driver.phone,
+    vehicle:driver.vehicle,
+    price:amount,
+    createdAt:new Date().toISOString()
+  });
+
+  localStorage.setItem(OFFERS_KEY,JSON.stringify(offers));
+  renderOffers();
+  alert("Сунуш ушул браузерге сакталды.");
+}
+
+function renderOffers(){
+  const driver=JSON.parse(localStorage.getItem(DRIVER_KEY) || "null");
+  const container=document.getElementById("myOffers");
+
+  if(!driver){
+    container.innerHTML='<p class="empty">Адегенде айдоочу катары катталыңыз.</p>';
+    return;
+  }
+
+  const offers=getData(OFFERS_KEY).filter(
+    offer=>offer.driverPhone===driver.phone
+  );
+
+  if(!offers.length){
+    container.innerHTML='<p class="empty">Сиз берген баалар азырынча жок.</p>';
+    return;
+  }
+
+  container.innerHTML=offers.map(offer=>`
+    <div class="details">
+      <b>${escapeHTML(offer.price)} сом</b> — ${escapeHTML(offer.vehicle)}
+    </div>
+    <hr>
+  `).join("");
+}
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  })[char]);
+}
+
+loadDriver();
+renderOrders();
+renderOffers();
+</script>
+
+</body>
+</html>
