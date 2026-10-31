@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09271f">
+<title>KAG Superapp</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f4ef;color:#17251e;font-family:Arial,sans-serif}
+header{background:linear-gradient(140deg,#09271f,#174a39);color:white;padding:28px 20px;border-radius:0 0 24px 24px}
+h1{font-size:32px;letter-spacing:3px;margin:0}
+header p{color:#e4d3a4}
+main{max-width:520px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{padding:18px;border:1px solid #e5e5dc;border-radius:16px;text-decoration:none;color:#17251e;min-height:130px}
+.card strong{display:block;margin-top:18px}
+.card p{font-size:12px;color:#7b887f}
+.active{background:#edf4ee;border-color:#b9d2c0}
+.btn{display:block;background:#09271f;color:white;text-align:center;padding:16px;border-radius:12px;text-decoration:none;margin-top:22px}
+</style>
+</head>
+<body>
+<header>
+<h1>KAG</h1>
+<p>Бир платформа — көп мүмкүнчүлүк</p>
+<h2>Кандай кызмат керек?</h2>
+</header>
+<main>
+<h2>Кызматтар</h2>
+<div class="grid">
+<a class="card active" href="cargo.html">🚚<strong>KAG Cargo</strong><p>Жүк ташуу</p></a>
+<a class="card" href="#">🛠️<strong>KAG Usta</strong><p>Усталар</p></a>
+<a class="card" href="#">📦<strong>KAG Delivery</strong><p>Жеткирүү</p></a>
+<a class="card" href="#">🛍️<strong>KAG Market</strong><p>Товарлар</p></a>
+</div>
+<a class="btn" href="cargo.html">Жүк ташууга заказ берүү →</a>
+</main>
+</body>
+</html>
