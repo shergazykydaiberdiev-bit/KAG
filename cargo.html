@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09271f">
+<title>KAG Cargo — Жүк ташуу</title>
+
+<style>
+:root {
+  --green:#09271f;
+  --green2:#174a39;
+  --gold:#d8b96b;
+  --bg:#f5f4ef;
+  --line:#e5e5dc;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:#19261f;
+  font-family:Arial,sans-serif;
+}
+.page {
+  max-width:520px;
+  margin:auto;
+  background:#fff;
+  min-height:100vh;
+  padding-bottom:35px;
+}
+header {
+  background:linear-gradient(145deg,var(--green),var(--green2));
+  color:white;
+  padding:22px 20px 25px;
+  border-radius:0 0 24px 24px;
+}
+.back {
+  color:#d9e5dd;
+  text-decoration:none;
+  font-size:13px;
+}
+.brand {
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-top:20px;
+}
+.sub {
+  color:#e1d3a9;
+  font-size:12px;
+  margin-top:5px;
+}
+h1 {
+  font-size:25px;
+  margin:23px 0 7px;
+}
+.desc {
+  color:#d7e2da;
+  font-size:13px;
+  line-height:1.5;
+}
+main {padding:20px}
+.field {margin-bottom:17px}
+label {
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+input,select,textarea {
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:14px;
+  font-size:14px;
+  background:white;
+  color:#19261f;
+  outline:none;
+}
+input:focus,select:focus,textarea:focus {
+  border-color:#57916d;
+}
+textarea {
+  min-height:80px;
+  resize:vertical;
+}
+.vehicles {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.vehicle {
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:13px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+}
+.vehicle input {width:auto;accent-color:#17633e}
+.two {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.check {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:13px;
+  margin:12px 0 18px;
+}
+.check input {width:18px}
+.submit {
+  width:100%;
+  border:0;
+  border-radius:12px;
+  background:var(--green);
+  color:white;
+  font-weight:bold;
+  font-size:15px;
+  padding:17px;
+  cursor:pointer;
+}
+.hint {
+  font-size:11px;
+  color:#7c887f;
+  line-height:1.5;
+  margin-top:14px;
+}
+.success {
+  display:none;
+  background:#edf7ef;
+  border:1px solid #c9e4d0;
+  border-radius:13px;
+  padding:15px;
+  margin-top:17px;
+  font-size:13px;
+  line-height:1.6;
+}
+.success strong {color:#17633e}
+footer {
+  text-align:center;
+  color:#89938b;
+  font-size:10px;
+  margin-top:22px;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <a class="back" href="superapp.html">← KAG башкы бетине</a>
+
+  <div class="brand">KAG CARGO</div>
+  <div class="sub">БИШКЕК · ЖҮК ТАШУУ</div>
+
+  <h1>Жүк ташууга заказ бериңиз</h1>
+
+  <div class="desc">
+    Заказ жарыялаңыз. Айдоочулар өз бааларын сунушташат.
+    Сиз өзүңүзгө ылайыктуусун тандайсыз.
+  </div>
+</header>
+
+<main>
+
+<form id="orderForm">
+
+  <div class="field">
+    <label>📍 Жүктү кайдан алабыз?</label>
+    <input id="from" required
+    placeholder="Мисалы: 5-кичи район, үй 12">
+  </div>
+
+  <div class="field">
+    <label>📍 Кайсы жерге жеткиребиз?</label>
+    <input id="to" required
+    placeholder="Мисалы: Аламүдүн-1, үй 8">
+  </div>
+
+  <div class="field">
+    <label>🚚 Кандай унаа керек?</label>
+
+    <div class="vehicles">
+      <label class="vehicle">
+        <input type="radio" name="vehicle" value="Porter" required>
+        Porter
+      </label>
+
+      <label class="vehicle">
+        <input type="radio" name="vehicle" value="Газель">
+        Газель
+      </label>
+
+      <label class="vehicle">
+        <input type="radio" name="vehicle" value="Орто жүк ташуучу">
+        Орто жүк ташуучу
+      </label>
+
+      <label class="vehicle">
+        <input type="radio" name="vehicle" value="Чоң жүк ташуучу">
+        Чоң жүк ташуучу
+      </label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>📦 Эмне ташылат?</label>
+    <select id="cargo" required>
+      <option value="">Тандаңыз</option>
+      <option>Мебель</option>
+      <option>Муздаткыч жана техника</option>
+      <option>Курулуш материалдары</option>
+      <option>Жеке буюмдар</option>
+      <option>Товарлар</option>
+      <option>Башка жүк</option>
+    </select>
+  </div>
+
+  <div class="two">
+    <div class="field">
+      <label>📅 Күнү</label>
+      <input type="date" id="date" required>
+    </div>
+
+    <div class="field">
+      <label>💰 Бюджет (сом)</label>
+      <input type="number" id="budget"
+      min="0" placeholder="2000">
+    </div>
+  </div>
+
+  <label class="check">
+    <input type="checkbox" id="loader">
+    Жүк көтөрүүчү жумушчу керек
+  </label>
+
+  <div class="field">
+    <label>Кошумча маалымат</label>
+    <textarea id="details"
+    placeholder="Кабат, жүктүн көлөмү, жүктөө жана түшүрүү..."></textarea>
+  </div>
+
+  <div class="two">
+    <div class="field">
+      <label>Атыңыз</label>
+      <input id="name" required placeholder="Атыңыз">
+    </div>
+
+    <div class="field">
+      <label>Телефон</label>
+      <input id="phone" type="tel"
+      required placeholder="+996">
+    </div>
+  </div>
+
+  <button class="submit" type="submit">
+    ЗАКАЗДЫ ЖАРЫЯЛОО →
+  </button>
+
+  <div class="success" id="success">
+    <strong>Заказ демо түрүндө түзүлдү!</strong>
+    <div id="orderInfo"></div>
+  </div>
+
+  <p class="hint">
+    Азырынча бул тесттик версия. Заказ ушул түзмөктүн
+    браузеринде сакталат. Айдоочуларга жөнөтүү үчүн
+    жалпы серверди туташтыруу керек.
+  </p>
+
+</form>
+
+<footer>KAG SUPERAPP · KAG CARGO</footer>
+
+</main>
+</div>
+
+<script>
+const dateInput = document.getElementById("date");
+
+dateInput.min = new Date().toISOString().slice(0,10);
+
+document.getElementById("orderForm")
+.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const vehicle = document.querySelector(
+    'input[name="vehicle"]:checked'
+  );
+
+  const order = {
+    id: "KAG-" + Date.now(),
+    from: document.getElementById("from").value,
+    to: document.getElementById("to").value,
+    vehicle: vehicle.value,
+    cargo: document.getElementById("cargo").value,
+    date: dateInput.value,
+    budget: document.getElementById("budget").value,
+    loader: document.getElementById("loader").checked,
+    details: document.getElementById("details").value,
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    status: "Демо заказ",
+    createdAt: new Date().toISOString()
+  };
+
+  const orders = JSON.parse(
+    localStorage.getItem("kagDemoOrders") || "[]"
+  );
+
+  orders.push(order);
+
+  localStorage.setItem(
+    "kagDemoOrders",
+    JSON.stringify(orders)
+  );
+
+  document.getElementById("orderInfo").innerHTML =
+    "Заказ номери: " + order.id +
+    "<br>Маршрут: " + order.from + " → " + order.to +
+    "<br>Унаа: " + order.vehicle +
+    "<br>Жүк: " + order.cargo +
+    "<br>Бюджет: " + (order.budget || "Көрсөтүлгөн жок") + " сом";
+
+  document.getElementById("success").style.display = "block";
+
+  document.getElementById("success")
+  .scrollIntoView({behavior:"smooth"});
+});
+</script>
+
+</body>
+</html>
