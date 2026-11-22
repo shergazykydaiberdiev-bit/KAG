@@ -187,6 +187,87 @@
     </style>
 </head>
 
+/* KAG RESPONSIVE DESIGN */
+
+#services {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(94%, 1250px);
+}
+
+@media (min-width: 1200px) {
+    #services {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    header {
+        padding: 14px 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    header a {
+        margin-left: 8px;
+        font-size: 13px;
+    }
+
+    .hero {
+        padding: 35px 15px 20px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    #services {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 94%;
+        gap: 12px;
+    }
+
+    .card {
+        padding: 16px;
+        min-width: 0;
+    }
+
+    .card h3 {
+        font-size: 18px;
+    }
+
+    .description {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 500px) {
+    #services {
+        grid-template-columns: 1fr;
+    }
+
+    .categories {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .category {
+        padding: 9px 13px;
+        font-size: 13px;
+    }
+
+    .title {
+        font-size: 23px;
+    }
+
+    footer {
+        padding: 22px 12px;
+    }
+}
+
 <body>
 
 <header>
